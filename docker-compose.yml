@@ -1,0 +1,66 @@
+version: "2"
+
+services:
+  server:
+    container_name: oic_sns_server
+    command: npm run start:dev
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - "./server:/server"
+      - npm_cache:/home/node/.npm
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mysql
+
+  front:
+    container_name: oic_sns_front
+    command: npm run serve
+    build:
+      context: .
+      dockerfile: server/front/Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - "./server/front:/front"
+      - npm_cache:/home/node/.npm
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+
+  mysql:
+    container_name: oic_sns_mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+  phpmyadmin:
+    container_name: oic_sns_phpmyadmin
+    image: "phpmyadmin/phpmyadmin:4.7"
+    environment:
+      PMA_ARBITRARY: "1"
+    ports:
+      - "3881:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql:
+    driver: local
+  npm_cache:
+    driver: local
