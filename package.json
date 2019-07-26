@@ -1,0 +1,21 @@
+{
+  "name": "oic-sns",
+  "version": "1.0.0",
+  "description": "``` git clone git@github.com:SystemDevelopTraining/oic-sns.git cd oic-sns cp .env.sample .env docker-compose build docker-compose run --rm server npm i docker-compose run --rm front npm i ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd server &&npm i && npm run build",
+    "heroku-postbuild": "echo hoge"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SystemDevelopTraining/oic-sns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SystemDevelopTraining/oic-sns/issues"
+  },
+  "homepage": "https://github.com/SystemDevelopTraining/oic-sns#readme"
+}
