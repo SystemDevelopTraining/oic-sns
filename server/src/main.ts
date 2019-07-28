@@ -4,6 +4,7 @@ import {  createConnection } from 'typeorm'
 import { User } from './entities/user';
 import * as ormconfig from '../ormconfig';
 import * as ormconfigProd from '../ormconfig.prod';
+import passport = require('passport');
 
 async function bootstrap() {
   // --- TypeORMの設定
@@ -17,6 +18,7 @@ async function bootstrap() {
   user.name = "hoge";
   userRepository.save(user);
   const app = await NestFactory.create(AppModule);
+  app.use(passport.initialize());
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
