@@ -9,9 +9,7 @@ import passport = require('passport');
 async function bootstrap() {
   // --- TypeORMの設定
   const connectionOptions =process.env.NODE_ENV === 'production'?ormconfigProd:ormconfig;
-  console.log(connectionOptions);
   const connection = await createConnection(connectionOptions as any);
-  console.log(connection.entityMetadatas);
   let userRepository = connection.getRepository(User);
   let user = new User();
   user.age = 777;
