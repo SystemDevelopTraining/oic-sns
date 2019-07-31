@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: server/Dockerfile
     env_file:
-      - ./.env
+      - ./server/.env
     volumes:
       - "./server:/server"
       - npm_cache:/home/node/.npm
@@ -25,8 +25,6 @@ services:
     build:
       context: .
       dockerfile: server/front/Dockerfile
-    env_file:
-      - ./.env
     volumes:
       - "./server/front:/front"
       - npm_cache:/home/node/.npm
@@ -43,7 +41,7 @@ services:
       TZ: "Asia/Tokyo"
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     env_file:
-      - ./.env
+      - ./server/.env
     ports:
       - "3306:3306"
     volumes:
