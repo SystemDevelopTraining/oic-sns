@@ -3,7 +3,7 @@
 ```
 git clone git@github.com:SystemDevelopTraining/oic-sns.git
 cd oic-sns
-cp .env.sample .env
+cp server/.env.sample server/.env
 docker-compose build
 docker-compose run --rm server npm i
 docker-compose run --rm front npm i
