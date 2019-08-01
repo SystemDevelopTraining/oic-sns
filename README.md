@@ -9,6 +9,10 @@ docker-compose run --rm server npm i
 docker-compose run --rm front npm i
 ```
 
+##.envの設定
+
+google APIの環境変数を手動で設定する必要があります。
+
 ## 起動
 
 ```
