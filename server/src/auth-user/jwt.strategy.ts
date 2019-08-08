@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { EnvManager } from 'src/utils/env.manager';
+import { EnvManager } from '../utils/env.manager';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
             // if (!validClaims)
             //    return done(new UnauthorizedException('invalid token claims'), false);
-
+            console.log('jwt:payload', payload);
             done(null, payload);
         } catch (err) { throw new UnauthorizedException('unauthorized', err.message); }
     }
