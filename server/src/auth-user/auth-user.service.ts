@@ -15,7 +15,7 @@ export class AuthUserService {
 
     async validateOAuthLogin(thirdPartyId: string, provider: Provider): Promise<string> {
         try {
-            // You can add some registration logic here, 
+            // You can add some registration logic here,
             // to register the user using their thirdPartyId (in this case their googleId)
             // let user: IUser = await this.usersService.findOneByThirdPartyId(thirdPartyId, provider);
 
@@ -33,5 +33,4 @@ export class AuthUserService {
             throw new InternalServerErrorException('validateOAuthLogin', err.message);
         }
     }
-
 }
