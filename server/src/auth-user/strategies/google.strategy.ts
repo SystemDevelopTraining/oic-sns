@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { EnvManager } from '../../utils/env.manager';
 import { AuthUserService, Provider } from '../services/auth-user.service';
+import { GoogleProfilesData } from '../../tempData/google.profiles.data';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
@@ -31,6 +32,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     done: Function,
   ) {
     try {
+      GoogleProfilesData.saveProfile(profile);
       console.log(accessToken);
       console.log(refreshToken);
       console.log(profile);

@@ -1,7 +1,7 @@
 import { Profile } from 'passport-google-oauth';
 
 // 一時的にProfileを保存する
-class GoogleProfilesData {
+export class GoogleProfilesData {
   private static profiles = new Map<string, Profile>();
 
   // Profileを保存する

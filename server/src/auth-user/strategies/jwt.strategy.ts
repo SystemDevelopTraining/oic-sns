@@ -2,6 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { EnvManager } from '../../utils/env.manager';
+import { JwtPayload } from '../domains/jwt.payload';
+import { GoogleProfilesData } from '../../tempData/google.profiles.data';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -12,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  async validate(payload: any, done: Function) {
+  async validate(payload: JwtPayload, done: Function) {
     try {
       // You could add a function to the authService to verify the claims of the token:
       // i.e. does the user still have the roles that are claimed by the token
@@ -20,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
       // if (!validClaims)
       //    return done(new UnauthorizedException('invalid token claims'), false);
-      console.log('jwt:payload', payload);
+
       done(null, payload);
     } catch (err) {
       throw new UnauthorizedException('unauthorized', err.message);
