@@ -8,4 +8,7 @@ export class EnvManager{
     static get googleCallbackUrl(){
         return process.env.GOOGLE_CALLBACK_URL
     }
-} 
+    static get jwtSecretKey(){
+        return process.env.JWT_SECRET_KEY
+    }
+}
