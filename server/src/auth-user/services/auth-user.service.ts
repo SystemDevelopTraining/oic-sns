@@ -1,6 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { EnvManager } from '../../utils/env.manager';
+import { JwtPayload } from '../domains/jwt.payload';
 
 export enum Provider {
   GOOGLE = 'google',
@@ -24,7 +25,7 @@ export class AuthUserService {
       // if (!user)
       // user = await this.usersService.registerOAuthUser(thirdPartyId, provider);
 
-      const payload = {
+      const payload: JwtPayload = {
         thirdPartyId,
         provider,
       };
