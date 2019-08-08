@@ -5,12 +5,12 @@ import { Response } from 'express';
 @Controller('auth-user')
 export class AuthUserController {
     @UseGuards(AuthGuard('google'))
-    @Get()
+    @Get('v1')
     googleOAuth() {
         
     }
     
-    @Get('google/callback')
+    @Get('v1/google/callback')
     @UseGuards(AuthGuard('google'))
     googleLoginCallback(@Req() req:any, @Res() res:Response)
     {
