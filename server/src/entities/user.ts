@@ -1,13 +1,23 @@
 import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import { sex } from "./sex";
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn("increment")
-    public id: number;
+    id: number;
 
     @Column()
-    public name: string = ''
+    name: string;
+
+    @Column({ type: "enum", enum: sex })
+    sex: sex;
+
+    @Column({ length: 5 })
+    studentsNumber: string;
 
     @Column()
-    public age: number = 0
+    birthday: Date;
+
+    @Column()
+    note: string;
 }
