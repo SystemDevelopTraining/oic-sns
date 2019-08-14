@@ -10,12 +10,14 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        text
-        small
-      >
-        ログイン・サインアップ
-      </v-btn>
+      <a href="http://localhost:3000/auth-user/v1/">
+        <v-btn
+          text
+          small
+        >
+          ログイン・サインアップ
+        </v-btn>
+      </a>
     </v-toolbar>
 
     <v-content>
