@@ -10,6 +10,12 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer />
+      <v-btn
+        text
+        small
+      >
+        ログイン・サインアップ
+      </v-btn>
     </v-toolbar>
 
     <v-content>
