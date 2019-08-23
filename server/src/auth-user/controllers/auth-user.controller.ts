@@ -2,6 +2,7 @@ import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response, Request } from 'express';
 import { JwtPayload } from '../domains/jwt.payload';
+import { EnvManager } from '../../utils/env.manager';
 
 @Controller('auth-user')
 export class AuthUserController {
@@ -14,7 +15,7 @@ export class AuthUserController {
   googleLoginCallback(@Req() req: any, @Res() res: Response) {
     // handles the Google OAuth2 callback
     const jwt: string = req.user.jwt;
-    res.redirect('/?jwt=' + jwt);
+    res.redirect(EnvManager.frontUrl + '/?jwt=' + jwt);
   }
 
   @Get('v1/protected')
