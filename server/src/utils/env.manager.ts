@@ -12,4 +12,7 @@ export class EnvManager{
     static get jwtSecretKey(){
         return process.env.JWT_SECRET_KEY
     }
+    static get frontUrl(){
+        return process.env.FRONT_URL;
+    }
 }
