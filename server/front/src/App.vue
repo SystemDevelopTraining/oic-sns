@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <div v-if="isLoginPage">
-      <DefaultHeader />
+      <LoginSignupHeader />
     </div>
     <div v-else>
-      <LoginSignupHeader />
+      <DefaultHeader />
     </div>
     <v-content>
       <router-view />
@@ -23,10 +23,7 @@ import DefaultHeader from "../components/headers/DefaultHeader.vue";
 
 export default class extends Vue {
   get isLoginPage(){
-    if (this.$route.name === "login")
-      return false;
-    return true;
-    
+    return this.$route.name === "login";
   }
 }
 </script>
