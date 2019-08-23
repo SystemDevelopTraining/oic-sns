@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <LoginSignupHeader />
+    <div v-if="isLoginPage">
+      <DefaultHeader />
+    </div>
+    <div v-else>
+      <LoginSignupHeader />
+    </div>
     <v-content>
       <router-view />
     </v-content>
@@ -15,5 +20,13 @@ import DefaultHeader from "../components/headers/DefaultHeader.vue";
 @Component({
   components: {LoginSignupHeader,DefaultHeader}
 })
-export default class extends Vue {}
+
+export default class extends Vue {
+  get isLoginPage(){
+    if (this.$route.name === "login")
+      return false;
+    return true;
+    
+  }
+}
 </script>
