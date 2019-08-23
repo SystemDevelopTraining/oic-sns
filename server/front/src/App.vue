@@ -1,36 +1,29 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <router-link
-          to="/"
-          tag="span"
-        >
-          <span>OIC-SNS</span>
-        </router-link>
-      </v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        text
-        href="http://localhost:3000/auth-user/v1"
-      >
-        ログイン・サインアップ
-      </v-btn>
-    </v-toolbar>
-
+    <div v-if="isLoginPage">
+      <LoginSignupHeader />
+    </div>
+    <div v-else>
+      <DefaultHeader />
+    </div>
     <v-content>
       <router-view />
     </v-content>
   </v-app>
 </template>
 
-<script>
-export default {
-  name: "App",
-  data() {
-    return {
-      //
-    };
+<script lang="ts">
+import { Component, Vue }from "vue-property-decorator";
+import LoginSignupHeader from "../components/headers/LoginSignupHeader.vue";
+import DefaultHeader from "../components/headers/DefaultHeader.vue";
+
+@Component({
+  components: {LoginSignupHeader,DefaultHeader}
+})
+
+export default class extends Vue {
+  get isLoginPage(){
+    return this.$route.name === "login";
   }
-};
+}
 </script>
