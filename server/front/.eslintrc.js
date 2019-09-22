@@ -24,4 +24,9 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier',
   ],
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
 };

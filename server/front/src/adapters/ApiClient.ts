@@ -1,10 +1,10 @@
-import * as Axios from 'axios';
-import { EnvManager } from '../utils/EnvManager';
+import *as Axios from 'axios';
+import { EnvManager }from '../utils/EnvManager';
 
 export class ApiClient {
   private axios: Axios.AxiosInstance;
 
-  constructor() {
+  public constructor() {
     this.axios = Axios.default.create({
       baseURL: EnvManager.ApiServerUrl,
       headers: {
@@ -13,7 +13,7 @@ export class ApiClient {
     });
   }
 
-  async GetRoute(): Promise<string> {
+  public async GetRoute(): Promise<string> {
     return (await this.axios.get('', {
       headers: {
         'Content-Type': 'text/plain',
