@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Response, Request } from 'express';
-import { JwtPayload } from '../domains/jwt.payload';
+import { Response } from 'express';
+import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { EnvManager } from '../../utils/env.manager';
 
 @Controller('auth-user')

@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { EnvManager } from '../../utils/env.manager';
-import { JwtPayload } from '../domains/jwt.payload';
+import { EnvManager } from '../../../utils/env.manager';
+import { JwtPayload } from '../jwt.payload';
 
 export enum Provider {
   GOOGLE = 'google',
