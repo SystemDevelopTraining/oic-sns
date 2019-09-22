@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthUserController } from './auth-user/controllers/auth-user.controller';
-import { AuthUserModule } from './auth-user/auth-user.module';
-import { UserModule } from './user/user.module';
+import { AuthUserController } from './application/auth-user/auth-user.controller';
+import { AuthUserModule } from './infrastructure/auth-user/auth-user.module';
+import { UserModule } from './infrastructure/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as ormconfig from '../ormconfig';
-import * as ormconfigProd from '../ormconfig.prod';
+import * as ormconfig from './infrastructure/config/ormconfig';
+import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
 
 @Module({
   imports: [AuthUserModule, UserModule, getTypeOrmModule()],

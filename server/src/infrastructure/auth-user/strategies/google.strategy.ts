@@ -1,9 +1,12 @@
 import { OAuth2Strategy, Profile } from 'passport-google-oauth';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { EnvManager } from '../../utils/env.manager';
-import { AuthUserService, Provider } from '../services/auth-user.service';
-import { GoogleProfilesData } from '../../tempData/google.profiles.data';
+import { EnvManager } from '../../../utils/env.manager';
+import {
+  AuthUserService,
+  Provider,
+} from '../../../domain/auth-user/services/auth-user.service';
+import { GoogleProfilesData } from '../../temp-data/google.profiles.data';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {

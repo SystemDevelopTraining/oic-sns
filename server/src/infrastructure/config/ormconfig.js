@@ -1,4 +1,4 @@
-module.exports= {
+module.exports = {
   type: 'mysql',
   host: process.env.MYSQL_HOST || 'mysql', // 接続するDBホスト名
   port: process.env.MYSQL_PORT,
@@ -7,10 +7,10 @@ module.exports= {
   database: process.env.MYSQL_DATABASE, // DB名
   synchronize: false,
   logging: false,
-  entities: [__dirname+'/src/entities/**/*.js'],
-  migrations: [__dirname+'/src/db/migrations/**/*.js'],
+  entities: ['dist/domain/entities/**/*.js'],
+  migrations: ['dist/infrastructure/db/migrations/**/*.js'],
   cli: {
-    entitiesDir: __dirname+'/src/entities',
-    migrationsDir: __dirname+'/src/db/migrations',
+    entitiesDir: 'domain/entities',
+    migrationsDir: 'infrastructure/db/migrations',
   },
 };
