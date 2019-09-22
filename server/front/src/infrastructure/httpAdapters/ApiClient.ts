@@ -1,5 +1,5 @@
 import *as Axios from 'axios';
-import { EnvManager }from '../utils/EnvManager';
+import { EnvManager } from '~/src/utils/EnvManager';
 
 export class ApiClient {
   private axios: Axios.AxiosInstance;
