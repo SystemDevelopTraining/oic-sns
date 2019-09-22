@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/SystemDevelopTraining/oic-sns.svg?style=svg)](https://circleci.com/gh/SystemDevelopTraining/oic-sns)
+
 ## 初期セットアップ
 
 ```

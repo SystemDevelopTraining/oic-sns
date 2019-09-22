@@ -1,4 +1,4 @@
-import { ApiClient } from '../../src/adapters/ApiClient';
+import { ApiClient }from '../../src/adapters/ApiClient';
 
 process.env.API_SERVER_URL = 'http://server:3000';
 
