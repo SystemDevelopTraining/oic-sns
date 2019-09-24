@@ -1,8 +1,8 @@
-import { sex } from './user.sex';
+import { Sex } from './user.sex';
 
 export interface UserDto {
     name: string;
-    sex: sex;
+    sex: Sex;
     studentsNumber: string;
     birthday: Date;
     note: string;
