@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { sex } from './user.sex';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -11,14 +12,14 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  create() {
+  create(userDto: UserDto) {
     const user = new User();
-    user.name = 'pp';
-    user.note = 'hoge';
-    user.sex = sex.man;
-    user.studentsNumber = 'bbbb';
-    user.gogleProfileId = 'aa';
-    user.birthday = new Date();
+    user.name = userDto.name;
+    user.note = userDto.note;
+    user.sex = userDto.sex;
+    user.studentsNumber = userDto.studentsNumber;
+    user.googleProfileId = userDto.googleProfileId;
+    user.birthday = userDto.birthday;
     this.userRepository.save(user);
   }
 }
