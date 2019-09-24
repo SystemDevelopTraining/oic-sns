@@ -22,5 +22,5 @@ export class User {
   note: string;
 
   @Column()
-  gogleProfileId: string;
+  googleProfileId: string;
 }
