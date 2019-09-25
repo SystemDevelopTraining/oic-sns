@@ -13,7 +13,7 @@ export class User {
   sex: Sex;
 
   @Column({ length: 5 })
-  studentsNumber: string;
+  oicNumber: string;
 
   @Column()
   birthday: Date;

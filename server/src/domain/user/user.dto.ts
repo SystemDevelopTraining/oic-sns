@@ -3,7 +3,7 @@ import { Sex } from './user.sex';
 export interface UserDto {
     name: string;
     sex: Sex;
-    studentsNumber: string;
+    oicNumber: string;
     birthday: Date;
     note: string;
     googleProfileId: string;
