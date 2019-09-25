@@ -16,7 +16,7 @@ export class UserService {
     user.name = userDto.name;
     user.note = userDto.note;
     user.sex = userDto.sex;
-    user.studentsNumber = userDto.studentsNumber;
+    user.oicNumber = userDto.oicNumber;
     user.googleProfileId = userDto.googleProfileId;
     user.birthday = userDto.birthday;
     this.userRepository.save(user);
