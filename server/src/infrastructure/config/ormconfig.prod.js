@@ -11,6 +11,6 @@ module.exports = {
   migrations: [__dirname + '/infrastructure/db/migrations/**/*.js'],
   cli: {
     entitiesDir: __dirname + '/domain/entities',
-    migrationsDir: __dirname + '/infrastructure/db/migrations',
+    migrationsDir: __dirname + '/src/infrastructure/db/migrations',
   },
 };

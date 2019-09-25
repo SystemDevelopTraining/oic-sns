@@ -1,5 +1,5 @@
 import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
-import { sex } from '../user/user.sex';
+import { Sex } from '../user/user.sex';
 
 @Entity()
 export class User {
@@ -9,8 +9,8 @@ export class User {
   @Column()
   name: string;
 
-  @Column({ type: 'enum', enum: sex })
-  sex: sex;
+  @Column({ type: 'enum', enum: Sex })
+  sex: Sex;
 
   @Column({ length: 5 })
   studentsNumber: string;
@@ -22,5 +22,5 @@ export class User {
   note: string;
 
   @Column()
-  gogleProfileId: string;
+  googleProfileId: string;
 }
