@@ -11,7 +11,7 @@ export class UserController {
     try {
       return await this.userService.create(userDto).then(x => x.id);
     } catch (e) {
-      throw new HttpException('情報が足りません', HttpStatus.FORBIDDEN);
+      throw new HttpException('情報が足りません', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -20,7 +20,7 @@ export class UserController {
     try{
       return await this.userService.findById(id);
     } catch (e) {
-      throw new HttpException('そのIDのユーザは存在しません', HttpStatus.FORBIDDEN);
+      throw new HttpException('そのIDのユーザは存在しません', HttpStatus.NOT_FOUND);
     }
   }
 }
