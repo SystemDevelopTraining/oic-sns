@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from './views/TopPage.vue';
-import Login from './views/LoginPage.vue';
+import Top from './views/TopPage.vue';
 import Timeline from './views/TimelinePage.vue';
 import UserInitProfile from './views/UserInitProfilePage.vue';
 import User from './views/UserPage.vue';
@@ -16,13 +15,7 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: Index,
-    },
-
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
+      component: Top,
     },
 
     {
