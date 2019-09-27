@@ -13,9 +13,8 @@ export class UserController {
   }
 
   @Post('v1')
-  create(@Body() userDto: UserDto) {
-    this.userService.create(userDto);
-    console.log(userDto);
+  async create(@Body() userDto: UserDto): Promise<number> {
+     return this.userService.create(userDto).then(x => x.id);
   }
 
   @Get('v1/:id')
