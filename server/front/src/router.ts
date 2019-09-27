@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from './views/Index.vue';
-import Login from './views/Login.vue';
-import Timeline from './views/Timeline.vue';
-import UserInitProfile from './views/UserInitProfile.vue';
-import UserPage from './views/UserPage.vue';
-import FollowList from './views/FollowList.vue';
-import EditProfile from './views/EditProfile.vue';
+import Index from './views/TopPage.vue';
+import Login from './views/LoginPage.vue';
+import Timeline from './views/TimelinePage.vue';
+import UserInitProfile from './views/UserInitProfilePage.vue';
+import User from './views/UserPage.vue';
+import FollowList from './views/FollowListPage.vue';
+import EditProfile from './views/EditProfilePage.vue';
 
 Vue.use(Router);
 
@@ -39,7 +39,7 @@ export default new Router({
 
     {
       path: '/user/:id',
-      component: UserPage,
+      component: User,
     },
 
     {
