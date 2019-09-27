@@ -11,7 +11,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  create(userDto: UserDto): void {
+  async create(userDto: UserDto): Promise<User>{
     const user = new User();
     user.name = userDto.name;
     user.note = userDto.note;
@@ -19,7 +19,7 @@ export class UserService {
     user.oicNumber = userDto.oicNumber;
     user.googleProfileId = userDto.googleProfileId;
     user.birthday = userDto.birthday;
-    this.userRepository.save(user);
+    return this.userRepository.save(user);
   }
 
   findById(id: number): Promise<User> {
