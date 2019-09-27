@@ -14,34 +14,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'top',
       component: Top,
     },
 
     {
       path: '/timeline',
-      name: 'timeline',
+      name: 'editProfilee',
       component: Timeline,
     },
 
     {
       path: '/user_init_profile',
-      name: 'UserInitProfile',
+      name: 'userInitProfile',
       component: UserInitProfile,
     },
 
     {
       path: '/user/:id',
+      name: 'user',
       component: User,
     },
 
     {
       path: '/user/:id/follow_list',
+      name: 'followList',
       component: FollowList,
     },
 
     {
       path: '/user/:id/edit_profile',
+      name: 'editProfile',
       component: EditProfile,
     },
   ],
