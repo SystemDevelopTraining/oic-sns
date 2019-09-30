@@ -22,12 +22,13 @@
         :items="['男','女']"
       />
     </v-form>
-    <v-btn
-      large
-      width="100"
-      class="mt-auto"
-    >
-      登録
-    </v-btn>
+    <div class="mt-auto pa-3">
+      <v-btn
+        large
+        width="100"
+      >
+        登録
+      </v-btn>
+    </div>
   </v-card>
 </template>
