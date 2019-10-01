@@ -1,29 +1,20 @@
 <template>
   <v-app>
-    <div v-if="isLoginPage">
-      <LoginSignupHeader />
-    </div>
-    <div v-else>
-      <DefaultHeader />
-    </div>
     <v-content>
       <router-view />
     </v-content>
+    <div>
+      <Header />
+    </div>
   </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue }from "vue-property-decorator";
-import LoginSignupHeader from "../components/headers/LoginSignupHeader.vue";
-import DefaultHeader from "../components/headers/DefaultHeader.vue";
+import { Component, Vue }from 'vue-property-decorator';
+import Header from '../components/headers/Header.vue';
 
 @Component({
-  components: {LoginSignupHeader,DefaultHeader}
+  components: { Header },
 })
-
-export default class extends Vue {
-  get isLoginPage(){
-    return this.$route.name === "login";
-  }
-}
+export default class extends Vue {}
 </script>
