@@ -6,5 +6,4 @@ export interface UserDto {
     oicNumber: string;
     birthday: Date;
     note: string;
-    googleProfileId: string;
 }
