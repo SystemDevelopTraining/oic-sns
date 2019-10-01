@@ -4,17 +4,17 @@
       <router-view />
     </v-content>
     <div>
-      <Header />
+      <Footer />
     </div>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import Header from '../components/headers/Header.vue';
+import Footer from '../components/Footer.vue';
 
 @Component({
-  components: { Header },
+  components: { Footer },
 })
 export default class extends Vue {}
 </script>

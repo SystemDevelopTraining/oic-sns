@@ -3,28 +3,19 @@
     app
     bottom
   >
-    <v-card
-      class="d-flex justify-space-between"
-      width="100%"
-      tile
-      flat
-    >
-      <div class="pa-2">
+    <v-container>
+      <v-row justify="space-between">
         <v-btn max-width="90">
           Profile
         </v-btn>
-      </div>
-      <div class="pa-2">
         <v-btn max-width="50">
           LOGO
         </v-btn>
-      </div>
-      <div class="pa-2">
         <v-btn max-width="90">
           タイムライン
         </v-btn>
-      </div>
-    </v-card>
+      </v-row>
+    </v-container>
   </v-app-bar>
 </template>
 
