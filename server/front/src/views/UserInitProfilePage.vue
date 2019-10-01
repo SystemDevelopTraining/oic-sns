@@ -2,7 +2,7 @@
   <v-card
     class="mx-auto d-flex flex-column"
     max-width="600"
-    min-height="550"
+    height="100%"
   >
     <v-card-title class="mx-auto">
       初期プロフィール設定ページ
