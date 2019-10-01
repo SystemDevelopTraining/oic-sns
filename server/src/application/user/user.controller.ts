@@ -1,18 +1,18 @@
-import { Controller, Get, Res, Post, Req, Body, Param, UseFilters, ForbiddenException, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Req, Body, Param, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { UserService } from '../../domain/user/user.service';
 import {UserDto} from '../../domain/user/user.dto';
 import { User } from '../../domain/entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post('v1')
-  async create(@Body() userDto: UserDto): Promise<number> {
-    try {
-      return await this.userService.create(userDto).then(x => x.id);
-    } catch (e) {
-      throw new HttpException('情報が足りません', HttpStatus.BAD_REQUEST);
-    }
+  @UseGuards(AuthGuard('jwt'))
+  async create(@Body() userDto: UserDto, @Req() req: Request): Promise<number> {
+    return await this.userService.create(userDto, (req.user as JwtPayload).thirdPartyId).then(x => x.id);
   }
 
   @Get('v1/:id')
