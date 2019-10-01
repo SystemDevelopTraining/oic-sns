@@ -10,7 +10,7 @@ import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
 
 @Module({
   imports: [AuthUserModule, UserModule, getTypeOrmModule()],
-  controllers: [AppController, AuthUserController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
