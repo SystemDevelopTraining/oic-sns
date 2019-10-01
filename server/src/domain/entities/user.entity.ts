@@ -1,5 +1,6 @@
-import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
 import { Sex } from '../user/user.sex';
+import { Following } from './following.entity';
 
 @Entity()
 export class User {
@@ -23,4 +24,10 @@ export class User {
 
   @Column()
   googleProfileId: string;
+
+  @OneToMany(type => Following, following => following.followUser)
+  followings: Following[];
+
+  @OneToMany(type => Following, following => following.followeeUser)
+  followers: Following[];
 }
