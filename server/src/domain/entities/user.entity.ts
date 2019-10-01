@@ -18,9 +18,9 @@ export class User {
   @Column()
   birthday: Date;
 
-  @Column({ length: 100 })
+  @Column({ length: 200 })
   note: string;
 
-  @Column()
+  @Column({ unique: true })
   googleProfileId: string;
 }

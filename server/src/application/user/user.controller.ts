@@ -12,11 +12,7 @@ export class UserController {
   @Post('v1')
   @UseGuards(AuthGuard('jwt'))
   async create(@Body() userDto: UserDto, @Req() req: Request): Promise<number> {
-    try {
-      return await this.userService.create(userDto, (req.user as JwtPayload).thirdPartyId).then(x => x.id);
-    } catch (e) {
-      throw new HttpException('リクエストが無効です', HttpStatus.BAD_REQUEST);
-    }
+    return await this.userService.create(userDto, (req.user as JwtPayload).thirdPartyId).then(x => x.id);
   }
 
   @Get('v1/:id')

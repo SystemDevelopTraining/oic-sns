@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
-import { JwtPayload } from '../auth-user/jwt.payload';
 
 @Injectable()
 export class UserService {
@@ -20,7 +19,16 @@ export class UserService {
     user.oicNumber = userDto.oicNumber;
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
-    return this.userRepository.save(user);
+    try{
+      return await this.userRepository.save(user);
+    } catch (e) {
+      switch(e.code){
+      case 'ER_DUP_ENTRY':
+        throw new HttpException('そのユーザーは既に存在しています', HttpStatus.BAD_REQUEST);
+      case 'ER_NO_DEFAULT_FOR_FIELD':
+        throw new HttpException('情報が不足しています', HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 
   findById(id: number): Promise<User> {
