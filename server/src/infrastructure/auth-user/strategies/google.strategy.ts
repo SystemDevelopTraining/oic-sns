@@ -36,15 +36,12 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
   ) {
     try {
       GoogleProfilesData.saveProfile(profile);
-      console.log(accessToken);
-      console.log(refreshToken);
-      console.log(profile);
 
       const jwt: string = await this.authUserService.validateOAuthLogin(
         profile.id,
         Provider.GOOGLE,
       );
-      const user = { jwt };
+      const user = { jwt, googleProfileId: profile.id };
       done(null, user);
     } catch (err) {
       done(err, false);
