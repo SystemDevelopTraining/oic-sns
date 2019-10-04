@@ -1,5 +1,5 @@
 import *as Axios from 'axios';
-import { EnvManager } from '~/src/utils/EnvManager';
+import { EnvManager }from '../../utils/EnvManager';
 
 export class ApiClient {
   private axios: Axios.AxiosInstance;
@@ -8,6 +8,7 @@ export class ApiClient {
     this.axios = Axios.default.create({
       baseURL: EnvManager.ApiServerUrl,
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       },
     });
