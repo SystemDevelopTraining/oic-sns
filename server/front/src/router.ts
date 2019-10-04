@@ -48,13 +48,5 @@ export default new Router({
       name: 'editProfile',
       component: EditProfile,
     },
-
-    {
-      path: '/test',
-      name: 'test',
-      component: Test,
-    },
-
-  
   ],
 });
