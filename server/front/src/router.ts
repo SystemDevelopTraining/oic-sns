@@ -6,7 +6,6 @@ import UserInitProfile from './views/UserInitProfilePage.vue';
 import User from './views/UserPage.vue';
 import FollowList from './views/FollowListPage.vue';
 import EditProfile from './views/EditProfilePage.vue';
-import Test from './views/UserInfoGetPage.vue';
 
 Vue.use(Router);
 
