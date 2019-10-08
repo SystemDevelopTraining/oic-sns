@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import { CreateLoginInfoApplication }from '../src/create/CreateLoginInfoApplication';
+import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 @Component({})
 export default class extends Vue {
   isLogin() {
