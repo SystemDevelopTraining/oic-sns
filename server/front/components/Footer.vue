@@ -5,13 +5,28 @@
   >
     <v-container>
       <v-row justify="space-between">
-        <v-btn max-width="90">
-          Profile
+        <v-btn
+          max-width="90"
+          large
+          color="primary"
+          href="/user"
+        >
+          プロフィール
         </v-btn>
-        <v-btn max-width="50">
-          LOGO
+        <v-btn
+          max-width="50"
+          large
+          color="primary"
+          href="/.."
+        >
+          画像(logo)
         </v-btn>
-        <v-btn max-width="90">
+        <v-btn
+          max-width="90"
+          large
+          color="primary"
+          href="/timeline"
+        >
           タイムライン
         </v-btn>
       </v-row>
