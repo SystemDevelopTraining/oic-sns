@@ -9,7 +9,7 @@
           max-width="90"
           large
           color="primary"
-          href="http://localhost:8080/user"
+          href="/user"
         >
           プロフィール
         </v-btn>
@@ -17,7 +17,7 @@
           max-width="50"
           large
           color="primary"
-          href="http://localhost:8080"
+          href="/.."
         >
           画像(logo)
         </v-btn>
@@ -25,7 +25,7 @@
           max-width="90"
           large
           color="primary"
-          href="http://localhost:8080/timeline"
+          href="/timeline"
         >
           タイムライン
         </v-btn>
