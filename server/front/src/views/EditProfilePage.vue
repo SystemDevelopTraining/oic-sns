@@ -15,7 +15,6 @@
         src="/user_photo.png"
       />
     </v-card>
-
     <v-container fluid>
       <v-form>
         <v-text-field label="本名" />
@@ -73,8 +72,6 @@
         </v-menu>
       </v-col>
     </v-row>
-    
-
     <v-container fluid>
       <v-row>
         <v-col cols="12">
@@ -88,7 +85,6 @@
         </v-col>
       </v-row>
     </v-container>
-
     <v-container fluid>
       <v-row
         md="6"
@@ -101,7 +97,6 @@
         />
       </v-row>
     </v-container>
-
     <v-container fluid>
       <v-row>
         <v-col cols="12">
@@ -115,7 +110,6 @@
         </v-col>
       </v-row>
     </v-container>
-
     <v-container fluid>
       <v-row
         md="2"
@@ -128,13 +122,12 @@
         />
       </v-row>
     </v-container>
-
     <div class="mt-auto pa-3">
       <v-btn
         large
         width="100"
       >
-        編集
+        登録
       </v-btn>
     </div>
   </v-card>
