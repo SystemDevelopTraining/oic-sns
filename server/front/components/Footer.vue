@@ -11,10 +11,15 @@
           color="primary"
           href="http://localhost:8080/user"
         >
-          Profile
+          プロフィール
         </v-btn>
-        <v-btn max-width="50">
-          LOGO
+        <v-btn
+          max-width="50"
+          large
+          color="primary"
+          href="http://localhost:8080"
+        >
+          画像(logo)
         </v-btn>
         <v-btn
           max-width="90"
@@ -22,7 +27,7 @@
           color="primary"
           href="http://localhost:8080/timeline"
         >
-          Timeline
+          タイムライン
         </v-btn>
       </v-row>
     </v-container>
