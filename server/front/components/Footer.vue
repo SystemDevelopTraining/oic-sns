@@ -5,14 +5,24 @@
   >
     <v-container>
       <v-row justify="space-between">
-        <v-btn max-width="90">
+        <v-btn
+          max-width="90"
+          large
+          color="primary"
+          href="http://localhost:8080/user"
+        >
           Profile
         </v-btn>
         <v-btn max-width="50">
           LOGO
         </v-btn>
-        <v-btn max-width="90">
-          タイムライン
+        <v-btn
+          max-width="90"
+          large
+          color="primary"
+          href="http://localhost:8080/timeline"
+        >
+          Timeline
         </v-btn>
       </v-row>
     </v-container>
