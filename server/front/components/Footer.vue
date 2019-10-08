@@ -1,5 +1,6 @@
 <template>
   <v-app-bar
+    v-if="isLogin()"
     app
     bottom
   >
@@ -36,6 +37,11 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
+import { CreateLoginInfoApplication }from '../src/create/CreateLoginInfoApplication';
 @Component({})
-export default class extends Vue {}
+export default class extends Vue {
+  isLogin() {
+    return CreateLoginInfoApplication().IsLogin();
+  }
+}
 </script>
