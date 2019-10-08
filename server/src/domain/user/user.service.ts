@@ -4,7 +4,8 @@ import { User } from '../entities/user.entity';
 import { Following } from '../entities/following.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
-import { FollowResult } from './follow-result';
+import { FollowResult } from './response/follow-result';
+import { FollowUserInfo } from './response/follow-user-info';
 
 @Injectable()
 export class UserService {
@@ -23,14 +24,20 @@ export class UserService {
     user.oicNumber = userDto.oicNumber;
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
-    try{
+    try {
       return await this.userRepository.save(user);
     } catch (e) {
-      switch(e.code){
-      case 'ER_DUP_ENTRY':
-        throw new HttpException('そのユーザーは既に存在しています', HttpStatus.BAD_REQUEST);
-      case 'ER_NO_DEFAULT_FOR_FIELD':
-        throw new HttpException('情報が不足しています', HttpStatus.BAD_REQUEST);
+      switch (e.code) {
+        case 'ER_DUP_ENTRY':
+          throw new HttpException(
+            'そのユーザーは既に存在しています',
+            HttpStatus.BAD_REQUEST,
+          );
+        case 'ER_NO_DEFAULT_FOR_FIELD':
+          throw new HttpException(
+            '情報が不足しています',
+            HttpStatus.BAD_REQUEST,
+          );
       }
     }
   }
@@ -39,16 +46,37 @@ export class UserService {
     return this.userRepository.findOne(id);
   }
 
-  async follow(googleProfileId: string, targetId: number): Promise<FollowResult> {
+  async follow(
+    googleProfileId: string,
+    targetId: number,
+  ): Promise<FollowResult> {
     const following = new Following();
-    following.followUser = await this.userRepository.findOne({googleProfileId});
-    following.followeeUser = await this.userRepository.findOne(targetId);
+    following.followUser = this.userRepository.findOne({ googleProfileId });
+    following.followeeUser = this.userRepository.findOne(targetId);
 
-    if (await this.followingRepository.count({followUser: following.followUser, followeeUser:following.followeeUser})) {
+    if (
+      await this.followingRepository.count({
+        followUser: following.followUser,
+        followeeUser: following.followeeUser,
+      })
+    ) {
       this.followingRepository.remove(following);
-      return {isFollow: false}
+      return { isFollow: false };
     }
     this.followingRepository.save(following);
-    return {isFollow: true};
+    return { isFollow: true };
+  }
+
+  async follows(id: number): Promise<FollowUserInfo[]> {
+    const user = await this.userRepository.findOne(id, {
+      relations: ['followings', 'followers'],
+    });
+
+    const follows = user.followings;
+    const follows2 = follows.map(async x => {
+      const { id, name } = await x.followeeUser;
+      return { name, id };
+    });
+    return Promise.all(follows2);
   }
 }
