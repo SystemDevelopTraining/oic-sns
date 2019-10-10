@@ -22,9 +22,11 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
   }
 
   authorizationParams(options: unknown): unknown {
-    return Object.assign(options, {
+    return {
+      ...options,
       hd: 'oic.jp',
-    });
+      prompt: 'select_account',
+    };
   }
 
   async validate(
