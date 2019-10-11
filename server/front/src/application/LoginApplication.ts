@@ -11,4 +11,13 @@ export class LoginApplication {
   public IsLogin(): boolean {
     return this.repository.IsLogin();
   }
+
+  // Jwtのデータをゲットするmethod
+  public GetJwt(): string | undefined {
+    return this.repository.GetJwt();
+  }
+  // Jwtのデータを保存するmethod
+  public SaveJwt(jwt: string): void {
+    this.repository.SaveJwt(jwt);
+  }
 }
