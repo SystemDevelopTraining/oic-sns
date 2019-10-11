@@ -3,10 +3,10 @@ import Cookies from 'js-cookie';
 
 //LoginInfoRepositoryの実装
 export class LoginInfoRepositoryImpl implements LoginInfoRepository {
-  GetJwt(): string | undefined {
+  public GetJwt(): string | undefined {
     return Cookies.get('jwt');
   }
-  SaveJwt(jwt: string): void {
+  public SaveJwt(jwt: string): void {
     Cookies.set('jwt', jwt);
   }
   public IsLogin(): boolean {

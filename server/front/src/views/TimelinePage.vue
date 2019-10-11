@@ -71,6 +71,12 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import Post from '../components/Post.vue';
+import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 @Component({ components: { Post } })
-export default class extends Vue {}
+export default class extends Vue {
+  created() {
+    const jwt = this.$route.query['jwt'];
+    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+  }
+}
 </script>
