@@ -10,7 +10,7 @@
           max-width="90"
           large
           color="primary"
-          href="/user"
+          @click="onProfileClick"
         >
           プロフィール
         </v-btn>
@@ -38,10 +38,15 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateUserApplication }from '../create/CreateUserApplication';
 @Component({})
 export default class extends Vue {
   isLogin() {
     return CreateLoginInfoApplication().IsLogin();
+    }
+    async onProfileClick(){
+      const userId = await CreateUserApplication().GetMyUserId();
+      this.$router.push({name: "user",params: {id: String(userId.id)}});
   }
 }
 </script>
