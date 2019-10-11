@@ -16,8 +16,12 @@
       />
     </v-card>
     <v-form>
-      <v-text-field label="本名" />
+      <v-text-field
+        v-model="name"
+        label="本名"
+      />
       <v-select
+        v-model="sex"
         label="性別"
         :items="['男','女']"
       />
@@ -26,9 +30,31 @@
       <v-btn
         large
         width="100"
+        @click="register"
       >
         登録
       </v-btn>
     </div>
   </v-card>
 </template>
+<script lang="ts">
+import { Component, Vue }from 'vue-property-decorator';
+import { Sex }from '../domain/user/Sex';
+import { CreateUserApplication }from '../create/CreateUserApplication';
+@Component({})
+export default class extends Vue {
+  private name: string = '';
+  private sex: Sex = Sex.man;
+  async register() {
+    try {
+      await CreateUserApplication().MakeUser({
+        name: this.name,
+        sex: this.sex,
+      });
+      this.$router.push({ name: 'timeline' });
+    }catch {
+      alert('ユーザ作成に失敗しました');
+    }
+  }
+}
+</script>
