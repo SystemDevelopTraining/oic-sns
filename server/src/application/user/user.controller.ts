@@ -17,6 +17,7 @@ import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { FollowResult } from '../../domain/user/response/follow-result';
 import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
+import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 
 @Controller('user')
 export class UserController {
@@ -34,7 +35,7 @@ export class UserController {
   //自身のユーザidを返す
   @Get('v1/my_user')
   @UseGuards(AuthGuard('jwt'))
-  async myUserId(@Req() req: Request): Promise<number> {
+  async myUserId(@Req() req: Request): Promise<MyUserResponse> {
     return await this.userService.myUserId((req.user as JwtPayload).thirdPartyId);
   }
 
@@ -69,6 +70,4 @@ export class UserController {
   async follows(@Param('id') id: number): Promise<FollowUserInfo[]> {
     return await this.userService.follows(id);
   }
-
-
 }

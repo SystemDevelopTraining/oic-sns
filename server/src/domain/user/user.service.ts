@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
 import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
+import { MyUserResponse } from './response/my-user-responcse';
 
 @Injectable()
 export class UserService {
@@ -84,10 +85,10 @@ export class UserService {
     return Promise.all(promiseFollowUserInfos);
   }
 
-  async myUserId(googleProfileId: string): Promise<number> {
+  async myUserId(googleProfileId: string): Promise<MyUserResponse> {
     const user = await this.userRepository.findOne({ googleProfileId });
     try {
-      return user.id;
+      return { id: user.id };
     } catch (e) {
       throw new HttpException('ユーザが見つかりません', HttpStatus.NOT_FOUND);
     }
