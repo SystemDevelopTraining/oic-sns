@@ -83,11 +83,17 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import Post from '../components/Post.vue';
+import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 @Component({ components: { Post } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
+
+  created() {
+    const jwt = this.$route.query['jwt'];
+    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+  }
 
   onClickShowPostForm() {
     this.showPostFormFlag = true;

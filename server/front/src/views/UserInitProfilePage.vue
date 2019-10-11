@@ -41,10 +41,16 @@
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
+import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 @Component({})
 export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
+  created() {
+    const jwt = this.$route.query['jwt'];
+    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+  }
+
   async register() {
     try {
       await CreateUserApplication().MakeUser({
