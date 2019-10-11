@@ -15,7 +15,8 @@ import { User } from '../../domain/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
-import { FollowResult } from '../../domain/user/follow-result';
+import { FollowResult } from '../../domain/user/response/follow-result';
+import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
 
 @Controller('user')
 export class UserController {
@@ -42,7 +43,18 @@ export class UserController {
 
   @Post('v1/follow/:id')
   @UseGuards(AuthGuard('jwt'))
-  async follow(@Req() req: Request, @Param('id') id: number): Promise<FollowResult> {
-    return await this.userService.follow((req.user as JwtPayload).thirdPartyId, id);
+  async follow(
+    @Req() req: Request,
+    @Param('id') id: number,
+  ): Promise<FollowResult> {
+    return await this.userService.follow(
+      (req.user as JwtPayload).thirdPartyId,
+      id,
+    );
+  }
+
+  @Get('v1/:id/follows')
+  async follows(@Param('id') id: number): Promise<FollowUserInfo[]> {
+    return await this.userService.follows(id);
   }
 }

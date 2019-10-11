@@ -1,11 +1,25 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
 @Entity()
 export class Following {
-  @ManyToOne(type => User, user => user.followings, { primary: true })
-  followUser: User;
+  @Column({ primary: true })
+  readonly followUserId: number;
 
-  @ManyToOne(type => User, user => user.followers, { primary: true })
-  followeeUser: User;
+  @Column({ primary: true })
+  readonly followeeUserId: number;
+
+  @ManyToOne(type => User, user => user.followings)
+  @JoinColumn({ name: 'followUserId' })
+  followUser: Promise<User>;
+
+  @ManyToOne(type => User, user => user.followers)
+  @JoinColumn({ name: 'followeeUserId' })
+  followeeUser: Promise<User>;
 }
