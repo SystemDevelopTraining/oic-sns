@@ -20,7 +20,7 @@ export default new Router({
 
     {
       path: '/timeline',
-      name: 'editProfilee',
+      name: 'timeline',
       component: Timeline,
     },
 

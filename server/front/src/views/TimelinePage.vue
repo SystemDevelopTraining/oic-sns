@@ -15,78 +15,62 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-card
-        class="mx-auto"
-        width="900"
-        outlined
-      >
-        <v-row>
-          <v-col
-            cols="auto"
-            class="pb-0"
-          >
-            <v-card-title>
-              Furutani Hayate
-            </v-card-title>
-          </v-col>
-          <v-col
-            class="pb-0"
-          >
-            <v-row justify="end">
-              <v-list-item-avatar
-                size="80"
-                color="grey"
-              />
-            </v-row>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-card-text>
-            Lorem ipsum dolor safa;lfjaiwhfalwgnawbgawgwa
-            it amet, churutanibakaunkokasusineonsectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.
-          </v-card-text>
-          <v-card-text>
-            2019-1-1
-          </v-card-text>
-        </v-row>
-      </v-card>
-    </v-row>
-    <v-row>
-      <v-card
-        class="mx-auto"
-        width="900"
-        outlined
-      >
-        <v-row>
-          <v-col
-            cols="auto"
-            class="pb-0"
-          >
-            <v-card-title>
-              Furutani Hayate
-            </v-card-title>
-          </v-col>
-          <v-col
-            class="pb-0"
-          >
-            <v-row justify="end">
-              <v-list-item-avatar
-                size="80"
-                color="grey"
-              />
-            </v-row>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-card-text>
-            bore et dolore magna aliq.
-          </v-card-text>
-          <v-card-text>
-            2019-1-1
-          </v-card-text>
-        </v-row>
-      </v-card>
-    </v-row>
+
+    <!-- 投稿Post レイアウト-->
+    <v-card>
+      <v-card-title>
+        <span class="headline">James Bond</span>
+        <v-col class="pb-0">
+          <v-row justify="end">
+            <v-list-item-avatar
+              size="80"
+              color="grey"
+            />
+          </v-row>
+        </v-col>
+      </v-card-title>
+      <v-card-text>
+        <v-container fluid>
+          <v-row>
+            <v-textarea
+              outlined
+              auto-grow
+              label="投稿を書きましょう！"
+              rows="8"
+              row-height="30"
+              shaped
+            />
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <div class="flex-grow-1" />
+        <v-btn
+          outlined
+          color="red"
+          text
+          @click="dialog = false"
+        >
+          キャンセル
+        </v-btn>
+        <v-btn
+          outlined
+          color="blue"
+          text
+          @click="dialog = false"
+        >
+          投稿
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <post />
+    <post />
   </v-container>
 </template>
+
+<script lang="ts">
+import { Component, Vue }from 'vue-property-decorator';
+import Post from '../components/Post.vue';
+@Component({ components: { Post } })
+export default class extends Vue {}
+</script>
