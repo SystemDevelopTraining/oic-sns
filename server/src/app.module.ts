@@ -6,13 +6,14 @@ import { UserModule } from './infrastructure/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './infrastructure/config/ormconfig';
 import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
+import { PostModule } from './infrastructure/post/post.module';
 
 @Module({
-  imports: [AuthUserModule, UserModule, getTypeOrmModule()],
+  imports: [AuthUserModule, UserModule, PostModule, getTypeOrmModule()],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
 
 function getTypeOrmModule() {
   // --- TypeORMの設定
