@@ -7,9 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './infrastructure/config/ormconfig';
 import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
 import { PostModule } from './infrastructure/post/post.module';
+import { TimelineModule } from './infrastructure/timeline/timeline.module';
 
 @Module({
-  imports: [AuthUserModule, UserModule, PostModule, getTypeOrmModule()],
+  imports: [AuthUserModule, UserModule, PostModule, TimelineModule, getTypeOrmModule()],
   controllers: [AppController],
   providers: [AppService],
 })
