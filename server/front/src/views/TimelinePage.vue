@@ -70,7 +70,7 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import Post from '../../components/Post.vue';
+import Post from '../components/Post.vue';
 @Component({ components: { Post } })
 export default class extends Vue {}
 </script>
