@@ -20,7 +20,9 @@ import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
+
+  //ユーザ作成
   @Post('v1')
   @UseGuards(AuthGuard('jwt'))
   async create(@Body() userDto: UserDto, @Req() req: Request): Promise<number> {
@@ -29,6 +31,14 @@ export class UserController {
       .then(x => x.id);
   }
 
+  //自身のユーザidを返す
+  @Get('v1/my_user')
+  @UseGuards(AuthGuard('jwt'))
+  async myUserId(@Req() req: Request): Promise<number> {
+    return await this.userService.myUserId((req.user as JwtPayload).thirdPartyId);
+  }
+
+  //idに対応したユーザを検索
   @Get('v1/:id')
   async findById(@Param('id') id: number): Promise<User> {
     try {
@@ -41,6 +51,7 @@ export class UserController {
     }
   }
 
+  //idに対応したユーザをフォローする
   @Post('v1/follow/:id')
   @UseGuards(AuthGuard('jwt'))
   async follow(
@@ -53,8 +64,11 @@ export class UserController {
     );
   }
 
+  //idに対応するユーザのフォローリストを返す
   @Get('v1/:id/follows')
   async follows(@Param('id') id: number): Promise<FollowUserInfo[]> {
     return await this.userService.follows(id);
   }
+
+
 }
