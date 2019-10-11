@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
 import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
+import { MyUserResponse } from './response/my-user-responcse';
 
 @Injectable()
 export class UserService {
@@ -14,8 +15,9 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) {}
+  ) { }
 
+  //ユーザ作成
   async create(userDto: UserDto, googleProfileId: string): Promise<User> {
     const user = new User();
     user.name = userDto.name;
@@ -42,10 +44,12 @@ export class UserService {
     }
   }
 
+  //ユーザの検索
   findById(id: number): Promise<User> {
     return this.userRepository.findOne(id);
   }
 
+  //ユーザのフォロー、アンフォロー
   async follow(
     googleProfileId: string,
     targetId: number,
@@ -67,16 +71,26 @@ export class UserService {
     return { isFollow: true };
   }
 
+  //idに合致するユーザのフォローリストを返す
   async follows(id: number): Promise<FollowUserInfo[]> {
     const user = await this.userRepository.findOne(id, {
       relations: ['followings', 'followers'],
     });
 
     const follows = user.followings;
-    const follows2 = follows.map(async x => {
+    const promiseFollowUserInfos = follows.map(async x => {
       const { id, name } = await x.followeeUser;
       return { name, id };
     });
-    return Promise.all(follows2);
+    return Promise.all(promiseFollowUserInfos);
+  }
+
+  async myUserId(googleProfileId: string): Promise<MyUserResponse> {
+    const user = await this.userRepository.findOne({ googleProfileId });
+    try {
+      return { id: user.id };
+    } catch (e) {
+      throw new HttpException('ユーザが見つかりません', HttpStatus.NOT_FOUND);
+    }
   }
 }
