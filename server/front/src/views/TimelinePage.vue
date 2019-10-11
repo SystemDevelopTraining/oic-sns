@@ -9,6 +9,8 @@
           <v-btn
             block
             color="white"
+            :disabled="buttonOff"
+            @click="onClickShowPostForm"
           >
             投稿
           </v-btn>
@@ -17,7 +19,7 @@
     </v-row>
 
     <!-- 投稿Post レイアウト-->
-    <v-card>
+    <v-card v-if="showPostFormFlag">
       <v-card-title>
         <span class="headline">James Bond</span>
         <v-col class="pb-0">
@@ -49,7 +51,7 @@
           outlined
           color="red"
           text
-          @click="dialog = false"
+          @click="onClickCancel"
         >
           キャンセル
         </v-btn>
@@ -57,14 +59,24 @@
           outlined
           color="blue"
           text
-          @click="dialog = false"
+          @click="onClickPost"
         >
           投稿
         </v-btn>
       </v-card-actions>
     </v-card>
-    <post />
-    <post />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
+    <post v-if="showPosts" />
   </v-container>
 </template>
 
@@ -74,9 +86,27 @@ import Post from '../components/Post.vue';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 @Component({ components: { Post } })
 export default class extends Vue {
+  showPostFormFlag = false;
+  showPosts = true;
+  buttonOff = false;
+
   created() {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+  }
+
+  onClickShowPostForm() {
+    this.showPostFormFlag = true;
+    this.showPosts = false;
+    this.buttonOff = true;
+  }
+
+  onClickPost() {}
+
+  onClickCancel() {
+    this.showPostFormFlag = false;
+    this.showPosts = true;
+    this.buttonOff = false;
   }
 }
 </script>
