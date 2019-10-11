@@ -51,6 +51,7 @@ export default class extends Vue {
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
   }
 
+  /* eslint no-console:0*/
   async register() {
     try {
       await CreateUserApplication().MakeUser({
