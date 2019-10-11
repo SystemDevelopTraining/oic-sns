@@ -84,6 +84,7 @@
 import { Component, Vue }from 'vue-property-decorator';
 import Post from '../components/Post.vue';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreatePostApplication }from '../create/CreatePostApplication';
 @Component({ components: { Post } })
 export default class extends Vue {
   showPostFormFlag = false;
@@ -101,7 +102,14 @@ export default class extends Vue {
     this.buttonOff = true;
   }
 
-  onClickPost() {}
+  async onClickPost() {
+    const result = await CreatePostApplication().PostOnTimeline({
+      text: 'hoge',
+    });
+    if (result.success === false) {
+      alert('FUCK YOU');
+    }
+  }
 
   onClickCancel() {
     this.showPostFormFlag = false;
