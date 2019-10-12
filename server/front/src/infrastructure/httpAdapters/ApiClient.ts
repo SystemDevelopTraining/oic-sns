@@ -1,7 +1,7 @@
-import * as Axios from 'axios';
-import { EnvManager } from '../../utils/EnvManager';
-import { User, CreateUserParams } from './Protocol';
-import { MakeUserResult } from '../../domain/user/MakeUserResult';
+import *as Axios from 'axios';
+import { EnvManager }from '../../utils/EnvManager';
+import { User, CreateUserParams }from './Protocol';
+import { MakeUserResult }from '../../domain/user/MakeUserResult';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -37,6 +37,9 @@ export class ApiClient {
       {
         name: createUserParams.name,
         sex: createUserParams.sex,
+        oicNumber: 'a',
+        birthday: '2019-07-02',
+        note: 'aaqwe',
       },
       {
         headers: {
