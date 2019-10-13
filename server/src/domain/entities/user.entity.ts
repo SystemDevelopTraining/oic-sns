@@ -17,8 +17,8 @@ export class User {
   @Column({ length: 5 })
   oicNumber: string;
 
-  @Column()
-  birthday: Date;
+  @Column({ nullable: true })
+  birthday?: Date;
 
   @Column({ length: 200 })
   note: string;
