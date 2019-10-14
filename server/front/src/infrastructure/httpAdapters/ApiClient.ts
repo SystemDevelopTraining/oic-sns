@@ -1,7 +1,8 @@
-import *as Axios from 'axios';
-import { EnvManager }from '../../utils/EnvManager';
-import { User, CreateUserParams }from './Protocol';
-import { MakeUserResult }from '../../domain/user/MakeUserResult';
+import * as Axios from 'axios';
+import { EnvManager } from '../../utils/EnvManager';
+import { User, CreateUserParams } from './Protocol';
+import { MakeUserResult } from '../../domain/user/MakeUserResult';
+import { UserId } from '../../domain/user/UserId';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -47,6 +48,16 @@ export class ApiClient {
         },
       },
     );
+    return response.data;
+  }
+
+  //jwtから自身のユーザIDを取得する
+  public async GetMyUserId(jwt: string): Promise<UserId> {
+    const response = await this.axios.get('user/v1/my_user', {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
     return response.data;
   }
 }
