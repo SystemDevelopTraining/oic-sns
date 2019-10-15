@@ -23,7 +23,7 @@ export class PostService {
             await this.postRepository.save(post);
             return { success: true };
         } catch (e) {
-            return { success: false };
+            throw new HttpException('投稿に失敗しました', HttpStatus.BAD_REQUEST);
         }
     }
 }
