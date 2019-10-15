@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../../domain/user/user.service';
 import { UserDto } from '../../domain/user/user.dto';
-import { User } from '../../domain/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { FollowResult } from '../../domain/user/response/follow-result';
 import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
+import { FindUserResponce } from '../../domain/user/response/find-user-response';
 
 @Controller('user')
 export class UserController {
@@ -41,15 +41,9 @@ export class UserController {
 
   //idに対応したユーザを検索
   @Get('v1/:id')
-  async findById(@Param('id') id: number): Promise<User> {
-    try {
-      return await this.userService.findById(id);
-    } catch (e) {
-      throw new HttpException(
-        'そのIDのユーザは存在しません',
-        HttpStatus.NOT_FOUND,
-      );
-    }
+  @UseGuards(AuthGuard('jwt'))
+  async findById(@Param('id') id: number, @Req() req: Request): Promise<FindUserResponce> {
+    return await this.userService.findById(id, (req.user as JwtPayload).thirdPartyId);
   }
 
   //idに対応したユーザをフォローする
