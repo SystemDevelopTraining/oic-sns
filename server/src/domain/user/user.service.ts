@@ -8,6 +8,7 @@ import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
 import { FindUserResponse } from './response/find-user-response';
+import { GoogleProfilesData } from '../../infrastructure/temp-data/google.profiles.data';
 
 @Injectable()
 export class UserService {
@@ -24,7 +25,7 @@ export class UserService {
     user.name = userDto.name;
     user.note = userDto.note;
     user.sex = userDto.sex;
-    user.oicNumber = userDto.oicNumber;
+    user.oicNumber = GoogleProfilesData.getProfile(googleProfileId).emails[0].value.substr(0, 5);
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
     try {
