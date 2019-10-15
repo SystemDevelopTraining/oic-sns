@@ -12,9 +12,16 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import Footer from './components/Footer.vue';
+import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
 
 @Component({
   components: { Footer },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  mounted() {
+    const loginInfoApplication = CreateLoginInfoApplication();
+    const isLogin = loginInfoApplication.IsLogin();
+    if (isLogin === false)this.$router.push({ path: '/' });
+  }
+}
 </script>
