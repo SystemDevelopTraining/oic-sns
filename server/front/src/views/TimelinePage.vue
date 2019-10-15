@@ -110,15 +110,15 @@ export default class extends Vue {
     if (result.success === false) {
       alert('投稿に失敗しました。');
     }else {
-      this.goToTimeline();
+      this.hidePostForm();
     }
   }
 
   onClickCancel() {
-    this.goToTimeline();
+    this.hidePostForm();
   }
 
-  goToTimeline() {
+  hidePostForm() {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
