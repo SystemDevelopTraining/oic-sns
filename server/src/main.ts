@@ -7,8 +7,9 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.enableCors({
     origin: '*',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-  })
+    allowedHeaders:
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+  });
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
