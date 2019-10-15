@@ -7,6 +7,7 @@ import { UserDto } from './user.dto';
 import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
+import { FindUserResponse } from './response/find-user-response';
 
 @Injectable()
 export class UserService {
@@ -45,8 +46,17 @@ export class UserService {
   }
 
   //ユーザの検索
-  findById(id: number): Promise<User> {
-    return this.userRepository.findOne(id);
+  async findById(id: number, googleProfileId: string): Promise<FindUserResponse> {
+    const user = await this.userRepository.findOne(id);
+    try {
+      if (user.googleProfileId === googleProfileId) {
+        return { isMyself: true, user };
+      } else {
+        return { isMyself: false, user };
+      }
+    } catch (e) {
+      throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
+    }
   }
 
   //ユーザのフォロー、アンフォロー
