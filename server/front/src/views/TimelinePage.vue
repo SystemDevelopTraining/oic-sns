@@ -109,7 +109,7 @@ export default class extends Vue {
     });
     if (result.success === false) {
       alert('投稿に失敗しました。');
-    }else if (result.success === true) {
+    }else {
       this.showPostFormFlag = false;
       this.showPosts = true;
       this.buttonOff = false;
