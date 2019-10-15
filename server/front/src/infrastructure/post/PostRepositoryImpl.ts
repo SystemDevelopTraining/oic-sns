@@ -5,6 +5,6 @@ import { CreatePostResult }from '../../domain/post/CreatePostResult';
 export class PostRepositoryImpl implements PostRepository {
   public Save(createPostParams: CreatePostParams): Promise<CreatePostResult> {
     createPostParams;
-    return Promise.resolve({ success: false });
+    return Promise.resolve({ success: true });
   }
 }

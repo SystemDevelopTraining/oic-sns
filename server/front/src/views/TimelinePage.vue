@@ -8,7 +8,7 @@
         <div>
           <v-btn
             block
-            color="white"
+            :color="postBtnColor"
             :disabled="buttonOff"
             @click="onClickShowPostForm"
           >
@@ -90,6 +90,7 @@ export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
+  postBtnColor = 'white';
 
   created() {
     const jwt = this.$route.query['jwt'];
@@ -99,7 +100,7 @@ export default class extends Vue {
   onClickShowPostForm() {
     this.showPostFormFlag = true;
     this.showPosts = false;
-    this.buttonOff = true;
+    this.postBtnColor = 'secondary';
   }
 
   async onClickPost() {
@@ -107,7 +108,12 @@ export default class extends Vue {
       text: 'hoge',
     });
     if (result.success === false) {
-      alert('FUCK YOU');
+      alert('投稿に失敗しました。');
+    }else if (result.success === true) {
+      this.showPostFormFlag = false;
+      this.showPosts = true;
+      this.buttonOff = false;
+      this.postBtnColor = 'white';
     }
   }
 
@@ -115,6 +121,7 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
+    this.postBtnColor = 'white';
   }
 }
 </script>
