@@ -1,6 +1,6 @@
 import { User } from '../../entities/user.entity';
 
-export interface FindUserResponce {
+export interface FindUserResponse {
     isMyself: boolean;
     user: User;
 }

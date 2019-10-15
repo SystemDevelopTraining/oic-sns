@@ -7,7 +7,7 @@ import { UserDto } from './user.dto';
 import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
-import { FindUserResponce } from './response/find-user-response';
+import { FindUserResponse } from './response/find-user-response';
 
 @Injectable()
 export class UserService {
@@ -46,10 +46,10 @@ export class UserService {
   }
 
   //ユーザの検索
-  async findById(id: number, googleProfileId: string): Promise<FindUserResponce> {
+  async findById(id: number, googleProfileId: string): Promise<FindUserResponse> {
     const user = await this.userRepository.findOne(id);
     try {
-      if (user === await this.userRepository.findOne({ googleProfileId })) {
+      if (user.googleProfileId === googleProfileId) {
         return { isMyself: true, user };
       } else {
         return { isMyself: false, user };

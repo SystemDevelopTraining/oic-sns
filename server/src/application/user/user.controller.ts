@@ -17,7 +17,7 @@ import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { FollowResult } from '../../domain/user/response/follow-result';
 import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
-import { FindUserResponce } from '../../domain/user/response/find-user-response';
+import { FindUserResponse } from '../../domain/user/response/find-user-response';
 
 @Controller('user')
 export class UserController {
@@ -42,7 +42,7 @@ export class UserController {
   //idに対応したユーザを検索
   @Get('v1/:id')
   @UseGuards(AuthGuard('jwt'))
-  async findById(@Param('id') id: number, @Req() req: Request): Promise<FindUserResponce> {
+  async findById(@Param('id') id: number, @Req() req: Request): Promise<FindUserResponse> {
     return await this.userService.findById(id, (req.user as JwtPayload).thirdPartyId);
   }
 
