@@ -5,5 +5,5 @@ export interface UserDto {
   sex: Sex;
   oicNumber: string;
   birthday?: Date;
-  note: string;
+  note?: string;
 }

@@ -38,7 +38,6 @@ export class ApiClient {
         name: createUserParams.name,
         sex: createUserParams.sex,
         oicNumber: 'a',
-        note: 'aaqwe',
       },
       {
         headers: {

@@ -20,8 +20,8 @@ export class User {
   @Column({ nullable: true })
   birthday?: Date;
 
-  @Column({ length: 200 })
-  note: string;
+  @Column({ length: 200, default: '' })
+  note: string = '';
 
   @Column({ unique: true })
   googleProfileId: string;
