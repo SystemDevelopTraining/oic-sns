@@ -4,6 +4,7 @@ import { UserService } from '../../domain/user/user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../../domain/entities/user.entity';
 import { Following } from '../../domain/entities/following.entity';
+import { GoogleProfilesData } from '../../infrastructure/temp-data/google.profiles.data';
 
 describe('User Controller', () => {
   let controller: UserController;
@@ -13,6 +14,10 @@ describe('User Controller', () => {
       controllers: [UserController],
       providers: [
         UserService,
+        {
+          provide: 'GoogleProfilesRepository',
+          useClass: GoogleProfilesData,
+        },
         {
           provide: getRepositoryToken(User),
           useValue: {},
