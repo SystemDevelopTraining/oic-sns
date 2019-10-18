@@ -17,8 +17,7 @@
     </v-toolbar>
 
     <v-list>
-      <FollowUser />
-      <FollowUSer />
+      <FollowUser :name="'tanaka'" />
     </v-list>
   </v-card>
 </template>
