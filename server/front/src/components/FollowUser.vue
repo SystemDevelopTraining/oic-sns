@@ -17,7 +17,7 @@
 import { Component, Vue, Prop }from 'vue-property-decorator';
 @Component({})
 export default class extends Vue {
-  @Prop({ required: true, type: String }) name: string;
+  @Prop({ required: true, type: String }) private name!: string;
   onClick() {
     this.$emit('click');
   }
