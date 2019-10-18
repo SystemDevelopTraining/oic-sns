@@ -17,32 +17,18 @@
     </v-toolbar>
 
     <v-list>
-      <v-list-item class="d-flex flex-row">
-        <p>ruzen is gay</p>
-        <v-btn
-          class="ml-auto"
-          depressed
-          small
-          color="blue"
-        >
-          Follow
-        </v-btn>
-      </v-list-item>
-    </v-list>
-    
-
-    <v-list>
-      <v-list-item class="d-flex flex-row">
-        <p>ruzen is gay</p>
-        <v-btn
-          class="ml-auto"
-          depressed
-          small
-          color="blue"
-        >
-          Follow
-        </v-btn>
-      </v-list-item>
+      <FollowUser />
+      <FollowUSer />
     </v-list>
   </v-card>
 </template>
+
+<script>
+import { Component, Vue }from 'vue-property-decorator';
+import FollowUser from '../components/FollowUser';
+
+@Component({
+  components: { FollowUser },
+})
+export default class extends Vue {}
+</script>
