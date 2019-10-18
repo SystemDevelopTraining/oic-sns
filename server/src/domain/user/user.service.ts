@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Following } from '../entities/following.entity';
@@ -8,16 +8,18 @@ import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
 import { FindUserResponse } from './response/find-user-response';
-import { GoogleProfilesData } from '../../infrastructure/temp-data/google.profiles.data';
+import { GoogleProfilesRepository } from '../google-profiles.repository';
 
 @Injectable()
 export class UserService {
   constructor(
+    @Inject('GoogleProfilesRepository')
+    private readonly googleProfilesRepository: GoogleProfilesRepository,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) { }
+  ) {}
 
   //ユーザ作成
   async create(userDto: UserDto, googleProfileId: string): Promise<User> {
@@ -25,7 +27,9 @@ export class UserService {
     user.name = userDto.name;
     user.note = userDto.note;
     user.sex = userDto.sex;
-    user.oicNumber = GoogleProfilesData.getProfile(googleProfileId).emails[0].value.substr(0, 5);
+    user.oicNumber = this.googleProfilesRepository
+      .getProfile(googleProfileId)
+      .emails[0].value.substr(0, 5);
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
     try {
@@ -47,7 +51,10 @@ export class UserService {
   }
 
   //ユーザの検索
-  async findById(id: number, googleProfileId: string): Promise<FindUserResponse> {
+  async findById(
+    id: number,
+    googleProfileId: string,
+  ): Promise<FindUserResponse> {
     const user = await this.userRepository.findOne(id);
     try {
       if (user.googleProfileId === googleProfileId) {

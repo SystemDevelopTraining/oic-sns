@@ -37,7 +37,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     done: Function,
   ) {
     try {
-      GoogleProfilesData.saveProfile(profile);
+      new GoogleProfilesData().saveProfile(profile);
 
       const jwt: string = await this.authUserService.validateOAuthLogin(
         profile.id,
