@@ -1,6 +1,6 @@
-import { MakeUserResult } from './MakeUserResult';
-import { MakeUserDto } from './UserDto';
-import { UserId } from './UserId';
+import { MakeUserResult }from './MakeUserResult';
+import { MakeUserDto }from './UserDto';
+import { UserId }from './UserId';
 
 //ユーザに関するデータの扱う
 export interface UserRepository {

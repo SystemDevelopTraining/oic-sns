@@ -1,4 +1,4 @@
-import { Sex } from '../../domain/user/Sex';
+import { Sex }from '../../domain/user/Sex';
 
 export interface User {
   id: number;
