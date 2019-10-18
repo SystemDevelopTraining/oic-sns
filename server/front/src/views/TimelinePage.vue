@@ -65,27 +65,17 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
+
+    <postList v-if="showPosts" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import Post from '../components/Post.vue';
+import PostList from '../components/PostList.vue';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreatePostApplication }from '../create/CreatePostApplication';
-@Component({ components: { Post } })
+@Component({ components: { PostList } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
