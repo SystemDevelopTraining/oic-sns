@@ -7,7 +7,9 @@
     <v-container>
       <v-row justify="space-between">
         <v-btn
+          class="mb-2 mt-2"
           color="grey"
+          small
           fab
           dark
           @click="onProfileClick"
@@ -18,9 +20,11 @@
         </v-btn>
 
         <v-btn
-          large
-          dark
+          class="mb-2 mt-2"
           color="grey"
+          small
+          fab
+          dark
           href="/.."
         >
           <v-icon large>
@@ -29,7 +33,9 @@
         </v-btn>
 
         <v-btn
+          class="mb-2 mt-2"
           color="grey"
+          small
           fab
           dark
           href="/timeline"
