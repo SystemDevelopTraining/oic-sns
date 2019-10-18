@@ -37,7 +37,10 @@
           </v-btn>
         </v-col>
         <v-col>
-          <v-btn max-width="120">
+          <v-btn
+            max-width="120"
+            @click="onClickFollowList"
+          >
             フォローリスト
           </v-btn>
         </v-col>
@@ -45,3 +48,17 @@
     </v-container>
   </v-card>
 </template>
+<script>
+import { Component, Vue }from 'vue-property-decorator';
+import FollowUser from '../components/FollowUser';
+
+@Component({
+  components: { FollowUser },
+})
+export default class extends Vue {
+  onClickFollowList() {
+    this.$router.push({ name: 'followList' });
+  }
+}
+</script>
+ 
