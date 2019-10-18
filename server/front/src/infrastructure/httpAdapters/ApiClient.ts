@@ -61,7 +61,7 @@ export class ApiClient {
 
   //最新10件の投稿を返す
   public async TakeLatestPosts(): Promise<PostInfos[]> {
-    const response = await this.axios.post('timeline/v1/latest');
+    const response = await this.axios.get('timeline/v1/latest');
     return response.data;
   }
 }

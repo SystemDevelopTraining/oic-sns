@@ -16,7 +16,7 @@ export class PostApplication {
   ): Promise<CreatePostResult> {
     return this.postRepository.Save(createPostParams);
   }
-
+  //最新の投稿10件を取得する
   public GetLatestPosts(): Promise<PostInfos[]> {
     return this.postRepository.TakeLatest();
   }
