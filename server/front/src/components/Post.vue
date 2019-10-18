@@ -32,20 +32,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../domain/post/PostInfos';
 
 @Component({})
 export default class extends Vue {
-  postInfos: PostInfos = {
-    userId: {
-      id: 23,
-    },
-    userName: 'James Bond',
-    postText:
-      'I am loving to program for this project. I am not so good at it YET! though, i feel like i can do this job. I love the PROGRAMMER name in my life. I am loving to program for this project. I am not so good at it YET! though, i feel like i can do this job. I love the PROGRAMMER name in my life. ',
-    postDate: new Date(),
-  };
+  @Prop({
+    required: true,
+    type: Object,
+  })
+  postInfos!: PostInfos;
 
   get name() {
     return this.postInfos.userName;
