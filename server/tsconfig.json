@@ -13,6 +13,6 @@
     "outDir": "./dist",
     "incremental": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "front/src/domain/**/*"],
   "exclude": ["node_modules"]
 }
