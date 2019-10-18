@@ -3,6 +3,7 @@ import { EnvManager }from '../../utils/EnvManager';
 import { User, CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
+import { PostInfos }from '../../domain/post/PostInfos';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -55,6 +56,12 @@ export class ApiClient {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    return response.data;
+  }
+
+  //最新10件の投稿を返す
+  public async TakeLatestPosts(): Promise<PostInfos[]> {
+    const response = await this.axios.post('timeline/v1/latest');
     return response.data;
   }
 }
