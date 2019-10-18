@@ -66,7 +66,7 @@
       </v-card-actions>
     </v-card>
 
-    <postList v-if="showPosts" />
+    <post-list v-if="showPosts" />
   </v-container>
 </template>
 
