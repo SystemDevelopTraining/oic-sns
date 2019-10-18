@@ -8,7 +8,7 @@
         <div>
           <v-btn
             block
-            color="white"
+            :color="postBtnColor"
             :disabled="buttonOff"
             @click="onClickShowPostForm"
           >
@@ -84,11 +84,13 @@
 import { Component, Vue }from 'vue-property-decorator';
 import Post from '../components/Post.vue';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreatePostApplication }from '../create/CreatePostApplication';
 @Component({ components: { Post } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
+  postBtnColor = 'white';
 
   created() {
     const jwt = this.$route.query['jwt'];
@@ -98,15 +100,29 @@ export default class extends Vue {
   onClickShowPostForm() {
     this.showPostFormFlag = true;
     this.showPosts = false;
-    this.buttonOff = true;
+    this.postBtnColor = 'secondary';
   }
 
-  onClickPost() {}
+  async onClickPost() {
+    const result = await CreatePostApplication().PostOnTimeline({
+      text: 'hoge',
+    });
+    if (result.success === false) {
+      alert('投稿に失敗しました。');
+    }else {
+      this.hidePostForm();
+    }
+  }
 
   onClickCancel() {
+    this.hidePostForm();
+  }
+
+  hidePostForm() {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
+    this.postBtnColor = 'white';
   }
 }
 </script>
