@@ -17,7 +17,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) { }
+  ) {}
 
   //ユーザ作成
   async create(userDto: UserDto, googleProfileId: string): Promise<User> {
@@ -25,7 +25,9 @@ export class UserService {
     user.name = userDto.name;
     user.note = userDto.note;
     user.sex = userDto.sex;
-    user.oicNumber = GoogleProfilesData.getProfile(googleProfileId).emails[0].value.substr(0, 5);
+    user.oicNumber = GoogleProfilesData.getProfile(
+      googleProfileId,
+    ).emails[0].value.substr(0, 5);
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
     try {
@@ -47,7 +49,10 @@ export class UserService {
   }
 
   //ユーザの検索
-  async findById(id: number, googleProfileId: string): Promise<FindUserResponse> {
+  async findById(
+    id: number,
+    googleProfileId: string,
+  ): Promise<FindUserResponse> {
     const user = await this.userRepository.findOne(id);
     try {
       if (user.googleProfileId === googleProfileId) {
@@ -93,7 +98,11 @@ export class UserService {
       const { id, name } = await x.followeeUser;
       return { name, id };
     });
-    return Promise.all(promiseFollowUserInfos);
+    return Promise.all(promiseFollowUserInfos).then(xs =>
+      xs.map(x => {
+        return { name: x.name, id: { id: x.id } };
+      }),
+    );
   }
 
   async myUserId(googleProfileId: string): Promise<MyUserResponse> {

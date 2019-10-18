@@ -3,6 +3,7 @@ import { EnvManager }from '../../utils/EnvManager';
 import { User, CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
+import { FollowListDto }from '~/src/domain/follow_list/followList.dto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -58,5 +59,9 @@ export class ApiClient {
       },
     });
     return response.data;
+  }
+
+  public async GetFollowList(id: UserId): Promise<FollowListDto> {
+    return (await this.axios.get('user/v1/' + id.id + '/follows')).data;
   }
 }
