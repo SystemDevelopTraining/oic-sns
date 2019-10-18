@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Post from '../components/Post.vue';
-import PostInfos from '../domain/post/PostInfos';
+import { PostInfos }from '../domain/post/PostInfos';
 import { Component, Vue }from 'vue-property-decorator';
 @Component({ components: { Post } })
 export default class extends Vue {
