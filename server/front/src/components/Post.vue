@@ -36,7 +36,6 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../domain/post/PostInfos';
-import { CreateUserApplication }from '../create/CreateUserApplication';
 
 @Component({})
 export default class extends Vue {
@@ -57,10 +56,9 @@ export default class extends Vue {
   }
 
   async goToUserPage() {
-    const userId = await CreateUserApplication().GetMyUserId();
     this.$router.push({
       name: 'user',
-      params: { id: String(userId.id) },
+      params: { id: String(this.postInfos.userId.id) },
     });
   }
 }
