@@ -1,8 +1,8 @@
-import { CreatePostParams }from './CreatePostParams';
+import { CreatePostParamsDto }from './CreatePostParamsDto';
 import { CreatePostResult }from './CreatePostResult';
 import { PostInfos }from './PostInfos';
 
 export interface PostRepository {
-  Save(createPostParams: CreatePostParams): Promise<CreatePostResult>;
+  Save(createPostParams: CreatePostParamsDto): Promise<CreatePostResult>;
   TakeLatest(): Promise<PostInfos[]>;
 }
