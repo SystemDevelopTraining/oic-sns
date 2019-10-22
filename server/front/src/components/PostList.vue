@@ -31,6 +31,7 @@ export default class extends Vue {
     if (this.postInfosList.length > 0) {
       const lastPost = this.postInfosList[this.postInfosList.length - 1];
       const newPostInfosList = await CreatePostApplication().GetLatestPosts({
+        userId: this.filterUserId ? this.filterUserId.id.toString() : undefined,
         basePostId: String(lastPost.id.id),
       });
       newPostInfosList.forEach(x => this.postInfosList.push(x));
