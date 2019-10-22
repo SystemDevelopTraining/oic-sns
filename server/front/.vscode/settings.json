@@ -2,6 +2,9 @@
   "editor.formatOnSave": true,
   "typescript.preferences.importModuleSpecifier": "relative",
   "eslint.autoFixOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
   "eslint.validate": [
     "javascript",
     {
