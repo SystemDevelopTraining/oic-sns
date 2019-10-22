@@ -1,5 +1,5 @@
 import { MakeUserResult }from './MakeUserResult';
-import { MakeUserDto }from './UserDto';
+import { MakeUserDto }from './MakeUserDto';
 import { UserId }from './UserId';
 
 //ユーザに関するデータの扱う

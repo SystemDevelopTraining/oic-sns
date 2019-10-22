@@ -1,6 +1,6 @@
 import { UserRepository }from '../../domain/user/UserRepository';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
-import { MakeUserDto }from '../../domain/user/UserDto';
+import { MakeUserDto }from '../../domain/user/MakeUserDto';
 import { UserId }from '~/src/domain/user/UserId';
 import { ApiClient }from '../httpAdapters/ApiClient';
 import { CreateLoginInfoApplication }from '../../create/CreateLoginInfoApplication';

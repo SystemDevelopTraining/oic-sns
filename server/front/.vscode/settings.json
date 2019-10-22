@@ -1,4 +1,16 @@
 {
-    "editor.formatOnSave": true,
-    "typescript.preferences.importModuleSpecifier": "relative"
+  "editor.formatOnSave": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ]
 }

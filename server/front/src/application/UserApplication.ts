@@ -1,4 +1,4 @@
-import { MakeUserDto }from '../domain/user/UserDto';
+import { MakeUserDto }from '../domain/user/MakeUserDto';
 import { MakeUserResult }from '../domain/user/MakeUserResult';
 import { UserRepository }from '../domain/user/UserRepository';
 import {UserId}from '../domain/user/UserId';
