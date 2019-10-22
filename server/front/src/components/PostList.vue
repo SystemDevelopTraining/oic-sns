@@ -8,7 +8,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import Post from '../components/Post.vue';
 import { PostInfos }from '../domain/post/PostInfos';

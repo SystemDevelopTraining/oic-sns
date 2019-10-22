@@ -7,12 +7,12 @@
       class="mt-6"
       align="center"
     >
-      <el-row
+      <v-row
         type="flex"
         class="row-bg"
         justify="center"
       >
-        <el-col>
+        <v-col>
           <div class="grid-content">
             <v-avatar
               color="indigo"
@@ -23,8 +23,8 @@
               </v-icon>
             </v-avatar>
           </div>
-        </el-col>
-      </el-row>
+        </v-col>
+      </v-row>
     </div>
     <v-container
       fluid
@@ -48,13 +48,10 @@
     </v-container>
   </v-card>
 </template>
-<script>
+<script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import FollowUser from '../components/FollowUser';
 
-@Component({
-  components: { FollowUser },
-})
+@Component({})
 export default class extends Vue {
   onClickFollowList() {
     this.$router.push({ name: 'followList' });

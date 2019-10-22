@@ -17,14 +17,14 @@
     </v-toolbar>
 
     <v-list>
-      <FollowUser :name="'tanaka'" />
+      <follow-user :name="'tanaka'" />
     </v-list>
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import FollowUser from '../components/FollowUser';
+import FollowUser from '../components/FollowUser.vue';
 
 @Component({
   components: { FollowUser },
