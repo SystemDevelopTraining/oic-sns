@@ -28,8 +28,15 @@ export class ApiClient {
   }
 
   // ユーザーIDからユーザー情報取得する
-  public async GetUser(id: number): Promise<UserDto> {
-    return (await this.axios.get('user/v1/' + id)).data;
+  public async GetUser(id: UserId,jwt:string): Promise<UserDto> {
+    return (await this.axios.get(
+      'user/v1/' + id.id,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      },
+    )).data;
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
   public async CreateUser(
