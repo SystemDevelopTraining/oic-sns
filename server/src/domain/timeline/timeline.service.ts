@@ -33,6 +33,10 @@ export class TimelineService {
       });
     }
 
+    if (params.userId) {
+      query.where('user.id= :userId', { userId: params.userId });
+    }
+
     const posts: PostItem[] = (await query.getMany()) as any;
 
     return posts.map<PostInfos>(x => ({
