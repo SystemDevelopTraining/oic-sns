@@ -52,6 +52,8 @@ export default class extends Vue {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
   }
+
+  v: string;
   nameRules = [v => !!v || '本名を入力してください'];
   valid = true;
   async register() {
