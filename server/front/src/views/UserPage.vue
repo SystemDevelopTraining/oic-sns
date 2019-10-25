@@ -4,7 +4,10 @@
       v-if="user"
       :user="user"
     />
-    <post-list />
+    <post-list
+      v-if="user"
+      :filter-user-id="user.id"
+    />
   </div>
 </template>
 
