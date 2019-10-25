@@ -1,8 +1,11 @@
 <template>
-  <user-info
-    v-if="user"
-    :user="user"
-  />
+  <div>
+    <user-info
+      v-if="user"
+      :user="user"
+    />
+    <post-list />
+  </div>
 </template>
 
 <script lang="ts">
@@ -10,8 +13,9 @@ import { Component, Vue }from 'vue-property-decorator';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { UserDto }from '../domain/user/UserDto';
 import UserInfo from '../components/userPage/UserInfo.vue';
+import PostList from '../components/PostList.vue';
 
-@Component({ components: { UserInfo } })
+@Component({ components: { UserInfo, PostList } })
 export default class extends Vue {
   user: UserDto | null = null;
 
@@ -22,4 +26,3 @@ export default class extends Vue {
   }
 }
 </script>
- 
