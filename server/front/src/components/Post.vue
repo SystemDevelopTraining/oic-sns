@@ -11,7 +11,9 @@
             cols="auto"
             class="pb-0"
           >
-            <v-card-title>{{ name }}</v-card-title>
+            <v-btn @click="goToUserPage()">
+              <v-card-title>{{ name }}</v-card-title>
+            </v-btn>
           </v-col>
           <v-col class="pb-0">
             <v-row justify="end">
@@ -34,6 +36,7 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../domain/post/PostInfos';
+import { CreateUserApplication }from '../create/CreateUserApplication';
 
 @Component({})
 export default class extends Vue {
@@ -51,6 +54,14 @@ export default class extends Vue {
   }
   get postDate() {
     return this.postInfos.postDate;
+  }
+
+  async goToUserPage() {
+    const userId = await CreateUserApplication().GetMyUserId();
+    this.$router.push({
+      name: 'user',
+      params: { id: String(userId.id) },
+    });
   }
 }
 </script>
