@@ -53,8 +53,7 @@ export default class extends Vue {
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
   }
 
-  v: string;
-  nameRules = [v => !!v || '本名を入力してください'];
+  nameRules = [(v: string) => !!v || '本名を入力してください'];
   valid = true;
   async register() {
     try {
