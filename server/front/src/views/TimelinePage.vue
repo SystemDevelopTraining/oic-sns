@@ -21,7 +21,7 @@
     <!-- 投稿Post レイアウト-->
     <v-card v-if="showPostFormFlag">
       <v-card-title>
-        <span class="headline">James Bond</span>
+        <span class="headline">{{ myUserName }}</span>
         <v-col class="pb-0">
           <v-row justify="end">
             <v-list-item-avatar
@@ -35,6 +35,7 @@
         <v-container fluid>
           <v-row>
             <v-textarea
+              v-model="postText"
               outlined
               auto-grow
               label="投稿を書きましょう！"
@@ -75,16 +76,24 @@ import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/PostList.vue';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreatePostApplication }from '../create/CreatePostApplication';
+import { CreateUserApplication }from '../create/CreateUserApplication';
 @Component({ components: { PostList } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
   postBtnColor = 'white';
+  postText = '';
+  myUserName = '';
 
-  created() {
+  async created() {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+    const userApplication = CreateUserApplication();
+    const myUser = await userApplication.GetUser(
+      await userApplication.GetMyUserId(),
+    );
+    this.myUserName = myUser.name;
   }
 
   onClickShowPostForm() {
@@ -95,7 +104,7 @@ export default class extends Vue {
 
   async onClickPost() {
     const result = await CreatePostApplication().PostOnTimeline({
-      text: 'hoge',
+      text: this.postText,
     });
     if (result.success === false) {
       alert('投稿に失敗しました。');
