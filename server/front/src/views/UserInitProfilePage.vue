@@ -14,10 +14,12 @@
         src="user_photo.png"
       />
     </v-card>
-    <v-form>
+    <v-form v-model="valid">
       <v-text-field
         v-model="name"
         label="本名"
+        :rules="nameRules"
+        required
       />
       <v-select
         v-model="sex"
@@ -29,6 +31,7 @@
       <v-btn
         large
         width="100"
+        :disabled="!valid"
         @click="register"
       >
         登録
@@ -49,7 +52,8 @@ export default class extends Vue {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
   }
-
+  nameRules = [v => !!v || '本名を入力してください'];
+  valid = true;
   async register() {
     try {
       await CreateUserApplication().MakeUser({
