@@ -1,9 +1,10 @@
 import *as Axios from 'axios';
 import { EnvManager }from '../../utils/EnvManager';
-import { User, CreateUserParams }from './Protocol';
+import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
 import { PostInfos }from '../../domain/post/PostInfos';
+import { UserDto }from '../../domain/user/UserDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -27,8 +28,15 @@ export class ApiClient {
   }
 
   // ユーザーIDからユーザー情報取得する
-  public async GetUser(id: number): Promise<User> {
-    return (await this.axios.get('user/v1/' + id)).data;
+  public async GetUser(id: UserId,jwt:string): Promise<UserDto> {
+    return (await this.axios.get(
+      'user/v1/' + id.id,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      },
+    )).data;
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
   public async CreateUser(

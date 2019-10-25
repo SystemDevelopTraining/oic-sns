@@ -5,8 +5,6 @@ import {
   Req,
   Body,
   Param,
-  HttpException,
-  HttpStatus,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from '../../domain/user/user.service';
@@ -17,11 +15,11 @@ import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { FollowResult } from '../../domain/user/response/follow-result';
 import { FollowUserInfo } from '../../domain/user/response/follow-user-info';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
-import { FindUserResponse } from '../../domain/user/response/find-user-response';
+import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   //ユーザ作成
   @Post('v1')
@@ -36,14 +34,22 @@ export class UserController {
   @Get('v1/my_user')
   @UseGuards(AuthGuard('jwt'))
   async myUserId(@Req() req: Request): Promise<MyUserResponse> {
-    return await this.userService.myUserId((req.user as JwtPayload).thirdPartyId);
+    return await this.userService.myUserId(
+      (req.user as JwtPayload).thirdPartyId,
+    );
   }
 
   //idに対応したユーザを検索
   @Get('v1/:id')
   @UseGuards(AuthGuard('jwt'))
-  async findById(@Param('id') id: number, @Req() req: Request): Promise<FindUserResponse> {
-    return await this.userService.findById(id, (req.user as JwtPayload).thirdPartyId);
+  async findById(
+    @Param('id') id: number,
+    @Req() req: Request,
+  ): Promise<FrontUserDto> {
+    return await this.userService.findById(
+      id,
+      (req.user as JwtPayload).thirdPartyId,
+    );
   }
 
   //idに対応したユーザをフォローする
