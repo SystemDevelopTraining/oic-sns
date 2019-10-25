@@ -1,4 +1,4 @@
-import { CreatePostParams }from '../domain/post/CreatePostParams';
+import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { PostRepository }from '../domain/post/PostRepository';
 import { CreatePostResult }from '../domain/post/CreatePostResult';
 import { PostInfos }from '../domain/post/PostInfos';
@@ -12,7 +12,7 @@ export class PostApplication {
   }
   //タイムラインで投稿を記録する
   public PostOnTimeline(
-    createPostParams: CreatePostParams,
+    createPostParams: CreatePostParamsDto,
   ): Promise<CreatePostResult> {
     return this.postRepository.Save(createPostParams);
   }

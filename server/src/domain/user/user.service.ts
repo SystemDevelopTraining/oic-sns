@@ -4,10 +4,10 @@ import { User } from '../entities/user.entity';
 import { Following } from '../entities/following.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
+import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { FollowResult } from './response/follow-result';
 import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
-import { FindUserResponse } from './response/find-user-response';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
 
 @Injectable()
@@ -51,17 +51,18 @@ export class UserService {
   }
 
   //ユーザの検索
-  async findById(
-    id: number,
-    googleProfileId: string,
-  ): Promise<FindUserResponse> {
+  async findById(id: number, googleProfileId: string): Promise<FrontUserDto> {
     const user = await this.userRepository.findOne(id);
     try {
-      if (user.googleProfileId === googleProfileId) {
-        return { isMyself: true, user };
-      } else {
-        return { isMyself: false, user };
-      }
+      return {
+        id: { id: user.id },
+        name: user.name,
+        sex: user.sex,
+        note: user.note,
+        oicNumber: user.oicNumber,
+        birthday: user.birthday && user.birthday.toDateString(),
+        isMyself: user.googleProfileId === googleProfileId,
+      };
     } catch (e) {
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
     }
