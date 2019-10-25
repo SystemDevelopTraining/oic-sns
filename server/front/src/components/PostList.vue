@@ -5,19 +5,31 @@
       :key="index"
       :post-infos="postInfos"
     />
+    <old-post-get-button @click="OldPostGet" />
   </div>
 </template>
 
 <script lang="ts">
 import Post from '../components/Post.vue';
+import OldPostGetButton from '../components/post/OldPostGetButton.vue';
 import { PostInfos }from '../domain/post/PostInfos';
 import { Component, Vue }from 'vue-property-decorator';
 import { CreatePostApplication }from '../create/CreatePostApplication';
-@Component({ components: { Post } })
+@Component({ components: { Post, OldPostGetButton } })
 export default class extends Vue {
   postInfosList: PostInfos[] = [];
   async created() {
     this.postInfosList = await CreatePostApplication().GetLatestPosts();
+  }
+
+  async OldPostGet() {
+    if (this.postInfosList.length > 0) {
+      const lastPost = this.postInfosList[this.postInfosList.length - 1];
+      const newPostInfosList = await CreatePostApplication().GetLatestPosts({
+        basePostId: String(lastPost.id.id),
+      });
+      newPostInfosList.forEach(x => this.postInfosList.push(x));
+    }
   }
 }
 </script>
