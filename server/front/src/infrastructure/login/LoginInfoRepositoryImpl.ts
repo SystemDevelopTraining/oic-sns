@@ -6,7 +6,7 @@ import { PwaChecker }from '../../utils/PwaChecker';
 export class LoginInfoRepositoryImpl implements LoginInfoRepository {
   public GetJwt(): string | undefined {
     if (PwaChecker.isPwa)
-    return localStorage.getItem('jwt') || undefined;
+      return localStorage.getItem('jwt') || undefined;
     return Cookies.get('jwt');
   }
   public SaveJwt(jwt: string): void {
