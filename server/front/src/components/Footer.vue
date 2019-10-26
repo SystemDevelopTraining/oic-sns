@@ -25,7 +25,7 @@
           small
           fab
           dark
-          href="/.."
+          to="/"
         >
           <v-icon large>
             home
@@ -38,7 +38,7 @@
           small
           fab
           dark
-          href="/timeline"
+          to="timeline"
         >
           <v-icon large>
             query_builder
