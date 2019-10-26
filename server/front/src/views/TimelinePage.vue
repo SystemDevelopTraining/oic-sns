@@ -74,7 +74,6 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/PostList.vue';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 @Component({ components: { PostList } })
@@ -87,8 +86,6 @@ export default class extends Vue {
   myUserName = '';
 
   async created() {
-    const jwt = this.$route.query['jwt'];
-    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
     const userApplication = CreateUserApplication();
     const myUser = await userApplication.GetUser(
       await userApplication.GetMyUserId(),
