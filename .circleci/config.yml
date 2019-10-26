@@ -20,7 +20,7 @@ jobs:
   server_build:
     docker:
       - image: elipmoc/oicsns-server:latest
-      - image: circleci/mysql:5.7
+      - image: circleci/mysql:5.5
     steps:
       - checkout
       - run: 
