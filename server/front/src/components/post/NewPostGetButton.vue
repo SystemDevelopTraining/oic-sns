@@ -5,17 +5,23 @@
         width="100%"
         @click="onClick"
       >
-        過去の投稿10件を取得
+        {{ timeText }}の投稿10件を取得
       </v-btn>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Prop }from 'vue-property-decorator';
 
 @Component({})
 export default class extends Vue {
+  @Prop({ type: Boolean, required: false }) old: boolean | undefined;
+
+  get timeText() {
+    return this.old ? '過去' : '最新';
+  }
+
   onClick() {
     this.$emit('click');
   }
