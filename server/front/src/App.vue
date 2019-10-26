@@ -21,15 +21,18 @@ import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
 })
 export default class extends Vue {
   created() {
-    const loginApplication = CreateLoginInfoApplication();
     const jwt = this.$route.query['jwt'];
+    const loginApplication = CreateLoginInfoApplication();
     if (typeof jwt === 'string') {
-      loginApplication.SaveJwt(jwt);
       const query = Object.assign({}, this.$route.query);
+      loginApplication.SaveJwt(jwt);
       delete query['jwt'];
       this.$router.push({ query: query });
+      if (window.opener) {
+        window.opener.postMessage(this.$route.name, window.location.origin);
+        window.close();
+      }
     }
-
     const isLogin = loginApplication.IsLogin();
     if (isLogin === false)this.$router.push({ path: '/' });
   }
