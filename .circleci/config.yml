@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  front_build:
+    docker:
+      - image: elipmoc/oicsns-front:latest
+    steps:
+      - checkout
+      - run: 
+          working_directory: server/front
+          name: install npm
+          command: npm i
+      - run: 
+          working_directory: server/front
+          name: lint front
+          command: npm run lint:no-fix
+      - run: 
+          working_directory: server/front
+          name: build front
+          command: npm run build
+  server_build:
+    docker:
+      - image: elipmoc/oicsns-server:latest
+      - image: circleci/mysql:5.7
+    steps:
+      - checkout
+      - run: 
+          working_directory: server
+          name: install npm
+          command: npm i
+      - run: 
+          working_directory: server
+          name: build server
+          command: npm run build
+      - run: 
+          working_directory: server
+          name: test server
+          command: npm test
+      - run: 
+          working_directory: server
+          name: test server migration
+          command: npm run migration:up 
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - server_build
+      - front_build

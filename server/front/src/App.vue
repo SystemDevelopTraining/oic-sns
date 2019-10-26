@@ -1,38 +1,29 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
     <v-content>
-      <HelloWorld />
+      <v-container>
+        <router-view />
+      </v-container>
     </v-content>
+    <div>
+      <Footer />
+    </div>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld";
+<script lang="ts">
+import { Component, Vue }from 'vue-property-decorator';
+import Footer from './components/Footer.vue';
+import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
 
-export default {
-  name: "App",
-  components: {
-    HelloWorld
-  },
-  data() {
-    return {
-      //
-    };
+@Component({
+  components: { Footer },
+})
+export default class extends Vue {
+  mounted() {
+    const loginInfoApplication = CreateLoginInfoApplication();
+    const isLogin = loginInfoApplication.IsLogin();
+    if (isLogin === false)this.$router.push({ path: '/' });
   }
-};
+}
 </script>

@@ -32,6 +32,8 @@ services:
       - "8080:8080"
     stdin_open: true
     tty: true
+    depends_on:
+      - server
 
   mysql:
     container_name: oic_sns_mysql

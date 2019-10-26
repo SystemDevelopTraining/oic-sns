@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/SystemDevelopTraining/oic-sns.svg?style=svg)](https://circleci.com/gh/SystemDevelopTraining/oic-sns)
+
 ## 初期セットアップ
 
 ```
@@ -11,7 +13,8 @@ docker-compose run --rm front npm i
 
 ## .envの設定
 
-google APIの環境変数を手動で設定する必要があります。
+google APIの環境変数,jwt用のSECRET keyを手動で設定する必要があります。
+
 
 ## 起動
 

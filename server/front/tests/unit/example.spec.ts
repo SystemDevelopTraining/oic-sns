@@ -1,12 +1,10 @@
-import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { ApiClient }from '../../src/infrastructure/httpAdapters/ApiClient';
 
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
+process.env.API_SERVER_URL = 'http://server:3000';
+
+describe('hoge', () => {
+  it('aaa', async () => {
+    const result = await new ApiClient().GetRoute();
+    expect(result).toMatch('Hello World!');
   });
 });

@@ -11,9 +11,8 @@
     "allowJs": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "front/src/domain/**/*"],
   "exclude": ["node_modules"]
 }
