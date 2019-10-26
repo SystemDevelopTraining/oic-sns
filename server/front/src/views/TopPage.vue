@@ -6,7 +6,7 @@
         v-if="isNotLogin()"
         large
         color="primary"
-        href="http://localhost:3000/auth-user/v1"
+        :href="loginUrl"
       >
         Login/Signup
       </v-btn>
@@ -26,10 +26,15 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { EnvManager }from '../utils/EnvManager';
 @Component({})
 export default class extends Vue {
   isNotLogin() {
     return !CreateLoginInfoApplication().IsLogin();
+  }
+
+  get loginUrl() {
+    return EnvManager.ApiServerUrl + '/auth-user/v1';
   }
 }
 </script>>
