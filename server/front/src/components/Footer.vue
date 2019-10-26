@@ -38,7 +38,7 @@
           small
           fab
           dark
-          to="timeline"
+          to="/timeline"
         >
           <v-icon large>
             query_builder
