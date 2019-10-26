@@ -7,10 +7,12 @@ module.exports = {
   database: process.env.MYSQL_DATABASE, // DB名
   synchronize: false,
   logging: false,
-  entities: [__dirname + '/domain/entities/**/*.js'],
-  migrations: [__dirname + '/infrastructure/db/migrations/**/*.js'],
+  entities: ['/app/server/dist/src/domain/entities/**/*.js'],
+  migrations: [
+    __dirname + '/app/server/dist/src/infrastructure/db/migrations/**/*.js',
+  ],
   cli: {
-    entitiesDir: __dirname + '/domain/entities',
+    entitiesDir: __dirname + '/app/server/dist/src/domain/entities',
     migrationsDir: __dirname + '/src/infrastructure/db/migrations',
   },
 };
