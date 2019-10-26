@@ -2,5 +2,5 @@
 export interface SearchPostParamsDto {
   basePostId?: string;
   userId?: string;
-  before?: boolean;
+  after?: boolean;
 }

@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    v-if="isLogin()"
+    v-if="isLogin"
     app
     bottom
   >
@@ -25,7 +25,7 @@
           small
           fab
           dark
-          href="/.."
+          to="/"
         >
           <v-icon large>
             home
@@ -38,7 +38,7 @@
           small
           fab
           dark
-          href="/timeline"
+          to="timeline"
         >
           <v-icon large>
             query_builder
@@ -50,14 +50,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 
 @Component({})
 export default class extends Vue {
-  isLogin() {
-    return CreateLoginInfoApplication().IsLogin();
+  isLogin = CreateLoginInfoApplication().IsLogin();
+  @Watch('$route')
+  onChangeRoute() {
+    this.isLogin = CreateLoginInfoApplication().IsLogin();
   }
   async onProfileClick() {
     const userId = await CreateUserApplication().GetMyUserId();
