@@ -52,7 +52,7 @@ export default class extends Vue {
         basePostId: String(lastPost.id.id),
         after: true,
       });
-      newPostInfosList.forEach(x => this.postInfosList.unshift(x));
+      newPostInfosList.reverse().forEach(x => this.postInfosList.unshift(x));
     }
   }
 }
