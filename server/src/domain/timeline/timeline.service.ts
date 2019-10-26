@@ -28,13 +28,18 @@ export class TimelineService {
 
     if (params.basePostId) {
       const basePost = await this.postRepository.findOne(params.basePostId);
-      query.where('post.createdAt < :baseCreatedAt', {
-        baseCreatedAt: basePost.createdAt,
-      });
+      if (params.after)
+        query.where('post.createdAt > :baseCreatedAt', {
+          baseCreatedAt: basePost.createdAt,
+        });
+      else
+        query.where('post.createdAt < :baseCreatedAt', {
+          baseCreatedAt: basePost.createdAt,
+        });
     }
 
     if (params.userId) {
-      query.where('user.id= :userId', { userId: params.userId });
+      query.andWhere('user.id= :userId', { userId: params.userId });
     }
 
     const posts: PostItem[] = (await query.getMany()) as any;
