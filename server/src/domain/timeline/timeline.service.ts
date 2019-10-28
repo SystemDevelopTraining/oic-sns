@@ -1,31 +1,55 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Post as PostItem } from "../entities/post.entity";
-import { User } from "../entities/user.entity";
-import { PostInfos } from "../../../front/src/domain/post/PostInfos";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Post as PostItem } from '../entities/post.entity';
+import { PostInfos } from '../../../front/src/domain/post/PostInfos';
+import { SearchPostParamsDto } from '../../../front/src/domain/post/SearchPostParamsDto';
 
 @Injectable()
 export class TimelineService {
-    constructor(
-        @InjectRepository(PostItem)
-        private readonly postRepository: Repository<PostItem>,
-    ) { }
+  constructor(
+    @InjectRepository(PostItem)
+    private readonly postRepository: Repository<PostItem>,
+  ) {}
 
-    async latest(): Promise<PostInfos[]> {
-        const posts:(PostItem&User)[] = 
-            await this.postRepository
-                .query(`
-                    select post.createdAt, post.text, user.name, user.id 
-                        from post 
-                        inner join user on post.postUserId=user.id 
-                        order by createdAt desc limit 10
-                    `);
-        return posts.map<PostInfos>(x=>({
-            userId:{id:x.id},
-            postDate:x.createdAt,
-            postText:x.text,
-            userName:x.name
-        }))
+  async latest(params: SearchPostParamsDto): Promise<PostInfos[]> {
+    const query = this.postRepository
+      .createQueryBuilder('post')
+      .innerJoinAndSelect('post.postUser', 'user')
+      .select([
+        'post.id',
+        'post.text',
+        'post.createdAt',
+        'user.name',
+        'user.id',
+      ])
+      .orderBy({ createdAt: 'DESC' })
+      .limit(10);
+
+    if (params.basePostId) {
+      const basePost = await this.postRepository.findOne(params.basePostId);
+      if (params.after)
+        query.where('post.createdAt > :baseCreatedAt', {
+          baseCreatedAt: basePost.createdAt,
+        });
+      else
+        query.where('post.createdAt < :baseCreatedAt', {
+          baseCreatedAt: basePost.createdAt,
+        });
     }
+
+    if (params.userId) {
+      query.andWhere('user.id= :userId', { userId: params.userId });
+    }
+
+    const posts: PostItem[] = (await query.getMany()) as any;
+
+    return posts.map<PostInfos>(x => ({
+      userId: { id: x.postUser.id },
+      id: { id: x.id },
+      postDate: x.createdAt,
+      postText: x.text,
+      userName: x.postUser.name,
+    }));
+  }
 }

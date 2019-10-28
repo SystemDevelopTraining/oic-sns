@@ -4,6 +4,7 @@ import { CreatePostResult }from '../../domain/post/CreatePostResult';
 import { PostInfos }from '../../domain/post/PostInfos';
 import { ApiClient }from '../httpAdapters/ApiClient';
 import { CreateLoginInfoApplication }from '../../create/CreateLoginInfoApplication';
+import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 
 export class PostRepositoryImpl implements PostRepository {
   public Save(createPostParams: CreatePostParamsDto): Promise<CreatePostResult> {
@@ -11,7 +12,7 @@ export class PostRepositoryImpl implements PostRepository {
     return new ApiClient().CreatePost(jwt || '',createPostParams);
   }
 
-  public TakeLatest(): Promise<PostInfos[]> {
-    return new ApiClient().TakeLatestPosts();
+  public TakeLatest(searchPostParams:SearchPostParamsDto): Promise<PostInfos[]> {
+    return new ApiClient().TakeLatestPosts(searchPostParams);
   }
 }

@@ -7,6 +7,7 @@ import { PostInfos }from '../../domain/post/PostInfos';
 import { UserDto }from '../../domain/user/UserDto';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
 import { CreatePostResult }from '../../domain/post/CreatePostResult';
+import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -70,8 +71,8 @@ export class ApiClient {
   }
 
   //最新10件の投稿を返す
-  public async TakeLatestPosts(): Promise<PostInfos[]> {
-    const response = await this.axios.get('timeline/v1/latest');
+  public async TakeLatestPosts(params:SearchPostParamsDto): Promise<PostInfos[]> {
+    const response = await this.axios.get('timeline/v1/latest',{params});
     return response.data;
   }
 

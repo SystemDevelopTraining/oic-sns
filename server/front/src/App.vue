@@ -20,9 +20,20 @@ import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
   components: { Footer },
 })
 export default class extends Vue {
-  mounted() {
-    const loginInfoApplication = CreateLoginInfoApplication();
-    const isLogin = loginInfoApplication.IsLogin();
+  created() {
+    const jwt = this.$route.query['jwt'];
+    const loginApplication = CreateLoginInfoApplication();
+    if (typeof jwt === 'string') {
+      const query = Object.assign({}, this.$route.query);
+      loginApplication.SaveJwt(jwt);
+      delete query['jwt'];
+      this.$router.push({ query: query });
+      if (window.opener) {
+        window.opener.postMessage(this.$route.name, window.location.origin);
+        window.close();
+      }
+    }
+    const isLogin = loginApplication.IsLogin();
     if (isLogin === false)this.$router.push({ path: '/' });
   }
 }

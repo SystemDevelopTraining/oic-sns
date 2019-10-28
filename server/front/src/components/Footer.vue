@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    v-if="isLogin()"
+    v-if="isLogin"
     app
     bottom
     color="black"
@@ -26,7 +26,7 @@
           small
           fab
           dark
-          href="/.."
+          to="/"
         >
           <v-icon large>
             home
@@ -39,7 +39,7 @@
           small
           fab
           dark
-          href="/timeline"
+          to="timeline"
         >
           <v-icon large>
             query_builder
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 
@@ -62,7 +62,13 @@ export default class extends Vue {
   iconColorTimeline = 'teal';
 
   created() {
+    this.changeIconColor();
+  }
+
+  //Footerのアイコンのカラーをrouteによって変えます
+  changeIconColor() {
     const currentPage = this.$route.name;
+    this.resetIconColor();
     switch (currentPage) {
       case 'timeline':
         this.iconColorTimeline = 'red';
@@ -75,8 +81,18 @@ export default class extends Vue {
         break;
     }
   }
-  isLogin() {
-    return CreateLoginInfoApplication().IsLogin();
+
+  resetIconColor() {
+    this.iconColorUser = 'teal';
+    this.iconColorHome = 'teal';
+    this.iconColorTimeline = 'teal';
+  }
+
+  isLogin = CreateLoginInfoApplication().IsLogin();
+  @Watch('$route')
+  onChangeRoute() {
+    this.isLogin = CreateLoginInfoApplication().IsLogin();
+    this.changeIconColor();
   }
   async onProfileClick() {
     const userId = await CreateUserApplication().GetMyUserId();

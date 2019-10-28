@@ -2,6 +2,7 @@ import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { PostRepository }from '../domain/post/PostRepository';
 import { CreatePostResult }from '../domain/post/CreatePostResult';
 import { PostInfos }from '../domain/post/PostInfos';
+import { SearchPostParamsDto }from '../domain/post/SearchPostParamsDto';
 
 //投稿する機能
 export class PostApplication {
@@ -17,7 +18,7 @@ export class PostApplication {
     return this.postRepository.Save(createPostParams);
   }
   //最新の投稿10件を取得する
-  public GetLatestPosts(): Promise<PostInfos[]> {
-    return this.postRepository.TakeLatest();
+  public GetLatestPosts(searchPostParams:SearchPostParamsDto = {}): Promise<PostInfos[]> {
+    return this.postRepository.TakeLatest(searchPostParams);
   }
 }
