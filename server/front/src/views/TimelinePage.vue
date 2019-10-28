@@ -8,7 +8,7 @@
         <div>
           <v-btn
             block
-            color="white"
+            :color="postBtnColor"
             :disabled="buttonOff"
             @click="onClickShowPostForm"
           >
@@ -21,7 +21,7 @@
     <!-- 投稿Post レイアウト-->
     <v-card v-if="showPostFormFlag">
       <v-card-title>
-        <span class="headline">James Bond</span>
+        <span class="headline">{{ myUserName }}</span>
         <v-col class="pb-0">
           <v-row justify="end">
             <v-list-item-avatar
@@ -35,6 +35,7 @@
         <v-container fluid>
           <v-row>
             <v-textarea
+              v-model="postText"
               outlined
               auto-grow
               label="投稿を書きましょう！"
@@ -65,48 +66,59 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
-    <post v-if="showPosts" />
+
+    <post-list v-if="showPosts" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import Post from '../components/Post.vue';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
-@Component({ components: { Post } })
+import PostList from '../components/PostList.vue';
+import { CreatePostApplication }from '../create/CreatePostApplication';
+import { CreateUserApplication }from '../create/CreateUserApplication';
+@Component({ components: { PostList } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
+  postBtnColor = 'white';
+  postText = '';
+  myUserName = '';
 
-  created() {
-    const jwt = this.$route.query['jwt'];
-    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+  async created() {
+    const userApplication = CreateUserApplication();
+    const myUser = await userApplication.GetUser(
+      await userApplication.GetMyUserId(),
+    );
+    this.myUserName = myUser.name;
   }
 
   onClickShowPostForm() {
     this.showPostFormFlag = true;
     this.showPosts = false;
-    this.buttonOff = true;
+    this.postBtnColor = 'secondary';
   }
 
-  onClickPost() {}
+  async onClickPost() {
+    const result = await CreatePostApplication().PostOnTimeline({
+      text: this.postText,
+    });
+    if (result.success === false) {
+      alert('投稿に失敗しました。');
+    }else {
+      this.hidePostForm();
+    }
+  }
 
   onClickCancel() {
+    this.hidePostForm();
+  }
+
+  hidePostForm() {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
+    this.postBtnColor = 'white';
   }
 }
 </script>

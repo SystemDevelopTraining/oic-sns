@@ -1,16 +1,16 @@
 import { Profile } from 'passport-google-oauth';
+import { GoogleProfilesRepository } from '../../domain/google-profiles.repository';
+import { Injectable } from '@nestjs/common';
 
 // 一時的にProfileを保存する
-export class GoogleProfilesData {
+@Injectable()
+export class GoogleProfilesData implements GoogleProfilesRepository {
   private static profiles = new Map<string, Profile>();
 
-  // Profileを保存する
-  static saveProfile(profile: Profile) {
+  saveProfile(profile: Profile): void {
     GoogleProfilesData.profiles.set(profile.id, profile);
   }
-
-  // ProfileのIdからProfileを取得する
-  static getProfile(id: string): Profile {
+  getProfile(id: string): Profile {
     return GoogleProfilesData.profiles.get(id);
   }
 }

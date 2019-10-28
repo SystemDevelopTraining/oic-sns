@@ -1,7 +1,13 @@
-import { Sex } from './Sex';
+import { Sex }from './Sex';
+import { UserId }from './UserId';
 
-//ユーザを作成する時に必要となるデータ
-export interface MakeUserDto {
+export interface UserDto {
+  id: UserId;
   name: string;
   sex: Sex;
+  oicNumber: string;
+  birthday?: string;
+  note: string;
+  //自分自身かどうか
+  isMyself: boolean;
 }

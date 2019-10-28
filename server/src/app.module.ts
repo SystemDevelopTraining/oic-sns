@@ -10,11 +10,17 @@ import { PostModule } from './infrastructure/post/post.module';
 import { TimelineModule } from './infrastructure/timeline/timeline.module';
 
 @Module({
-  imports: [AuthUserModule, UserModule, PostModule, TimelineModule, getTypeOrmModule()],
+  imports: [
+    AuthUserModule,
+    UserModule,
+    PostModule,
+    TimelineModule,
+    getTypeOrmModule(),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
 
 function getTypeOrmModule() {
   // --- TypeORMの設定

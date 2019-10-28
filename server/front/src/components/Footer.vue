@@ -1,34 +1,49 @@
 <template>
   <v-app-bar
-    v-if="isLogin()"
+    v-if="isLogin"
     app
     bottom
+    color="black"
   >
     <v-container>
       <v-row justify="space-between">
         <v-btn
-          max-width="90"
-          large
-          color="primary"
+          class="mb-2 mt-2"
+          :color="iconColorUser"
+          small
+          fab
+          dark
           @click="onProfileClick"
         >
-          プロフィール
+          <v-icon large>
+            person_pin
+          </v-icon>
         </v-btn>
+
         <v-btn
-          max-width="50"
-          large
-          color="primary"
-          href="/.."
+          class="mb-2 mt-2"
+          :color="iconColorHome"
+          small
+          fab
+          dark
+          to="/"
         >
-          画像(logo)
+          <v-icon large>
+            home
+          </v-icon>
         </v-btn>
+
         <v-btn
-          max-width="90"
-          large
-          color="primary"
-          href="/timeline"
+          class="mb-2 mt-2"
+          :color="iconColorTimeline"
+          small
+          fab
+          dark
+          to="/timeline"
         >
-          タイムライン
+          <v-icon large>
+            query_builder
+          </v-icon>
         </v-btn>
       </v-row>
     </v-container>
@@ -36,17 +51,52 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
+
 @Component({})
 export default class extends Vue {
-  isLogin() {
-    return CreateLoginInfoApplication().IsLogin();
+  iconColorUser = 'teal';
+  iconColorHome = 'teal';
+  iconColorTimeline = 'teal';
+
+  created() {
+    this.changeIconColor();
+  }
+
+  //Footerのアイコンのカラーをrouteによって変えます
+  changeIconColor() {
+    const currentPage = this.$route.name;
+    this.resetIconColor();
+    switch (currentPage) {
+      case 'timeline':
+        this.iconColorTimeline = 'red';
+        break;
+      case 'top':
+        this.iconColorHome = 'red';
+        break;
+      case 'user':
+        this.iconColorUser = 'red';
+        break;
     }
-    async onProfileClick(){
-      const userId = await CreateUserApplication().GetMyUserId();
-      this.$router.push({name: "user",params: {id: String(userId.id)}});
+  }
+
+  resetIconColor() {
+    this.iconColorUser = 'teal';
+    this.iconColorHome = 'teal';
+    this.iconColorTimeline = 'teal';
+  }
+
+  isLogin = CreateLoginInfoApplication().IsLogin();
+  @Watch('$route')
+  onChangeRoute() {
+    this.isLogin = CreateLoginInfoApplication().IsLogin();
+    this.changeIconColor();
+  }
+  async onProfileClick() {
+    const userId = await CreateUserApplication().GetMyUserId();
+    this.$router.push({ name: 'user', params: { id: String(userId.id) } });
   }
 }
 </script>

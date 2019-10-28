@@ -2,6 +2,6 @@ export class EnvManager {
   private constructor() {}
 
   public static get ApiServerUrl() {
-    return process.env.API_SERVER_URL || 'http://localhost:3000';
+    return process.env.NODE_ENV === "production" ? 'https://oic-sns.herokuapp.com' : 'http://localhost:3000';
   }
 }
