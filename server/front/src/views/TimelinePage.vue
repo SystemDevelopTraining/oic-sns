@@ -81,7 +81,7 @@ export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
-  postBtnColor = 'white';
+  postBtnColor = 'primary';
   postText = '';
   myUserName = '';
 
@@ -118,7 +118,7 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
-    this.postBtnColor = 'white';
+    this.postBtnColor = 'primary';
   }
 }
 </script>
