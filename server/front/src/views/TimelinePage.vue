@@ -100,14 +100,15 @@ export default class extends Vue {
   }
 
   async onClickPost() {
-    const result = await CreatePostApplication().PostOnTimeline({
-      text: this.postText,
-    });
-    if (result.success === false) {
+    try {
+      await CreatePostApplication().PostOnTimeline({
+        text: this.postText,
+      });
+    }catch (e) {
       alert('投稿に失敗しました。');
-    }else {
-      this.hidePostForm();
+      return;
     }
+    this.hidePostForm();
   }
 
   onClickCancel() {
