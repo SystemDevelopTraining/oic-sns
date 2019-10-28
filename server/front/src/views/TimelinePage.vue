@@ -25,7 +25,7 @@
         <v-col class="pb-0">
           <v-row justify="end">
             <v-list-item-avatar
-              size="80"
+              size="60"
               color="grey"
             />
           </v-row>
@@ -81,7 +81,7 @@ export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
   buttonOff = false;
-  postBtnColor = 'white';
+  postBtnColor = 'primary';
   postText = '';
   myUserName = '';
 
@@ -118,7 +118,7 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.showPosts = true;
     this.buttonOff = false;
-    this.postBtnColor = 'white';
+    this.postBtnColor = 'primary';
   }
 }
 </script>
