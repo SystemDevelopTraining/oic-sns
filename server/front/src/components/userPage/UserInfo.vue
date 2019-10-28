@@ -41,6 +41,7 @@
           <v-btn
             v-if="isOtherUser"
             max-width="120"
+            @click="alertWarning"
           >
             フォロー
           </v-btn>
@@ -92,6 +93,10 @@ export default class extends Vue {
 
   onClickFollowList() {
     this.$router.push({ name: 'followList' });
+  }
+
+  alertWarning() {
+    alert(this.user.id);
   }
 }
 </script>
