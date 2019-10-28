@@ -25,7 +25,7 @@
         <v-col class="pb-0">
           <v-row justify="end">
             <v-list-item-avatar
-              size="80"
+              size="60"
               color="grey"
             />
           </v-row>
