@@ -6,9 +6,9 @@ import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { FollowResult } from './response/follow-result';
-import { FollowUserInfo } from './response/follow-user-info';
 import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
+import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
 
 @Injectable()
 export class UserService {
@@ -91,7 +91,7 @@ export class UserService {
   }
 
   //idに合致するユーザのフォローリストを返す
-  async follows(id: number): Promise<FollowUserInfo[]> {
+  async follows(id: number): Promise<FollowUserDto[]> {
     const user = await this.userRepository.findOne(id, {
       relations: ['followings', 'followers'],
     });
