@@ -1,13 +1,14 @@
+import { UserId }from '../domain/user/UserId';
 
+//ユーザーのフォローやアンフォローの処理を担当する
 export class FollowApplication{
 
 
 
 
-// send the information "follow" or "unfollow" to post
-//フォロやアンフォロをポストに送る
-    public postFollowOrUnfollow(){
-
+//フォローやアンフォローをする
+    public FollowOrUnfollow(id: UserId){
+        
     }
      
 

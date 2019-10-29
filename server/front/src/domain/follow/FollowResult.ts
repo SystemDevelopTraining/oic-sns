@@ -1,5 +1,6 @@
 // フォローしたとき:true
-// フォローされたとき:false
+// アンフォローしたとき:false
 export interface FollowResult {
     isFollow: boolean;
-}
+  }
+  
