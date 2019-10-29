@@ -77,4 +77,14 @@ export class ApiClient {
     });
     return response.data;
   }
+
+  //正しいjwtを取得する
+  public async CheckJwt():Promise<boolean>{
+    try {
+      await this.axios.get('auth-user/v1/jwt_check');
+    }catch (error) {
+      return false;
+    }
+    return true;
+  }
 }

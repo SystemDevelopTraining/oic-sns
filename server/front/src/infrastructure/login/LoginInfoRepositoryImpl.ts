@@ -1,11 +1,12 @@
 import { LoginInfoRepository }from '../../domain/login/LoginInfoRepository';
 import Cookies from 'js-cookie';
 import { PwaChecker }from '../../utils/PwaChecker';
+import { ApiClient }from '../httpAdapters/ApiClient';
 
 //LoginInfoRepositoryの実装
 export class LoginInfoRepositoryImpl implements LoginInfoRepository {
   public CheckJwt(): Promise<boolean> {
-    return Promise.resolve(true);
+    return new ApiClient(this.GetJwt()).CheckJwt();
     }
   public GetJwt(): string | undefined {
     if (PwaChecker.isPwa)
