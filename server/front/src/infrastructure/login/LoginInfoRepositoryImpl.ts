@@ -4,6 +4,9 @@ import { PwaChecker }from '../../utils/PwaChecker';
 
 //LoginInfoRepositoryの実装
 export class LoginInfoRepositoryImpl implements LoginInfoRepository {
+  public CheckJwt(): Promise<boolean> {
+    return Promise.resolve(true);
+    }
   public GetJwt(): string | undefined {
     if (PwaChecker.isPwa)
       return localStorage.getItem('jwt') || undefined;
@@ -19,5 +22,8 @@ export class LoginInfoRepositoryImpl implements LoginInfoRepository {
     if (PwaChecker.isPwa)
       return localStorage.getItem('jwt') !== null;
     return Cookies.get('jwt') !== undefined;
+  }
+  public ClearJwt():void{
+    Cookies.remove('jwt');
   }
 }
