@@ -9,6 +9,7 @@ import { UserDto }from '../../domain/user/UserDto';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
 import { CreatePostResult }from '../../domain/post/CreatePostResult';
 import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
+import { FollowResult }from '../../domain/follow/FollowResult';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -86,5 +87,10 @@ export class ApiClient {
       return false;
     }
     return true;
+  }
+
+  //フォローアンフォローリクエストする
+  public async FollowOrUnFollow({id}:UserId):Promise<FollowResult>{
+    return (await this.axios.post("user/v1/follow/" + id)).data;
   }
 }

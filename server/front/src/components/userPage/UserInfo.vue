@@ -41,8 +41,9 @@
           <v-btn
             v-if="isOtherUser"
             max-width="120"
+            @click="onFollowClick"
           >
-            フォロー
+            {{ followText }}
           </v-btn>
         </v-col>
         <v-col>
@@ -61,9 +62,15 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { UserDto }from '~/src/domain/user/UserDto';
+import { AsyncOnce }from '../../utils/AsyncOnce';
+import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
 @Component({})
 export default class extends Vue {
+  asyncOnce = new AsyncOnce();
+
+  followText: 'フォロー' | 'フォロー解除' = 'フォロー';
+
   @Prop({ type: Object, required: true }) user!: UserDto;
 
   get isOtherUser() {
@@ -92,6 +99,17 @@ export default class extends Vue {
 
   onClickFollowList() {
     this.$router.push({ name: 'followList' });
+  }
+
+  onFollowClick() {
+    this.asyncOnce.Do(this.follow);
+  }
+
+  async follow() {
+    const result = await CreateFollowApplication().FollowOrUnfollow(
+      this.user.id,
+    );
+    this.followText = result.isFollow ? 'フォロー解除' : 'フォロー';
   }
 }
 </script>

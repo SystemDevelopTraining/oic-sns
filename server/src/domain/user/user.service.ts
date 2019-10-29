@@ -5,10 +5,10 @@ import { Following } from '../entities/following.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from './user.dto';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { FollowResult } from './response/follow-result';
 import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
 import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
+import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 
 @Injectable()
 export class UserService {
@@ -73,20 +73,23 @@ export class UserService {
     googleProfileId: string,
     targetId: number,
   ): Promise<FollowResult> {
-    const following = new Following();
-    following.followUser = this.userRepository.findOne({ googleProfileId });
-    following.followeeUser = this.userRepository.findOne(targetId);
+    const followUser = await this.userRepository.findOne({
+      googleProfileId,
+    });
+    const followeeUser = await this.userRepository.findOne(targetId);
+    const followings = await this.followingRepository.find({
+      followUserId: followUser.id,
+      followeeUserId: followeeUser.id,
+    });
 
-    if (
-      await this.followingRepository.count({
-        followUser: following.followUser,
-        followeeUser: following.followeeUser,
-      })
-    ) {
-      this.followingRepository.remove(following);
+    if (followings.length !== 0) {
+      await this.followingRepository.remove(followings[0]);
       return { isFollow: false };
     }
-    this.followingRepository.save(following);
+    const following = new Following();
+    following.followUser = Promise.resolve(followUser);
+    following.followeeUser = Promise.resolve(followeeUser);
+    await this.followingRepository.save(following);
     return { isFollow: true };
   }
 

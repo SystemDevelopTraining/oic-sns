@@ -12,10 +12,10 @@ import { UserDto } from '../../domain/user/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
-import { FollowResult } from '../../domain/user/response/follow-result';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
+import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 
 @Controller('user')
 export class UserController {
