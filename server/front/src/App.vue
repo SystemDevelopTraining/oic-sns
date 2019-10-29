@@ -20,7 +20,7 @@ import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
   components: { Footer },
 })
 export default class extends Vue {
-  created() {
+  async created() {
     const jwt = this.$route.query['jwt'];
     const loginApplication = CreateLoginInfoApplication();
     if (typeof jwt === 'string') {
@@ -35,10 +35,7 @@ export default class extends Vue {
     }
     const isLogin = loginApplication.IsLogin();
     if (isLogin === false)this.$router.push({ path: '/' });
-    if (!loginApplication.CheckJwt()) {
-      loginApplication.ClearJwt();
-      this.$router.push({ path: '/' });
-    }
+    if (!(await loginApplication.CheckJwt())) loginApplication.ClearJwt();
   }
 }
 </script>
