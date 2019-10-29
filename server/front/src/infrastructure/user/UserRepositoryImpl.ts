@@ -9,22 +9,21 @@ import { UserDto }from '../../domain/user/UserDto';
 // UserRepositoryの実装
 export class UserRepositoryimpl implements UserRepository {
   public GetUser(userId: UserId): Promise<UserDto> {
-    const apiClient = new ApiClient();
     const jwt = CreateLoginInfoApplication().GetJwt();
-    return apiClient.GetUser(userId,jwt || '');
+    const apiClient = new ApiClient(jwt);
+    return apiClient.GetUser(userId);
   }
   public GetMyUserId(): Promise<UserId> {
-    const apiClient = new ApiClient();
     const jwt = CreateLoginInfoApplication().GetJwt();
-    return apiClient.GetMyUserId(jwt || '');
+    const apiClient = new ApiClient(jwt);
+    return apiClient.GetMyUserId();
   }
   public async MakeUser(makeUserDto: MakeUserDto): Promise<MakeUserResult> {
-    const apiClient = new ApiClient();
     const jwt = CreateLoginInfoApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
     return await apiClient.CreateUser({
       name: makeUserDto.name,
       sex: makeUserDto.sex,
-      jwt: jwt || '',
     });
   }
 }

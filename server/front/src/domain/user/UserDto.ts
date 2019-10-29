@@ -10,4 +10,5 @@ export interface UserDto {
   note: string;
   //自分自身かどうか
   isMyself: boolean;
+  isFollow:boolean;
 }

@@ -20,4 +20,14 @@ export class LoginApplication {
   public SaveJwt(jwt: string): void {
     this.repository.SaveJwt(jwt);
   }
+
+  //Jwtが正しいか確認する関数
+  public CheckJwt():Promise<boolean>{
+    return this.repository.CheckJwt();
+  }
+
+  //Jwtをクリアする関数
+  public ClearJwt():void{
+    this.repository.ClearJwt();
+  }
 }

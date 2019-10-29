@@ -1,25 +1,40 @@
 <template>
-  <div>
-    <h1>Topページ</h1>
-    <div>
-      <v-btn
-        v-if="isNotLogin()"
-        large
-        color="primary"
-        @click="onLogin"
+  <v-container>
+    <v-row>
+      <v-col
+        xl="9"
+        lg="7"
+        md="7"
+        sm="7"
+        cols="6"
       >
-        Login/Signup
-      </v-btn>
-    </div>
+        <h1>OICity</h1>
+      </v-col>
+      <v-col
+        xl="3"
+        lg="5"
+        md="5"
+        sm="5"
+        cols="6"
+        align-self="center"
+        justify-self="end"
+      >
+        <v-img
+          v-if="isNotLogin()"
+          src="google_btn.png"
+          @click="onLogin"
+        />
+      </v-col>
+    </v-row>
     <v-card class="spacing-playground mx-auto my-5 px-5">
-      <v-card-title>I'm a title</v-card-title>
-      <v-card-text>I'm card text</v-card-text>
+      <v-card-title>どんなSNSなのか？</v-card-title>
+      <v-card-text>OIC内のコミュニティの輪の発展を促進するSNS！</v-card-text>
     </v-card>
     <v-card class="spacing-playground mx-auto my-5 px-5">
-      <v-card-title>I'm a title</v-card-title>
-      <v-card-text>I'm card text</v-card-text>
+      <v-card-title>モチベーション</v-card-title>
+      <v-card-text>OICを愛する気持ちで出来ています！</v-card-text>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -43,4 +58,9 @@ export default class extends Vue {
     });
   }
 }
-</script>>
+</script>
+<style scoped>
+h1 {
+  display: inline-block;
+}
+</style>

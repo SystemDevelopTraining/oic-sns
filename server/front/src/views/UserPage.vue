@@ -12,17 +12,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { UserDto }from '../domain/user/UserDto';
 import UserInfo from '../components/userPage/UserInfo.vue';
-import PostList from '../components/PostList.vue';
+import PostList from '../components/post/PostList.vue';
 
 @Component({ components: { UserInfo, PostList } })
 export default class extends Vue {
   user: UserDto | null = null;
 
-  async created() {
+  created() {
+    this.setUser();
+  }
+
+  @Watch('$route')
+  onChangeRoute() {
+    this.setUser();
+  }
+
+  async setUser() {
     this.user = await CreateUserApplication().GetUser({
       id: Number(this.$route.params.id),
     });
