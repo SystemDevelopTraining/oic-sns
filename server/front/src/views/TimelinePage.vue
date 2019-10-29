@@ -76,6 +76,7 @@ import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/PostList.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
+import { AsyncOnce }from '../utils/AsyncOnce';
 @Component({ components: { PostList } })
 export default class extends Vue {
   showPostFormFlag = false;
@@ -84,6 +85,7 @@ export default class extends Vue {
   postBtnColor = 'primary';
   postText = '';
   myUserName = '';
+  asyncOnce = new AsyncOnce();
 
   async created() {
     const userApplication = CreateUserApplication();
@@ -93,13 +95,25 @@ export default class extends Vue {
     this.myUserName = myUser.name;
   }
 
+  //投稿表示のボタンが表示された時の処理
   onClickShowPostForm() {
     this.showPostFormFlag = true;
     this.showPosts = false;
     this.postBtnColor = 'secondary';
   }
 
+  //投稿ボタンが押された時の処理
   async onClickPost() {
+    this.asyncOnce.Do(this.post);
+  }
+
+  //投稿ボタンが押された時の処理
+  onClickCancel() {
+    this.hidePostForm();
+  }
+
+  //投稿をする
+  async post() {
     try {
       await CreatePostApplication().PostOnTimeline({
         text: this.postText,
@@ -111,10 +125,7 @@ export default class extends Vue {
     this.hidePostForm();
   }
 
-  onClickCancel() {
-    this.hidePostForm();
-  }
-
+  //投稿フォームを非表示にする
   hidePostForm() {
     this.showPostFormFlag = false;
     this.showPosts = true;
