@@ -8,7 +8,7 @@ import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto'
 import { FollowResult } from './response/follow-result';
 import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
-import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
+import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 
 @Injectable()
 export class UserService {
@@ -91,7 +91,7 @@ export class UserService {
   }
 
   //idに合致するユーザのフォローリストを返す
-  async follows(id: number): Promise<FollowUserDto[]> {
+  async follows(id: number): Promise<FollowListDto> {
     const user = await this.userRepository.findOne(id, {
       relations: ['followings', 'followers'],
     });
@@ -101,11 +101,13 @@ export class UserService {
       const { id, name } = await x.followeeUser;
       return { name, id };
     });
-    return Promise.all(promiseFollowUserInfos).then(xs =>
-      xs.map(x => {
-        return { name: x.name, id: { id: x.id } };
-      }),
-    );
+    return {
+      followers: await Promise.all(promiseFollowUserInfos).then(xs =>
+        xs.map(x => {
+          return { name: x.name, id: { id: x.id } };
+        }),
+      ),
+    };
   }
 
   async myUserId(googleProfileId: string): Promise<MyUserResponse> {
