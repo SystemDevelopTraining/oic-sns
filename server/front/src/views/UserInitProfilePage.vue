@@ -32,7 +32,7 @@
         large
         width="100"
         :disabled="!valid"
-        @click="register"
+        @click="onClickRegister"
       >
         登録
       </v-btn>
@@ -44,10 +44,13 @@ import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { AsyncOnce }from '../utils/AsyncOnce';
 @Component({})
 export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
+  private asyncOnce = new AsyncOnce();
+
   created() {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
@@ -55,6 +58,11 @@ export default class extends Vue {
 
   nameRules = [(v: string) => !!v || '本名を入力してください'];
   valid = true;
+
+  onClickRegister() {
+    this.asyncOnce.Do(this.register);
+  }
+
   async register() {
     try {
       await CreateUserApplication().MakeUser({
