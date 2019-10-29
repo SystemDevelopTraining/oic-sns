@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import PostList from '../components/PostList.vue';
+import PostList from '../components/post/PostList.vue';
 import PostForm from '../components/post/PostForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
