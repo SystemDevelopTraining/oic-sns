@@ -3,6 +3,7 @@
     v-if="user"
     class="mx-auto"
     outlined
+    @click="onClickShowUserDetails"
   >
     <div
       class="mt-6"
@@ -16,8 +17,8 @@
         <v-col>
           <div class="grid-content">
             <v-avatar
-              color="indigo"
-              size="88"
+              color="grey"
+              size="80"
             >
               <v-icon dark>
                 mdi-account-circle
@@ -31,16 +32,20 @@
       fluid
       class="center"
     >
-      <v-row>名前：{{ name }}</v-row>
-      <v-row>性別：{{ sex }}</v-row>
-      <v-row>学生番号：{{ oicNumber }}</v-row>
-      <v-row>Note：{{ note }}</v-row>
-      <v-row>誕生日：{{ birthday }}</v-row>
+      <v-row
+        justify="center"
+        class="display-1 font-weight-black"
+      >
+        {{ name }}
+      </v-row>
       <v-row>
         <v-col align="right">
           <v-btn
             v-if="isOtherUser"
+            rounded
+            large
             max-width="120"
+            color="#F18D9E"
           >
             フォロー
           </v-btn>
@@ -48,12 +53,29 @@
         <v-col>
           <v-btn
             max-width="120"
+            rounded
+            large
+            color="#F18D9E"
             @click="onClickFollowList"
           >
             フォローリスト
           </v-btn>
         </v-col>
       </v-row>
+      <div v-if="showUserDetails">
+        <v-row justify="center">
+          性別：{{ sex }}
+        </v-row>
+        <v-row justify="center">
+          学生番号：{{ oicNumber }}
+        </v-row>
+        <v-row justify="center">
+          Note：{{ note }}
+        </v-row>
+        <v-row justify="center">
+          誕生日：{{ birthday }}
+        </v-row>
+      </div>
     </v-container>
   </v-card>
 </template>
@@ -64,6 +86,7 @@ import { UserDto }from '~/src/domain/user/UserDto';
 
 @Component({})
 export default class extends Vue {
+  showUserDetails = false;
   @Prop({ type: Object, required: true }) user!: UserDto;
 
   get isOtherUser() {
@@ -92,6 +115,14 @@ export default class extends Vue {
 
   onClickFollowList() {
     this.$router.push({ name: 'followList' });
+  }
+
+  onClickShowUserDetails() {
+    if (this.showUserDetails === true) {
+      this.showUserDetails = false;
+    }else {
+      this.showUserDetails = true;
+    }
   }
 }
 </script>

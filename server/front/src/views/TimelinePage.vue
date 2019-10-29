@@ -5,16 +5,14 @@
   >
     <v-row>
       <v-col>
-        <div>
-          <v-btn
-            block
-            :color="postBtnColor"
-            :disabled="buttonOff"
-            @click="onClickShowPostForm"
-          >
-            投稿
-          </v-btn>
-        </div>
+        <v-btn
+          block
+          :color="postBtnColor"
+          :disabled="buttonOff"
+          @click="onClickShowPostForm"
+        >
+          投稿
+        </v-btn>
       </v-col>
     </v-row>
     <post-form
