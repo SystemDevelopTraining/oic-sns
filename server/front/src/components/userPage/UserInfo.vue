@@ -71,7 +71,7 @@ export default class extends Vue {
 
   @Prop({ type: Object, required: true }) user!: UserDto;
 
-  followText!: 'フォロー' | 'フォロー解除';
+  followText: 'フォロー' | 'フォロー解除' = 'フォロー';
 
   created() {
     this.setFollowText(this.user.isFollow);
