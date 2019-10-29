@@ -69,9 +69,11 @@ import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 export default class extends Vue {
   asyncOnce = new AsyncOnce();
 
-  followText: 'フォロー' | 'フォロー解除' = 'フォロー';
-
   @Prop({ type: Object, required: true }) user!: UserDto;
+
+  followText: 'フォロー' | 'フォロー解除' = this.user.isFollow
+    ? 'フォロー解除'
+    : 'フォロー';
 
   get isOtherUser() {
     return this.user === null ? false : this.user.isMyself === false;

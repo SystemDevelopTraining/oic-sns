@@ -57,7 +57,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async follow(
     @Req() req: Request,
-    @Param('id') id: number,
+    @Param('id') id: string,
   ): Promise<FollowResult> {
     return await this.userService.follow(
       (req.user as JwtPayload).thirdPartyId,
@@ -68,7 +68,13 @@ export class UserController {
   //idに対応するユーザのフォローリストを返す
   @Get('v1/:id/follows')
   @UseGuards(AuthGuard('jwt'))
-  async follows(@Param('id') id: number): Promise<FollowListDto> {
-    return await this.userService.follows(id);
+  async follows(
+    @Req() req: Request,
+    @Param('id') id: number,
+  ): Promise<FollowListDto> {
+    return await this.userService.follows(
+      id,
+      (req.user as JwtPayload).thirdPartyId,
+    );
   }
 }

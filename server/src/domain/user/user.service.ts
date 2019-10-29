@@ -9,6 +9,7 @@ import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
 import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
+import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
 
 @Injectable()
 export class UserService {
@@ -53,6 +54,8 @@ export class UserService {
   //ユーザの検索
   async findById(id: number, googleProfileId: string): Promise<FrontUserDto> {
     const user = await this.userRepository.findOne(id);
+    const myUser = await this.userRepository.findOne({ googleProfileId });
+
     try {
       return {
         id: { id: user.id },
@@ -62,6 +65,11 @@ export class UserService {
         oicNumber: user.oicNumber,
         birthday: user.birthday && user.birthday.toDateString(),
         isMyself: user.googleProfileId === googleProfileId,
+        isFollow:
+          (await this.followingRepository.count({
+            followUserId: myUser.id,
+            followeeUserId: user.id,
+          })) !== 0,
       };
     } catch (e) {
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
@@ -71,11 +79,17 @@ export class UserService {
   //ユーザのフォロー、アンフォロー
   async follow(
     googleProfileId: string,
-    targetId: number,
+    targetId: string,
   ): Promise<FollowResult> {
     const followUser = await this.userRepository.findOne({
       googleProfileId,
     });
+    if (followUser.id === Number(targetId)) {
+      throw new HttpException(
+        '自分自身をフォローできません',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const followeeUser = await this.userRepository.findOne(targetId);
     const followings = await this.followingRepository.find({
       followUserId: followUser.id,
@@ -94,7 +108,11 @@ export class UserService {
   }
 
   //idに合致するユーザのフォローリストを返す
-  async follows(id: number): Promise<FollowListDto> {
+  async follows(id: number, googleProfileId: string): Promise<FollowListDto> {
+    const myUserId = await this.myUserId(googleProfileId);
+    const myUserFollowings = await this.followingRepository.find({
+      followUserId: myUserId.id,
+    });
     const user = await this.userRepository.findOne(id, {
       relations: ['followings', 'followers'],
     });
@@ -106,8 +124,12 @@ export class UserService {
     });
     return {
       followers: await Promise.all(promiseFollowUserInfos).then(xs =>
-        xs.map(x => {
-          return { name: x.name, id: { id: x.id } };
+        xs.map<FollowUserDto>(x => {
+          return {
+            name: x.name,
+            id: { id: x.id },
+            isFollow: myUserFollowings.some(y => y.followeeUserId === x.id),
+          };
         }),
       ),
     };
