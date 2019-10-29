@@ -9,21 +9,24 @@
           cols="auto"
           class="pb-0"
         >
-          <v-btn @click="goToUserPage()">
-            <v-card-title>{{ name }}</v-card-title>
-          </v-btn>
-        </v-col>
-        <v-col class="pb-0">
-          <v-row justify="end">
+          <v-card-title>
             <v-list-item-avatar
-              size="80"
+              size="60"
               color="grey"
             />
-          </v-row>
+            <v-btn
+              outlined
+              @click="goToUserPage()"
+            >
+              {{ name }}
+            </v-btn>
+          </v-card-title>
         </v-col>
       </v-row>
-      <v-row>
-        <v-card-text>{{ postText }}</v-card-text>
+      <v-row class="justify-center">
+        <v-card-text class="headline">
+          {{ postText }}
+        </v-card-text>
         <v-card-text>{{ postDate }}</v-card-text>
       </v-row>
     </v-card>

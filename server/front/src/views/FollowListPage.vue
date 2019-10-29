@@ -15,19 +15,15 @@
       </v-btn>
       <v-toolbar-title>Follow List</v-toolbar-title>
     </v-toolbar>
-
-    <v-list>
-      <follow-user :name="'tanaka'" />
-    </v-list>
+    <FollowList />
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import FollowUser from '../components/FollowUser.vue';
-
+import FollowList from '../components/FollowList/FollowList.vue';
 @Component({
-  components: { FollowUser },
+  components: { FollowList },
 })
 export default class extends Vue {}
 </script>
