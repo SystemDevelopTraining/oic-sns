@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <user-info
       v-if="user"
       :user="user"
@@ -8,7 +8,7 @@
       v-if="user"
       :filter-user-id="user.id"
     />
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">

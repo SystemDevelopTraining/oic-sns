@@ -3,6 +3,7 @@ import { EnvManager }from '../../utils/EnvManager';
 import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
+import { FollowListDto }from '~/src/domain/follow_list/followList.dto';
 import { PostInfos }from '../../domain/post/PostInfos';
 import { UserDto }from '../../domain/user/UserDto';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
@@ -31,15 +32,12 @@ export class ApiClient {
   }
 
   // ユーザーIDからユーザー情報取得する
-  public async GetUser(id: UserId,jwt:string): Promise<UserDto> {
-    return (await this.axios.get(
-      'user/v1/' + id.id,
-      {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
+  public async GetUser(id: UserId, jwt: string): Promise<UserDto> {
+    return (await this.axios.get('user/v1/' + id.id, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
       },
-    )).data;
+    })).data;
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
   public async CreateUser(
@@ -70,23 +68,27 @@ export class ApiClient {
     return response.data;
   }
 
+  public async GetFollowList(id: UserId): Promise<FollowListDto> {
+    return (await this.axios.get('user/v1/' + id.id + '/follows')).data;
+  }
   //最新10件の投稿を返す
-  public async TakeLatestPosts(params:SearchPostParamsDto): Promise<PostInfos[]> {
-    const response = await this.axios.get('timeline/v1/latest',{params});
+  public async TakeLatestPosts(
+    params: SearchPostParamsDto,
+  ): Promise<PostInfos[]> {
+    const response = await this.axios.get('timeline/v1/latest', { params });
     return response.data;
   }
 
   //投稿を生成する
-  public async CreatePost(jwt:string,params:CreatePostParamsDto):Promise<CreatePostResult>{
-    const response = await this.axios.post(
-      'post/v1',
-      params,
-      { 
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        }
-      }
-    );
+  public async CreatePost(
+    jwt: string,
+    params: CreatePostParamsDto,
+  ): Promise<CreatePostResult> {
+    const response = await this.axios.post('post/v1', params, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
     return response.data;
   }
 }

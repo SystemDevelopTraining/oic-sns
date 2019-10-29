@@ -22,6 +22,8 @@ export class PostService {
     const post = new PostItem();
     post.postUser = await this.userRepository.findOne({ googleProfileId });
     post.text = postDto.text;
+    if (postDto.text === '')
+      throw new HttpException('投稿が空です', HttpStatus.BAD_REQUEST);
     try {
       await this.postRepository.save(post);
       return { success: true };
