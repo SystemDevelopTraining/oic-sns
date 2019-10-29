@@ -46,12 +46,7 @@ export class ApiClient {
       {
         name: createUserParams.name,
         sex: createUserParams.sex,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${createUserParams.jwt}`,
-        },
-      },
+      }
     );
     return response.data;
   }

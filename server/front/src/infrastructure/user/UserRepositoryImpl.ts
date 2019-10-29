@@ -19,12 +19,11 @@ export class UserRepositoryimpl implements UserRepository {
     return apiClient.GetMyUserId();
   }
   public async MakeUser(makeUserDto: MakeUserDto): Promise<MakeUserResult> {
-    const apiClient = new ApiClient();
     const jwt = CreateLoginInfoApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
     return await apiClient.CreateUser({
       name: makeUserDto.name,
       sex: makeUserDto.sex,
-      jwt: jwt || '',
     });
   }
 }
