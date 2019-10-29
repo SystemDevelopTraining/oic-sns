@@ -5,6 +5,7 @@
         class="mr-auto"
         color="orange darken-2"
         dark
+        @click="onClickBackFollowList"
       >
         <v-icon
           dark
@@ -25,5 +26,9 @@ import FollowList from '../components/FollowList/FollowList.vue';
 @Component({
   components: { FollowList },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  onClickBackFollowList() {
+    this.$router.push({ name: 'user' });
+  }
+}
 </script>

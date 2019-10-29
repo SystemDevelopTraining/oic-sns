@@ -54,12 +54,14 @@
 import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
+import { AsyncOnce }from '../utils/AsyncOnce';
 
 @Component({})
 export default class extends Vue {
   iconColorUser = 'teal';
   iconColorHome = 'teal';
   iconColorTimeline = 'teal';
+  asyncOnce = new AsyncOnce();
 
   created() {
     this.changeIconColor();
@@ -89,12 +91,18 @@ export default class extends Vue {
   }
 
   isLogin = CreateLoginInfoApplication().IsLogin();
+
   @Watch('$route')
   onChangeRoute() {
     this.isLogin = CreateLoginInfoApplication().IsLogin();
     this.changeIconColor();
   }
-  async onProfileClick() {
+
+  onProfileClick() {
+    this.asyncOnce.Do(this.toProfilePage);
+  }
+
+  async toProfilePage() {
     const userId = await CreateUserApplication().GetMyUserId();
     this.$router.push({ name: 'user', params: { id: String(userId.id) } });
   }
