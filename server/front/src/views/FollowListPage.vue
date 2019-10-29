@@ -27,7 +27,6 @@ import FollowList from '../components/FollowList/FollowList.vue';
   components: { FollowList },
 })
 export default class extends Vue {
-  private name: string = '';
   onClickBackFollowList() {
     this.$router.push({ name: 'user' });
   }
