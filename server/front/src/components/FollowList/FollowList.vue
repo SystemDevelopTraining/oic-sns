@@ -1,7 +1,7 @@
 <template>
   <v-list>
     <FollowUser
-      v-for="follow in followList"
+      v-for="follow in followList.followers"
       :key="follow.id.id"
       :name="follow.name"
     />
@@ -23,8 +23,6 @@ export default class extends Vue {
     this.followList = await CreateFollowListApplication().GetFollowList({
       id: Number(this.$route.params.id),
     });
-    /*eslint no-console: 0*/
-    console.log(this.followList);
   }
 }
 </script>
