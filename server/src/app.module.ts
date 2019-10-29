@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module, CacheInterceptor } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthUserModule } from './infrastructure/auth-user/auth-user.module';
@@ -8,6 +8,7 @@ import * as ormconfig from './infrastructure/config/ormconfig';
 import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
 import { PostModule } from './infrastructure/post/post.module';
 import { TimelineModule } from './infrastructure/timeline/timeline.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -16,9 +17,16 @@ import { TimelineModule } from './infrastructure/timeline/timeline.module';
     PostModule,
     TimelineModule,
     getTypeOrmModule(),
+    CacheModule.register({ ttl: 8, max: 150 }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {}
 

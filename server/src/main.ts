@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import * as compression from 'compression';
 import passport = require('passport');
 
 async function bootstrap() {
@@ -13,6 +14,7 @@ async function bootstrap() {
       max: 75, //1人のユーザのwindowMsあたりのリクエスト数
     }),
   );
+  app.use(compression());
   app.use(helmet());
   app.enableCors({
     origin: ['http://localhost:8080', 'https://oicity.netlify.com'],
