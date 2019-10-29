@@ -1,6 +1,6 @@
 <template>
   <div>
-    <new-post-get-button @click="latestPostGet" />
+    <new-post-get-button @click="onLatestPostGetClick" />
     <post
       v-for="(postInfos,index) in postInfosList"
       :key="index"
@@ -20,9 +20,11 @@ import { PostInfos }from '../../domain/post/PostInfos';
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { CreatePostApplication }from '../../create/CreatePostApplication';
 import { UserId }from '../../domain/user/UserId';
+import { AsyncOnce }from '../../utils/AsyncOnce';
 @Component({ components: { Post, NewPostGetButton } })
 export default class extends Vue {
   @Prop({ type: Object, required: false }) filterUserId: UserId | undefined;
+  asyncOnce = new AsyncOnce();
 
   postInfosList: PostInfos[] = [];
   async created() {
@@ -41,6 +43,10 @@ export default class extends Vue {
       });
       newPostInfosList.forEach(x => this.postInfosList.push(x));
     }
+  }
+
+  onLatestPostGetClick() {
+    this.asyncOnce.Do(this.latestPostGet);
   }
 
   //現在の一番新しい投稿より最新の投稿を取得する
