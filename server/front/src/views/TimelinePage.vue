@@ -89,6 +89,7 @@ export default class extends Vue {
     this.showPosts = true;
     this.buttonOff = false;
     this.postBtnColor = 'primary';
+    this.postText = '';
   }
 }
 </script>
