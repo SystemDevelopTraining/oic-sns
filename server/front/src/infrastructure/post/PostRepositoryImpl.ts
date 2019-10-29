@@ -9,7 +9,7 @@ import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 export class PostRepositoryImpl implements PostRepository {
   public Save(createPostParams: CreatePostParamsDto): Promise<CreatePostResult> {
     const jwt = CreateLoginInfoApplication().GetJwt();
-    return new ApiClient().CreatePost(jwt || '',createPostParams);
+    return new ApiClient(jwt).CreatePost(createPostParams);
   }
 
   public TakeLatest(searchPostParams:SearchPostParamsDto): Promise<PostInfos[]> {

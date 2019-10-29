@@ -14,11 +14,12 @@ import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 export class ApiClient {
   private axios: Axios.AxiosInstance;
 
-  public constructor() {
+  public constructor(jwt?:string) {
     this.axios = Axios.default.create({
       baseURL: EnvManager.ApiServerUrl,
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwt}`,
       },
     });
   }
@@ -32,11 +33,8 @@ export class ApiClient {
   }
 
   // ユーザーIDからユーザー情報取得する
-  public async GetUser(id: UserId, jwt: string): Promise<UserDto> {
+  public async GetUser(id: UserId): Promise<UserDto> {
     return (await this.axios.get('user/v1/' + id.id, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
     })).data;
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
@@ -59,11 +57,8 @@ export class ApiClient {
   }
 
   // jwtから自身のユーザIDを取得する
-  public async GetMyUserId(jwt: string): Promise<UserId> {
+  public async GetMyUserId(): Promise<UserId> {
     const response = await this.axios.get('user/v1/my_user', {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
     });
     return response.data;
   }
@@ -81,13 +76,9 @@ export class ApiClient {
 
   //投稿を生成する
   public async CreatePost(
-    jwt: string,
     params: CreatePostParamsDto,
   ): Promise<CreatePostResult> {
     const response = await this.axios.post('post/v1', params, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
     });
     return response.data;
   }
