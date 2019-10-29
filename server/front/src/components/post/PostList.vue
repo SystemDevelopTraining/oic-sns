@@ -17,7 +17,7 @@
 import Post from './Post.vue';
 import NewPostGetButton from './NewPostGetButton.vue';
 import { PostInfos }from '../../domain/post/PostInfos';
-import { Component, Vue, Prop }from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch }from 'vue-property-decorator';
 import { CreatePostApplication }from '../../create/CreatePostApplication';
 import { UserId }from '../../domain/user/UserId';
 import { AsyncOnce }from '../../utils/AsyncOnce';
@@ -27,7 +27,16 @@ export default class extends Vue {
   asyncOnce = new AsyncOnce();
 
   postInfosList: PostInfos[] = [];
-  async created() {
+  created() {
+    this.setPostInfosList();
+  }
+
+  @Watch('filterUserId')
+  onChangeFilterUserId() {
+    this.setPostInfosList();
+  }
+
+  async setPostInfosList() {
     this.postInfosList = await CreatePostApplication().GetLatestPosts({
       userId: this.filterUserId ? this.filterUserId.id.toString() : undefined,
     });
