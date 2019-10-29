@@ -34,8 +34,14 @@ export default class extends Vue {
       }
     }
     const isLogin = loginApplication.IsLogin();
-    if (!(await loginApplication.CheckJwt())) loginApplication.ClearJwt();
-    if (isLogin === false)this.$router.push({ path: '/' });
+    if (isLogin === false) {
+      this.$router.push({ path: '/' });
+      return;
+    }
+    if (!(await loginApplication.CheckJwt())) {
+      loginApplication.ClearJwt();
+      location.href = '/';
+    }
   }
 }
 </script>
