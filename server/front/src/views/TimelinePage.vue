@@ -17,56 +17,13 @@
         </div>
       </v-col>
     </v-row>
-
-    <!-- 投稿Post レイアウト-->
-    <v-card v-if="showPostFormFlag">
-      <v-card-title>
-        <span class="headline">{{ myUserName }}</span>
-        <v-col class="pb-0">
-          <v-row justify="end">
-            <v-list-item-avatar
-              size="60"
-              color="grey"
-            />
-          </v-row>
-        </v-col>
-      </v-card-title>
-      <v-card-text>
-        <v-container fluid>
-          <v-row>
-            <v-textarea
-              v-model="postText"
-              outlined
-              auto-grow
-              label="投稿を書きましょう！"
-              rows="8"
-              row-height="30"
-              shaped
-            />
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <div class="flex-grow-1" />
-        <v-btn
-          outlined
-          color="red"
-          text
-          @click="onClickCancel"
-        >
-          キャンセル
-        </v-btn>
-        <v-btn
-          outlined
-          color="blue"
-          text
-          @click="onClickPost"
-        >
-          投稿
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-
+    <post-form
+      v-if="showPostFormFlag"
+      v-model="postText"
+      :my-user-name="myUserName"
+      @cancel="onClickCancel"
+      @post="onClickPost"
+    />
     <post-list v-if="showPosts" />
   </v-container>
 </template>
@@ -74,10 +31,11 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/PostList.vue';
+import PostForm from '../components/post/PostForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
-@Component({ components: { PostList } })
+@Component({ components: { PostList, PostForm } })
 export default class extends Vue {
   showPostFormFlag = false;
   showPosts = true;
