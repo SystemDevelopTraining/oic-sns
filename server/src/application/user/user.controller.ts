@@ -15,7 +15,7 @@ import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { FollowResult } from '../../domain/user/response/follow-result';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
+import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 
 @Controller('user')
 export class UserController {
@@ -67,7 +67,7 @@ export class UserController {
 
   //idに対応するユーザのフォローリストを返す
   @Get('v1/:id/follows')
-  async follows(@Param('id') id: number): Promise<FollowUserDto[]> {
+  async follows(@Param('id') id: number): Promise<FollowListDto> {
     return await this.userService.follows(id);
   }
 }

@@ -8,7 +8,6 @@ import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto'
 import { FollowResult } from './response/follow-result';
 import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
-import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
 import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 
 @Injectable()
