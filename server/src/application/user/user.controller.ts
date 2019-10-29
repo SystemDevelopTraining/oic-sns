@@ -67,6 +67,7 @@ export class UserController {
 
   //idに対応するユーザのフォローリストを返す
   @Get('v1/:id/follows')
+  @UseGuards(AuthGuard('jwt'))
   async follows(@Param('id') id: number): Promise<FollowListDto> {
     return await this.userService.follows(id);
   }

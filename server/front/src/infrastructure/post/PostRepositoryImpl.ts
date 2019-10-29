@@ -13,6 +13,7 @@ export class PostRepositoryImpl implements PostRepository {
   }
 
   public TakeLatest(searchPostParams:SearchPostParamsDto): Promise<PostInfos[]> {
-    return new ApiClient().TakeLatestPosts(searchPostParams);
+    const jwt = CreateLoginInfoApplication().GetJwt();
+    return new ApiClient(jwt).TakeLatestPosts(searchPostParams);
   }
 }
