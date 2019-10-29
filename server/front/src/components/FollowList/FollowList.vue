@@ -3,7 +3,7 @@
     <FollowUser
       v-for="follow in followList.followers"
       :key="follow.id.id"
-      :name="follow.name"
+      :follow="follow"
     />
   </v-list>
 </template>
