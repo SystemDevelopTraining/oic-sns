@@ -11,7 +11,7 @@ export class LoginInfoRepositoryImpl implements LoginInfoRepository {
   }
   public SaveJwt(jwt: string): void {
     if (PwaChecker.isPwa)
-      localStorage.setItem('jwt',jwt);    
+      localStorage.setItem('jwt',jwt);
     else
       Cookies.set('jwt', jwt);
   }
