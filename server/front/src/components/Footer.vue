@@ -1,8 +1,8 @@
 <template>
   <v-app-bar
     v-if="isLogin"
-    app
     bottom
+    app
     color="black"
   >
     <v-container>
