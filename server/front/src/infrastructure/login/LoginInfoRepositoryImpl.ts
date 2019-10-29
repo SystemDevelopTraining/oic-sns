@@ -5,8 +5,7 @@ import { PwaChecker }from '../../utils/PwaChecker';
 //LoginInfoRepositoryの実装
 export class LoginInfoRepositoryImpl implements LoginInfoRepository {
   public CheckJwt(): Promise<boolean> {
-    if (Math.floor( Math.random() * 10 ) > 5)return Promise.resolve(true);
-    return Promise.resolve(false);
+    return Promise.resolve(true);
     }
   public GetJwt(): string | undefined {
     if (PwaChecker.isPwa)

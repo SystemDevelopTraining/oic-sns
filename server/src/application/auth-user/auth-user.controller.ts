@@ -27,11 +27,9 @@ export class AuthUserController {
     }
   }
 
-  @Get('v1/protected')
+  @Get('v1/jwt_check')
   @UseGuards(AuthGuard('jwt'))
-  protectedResource(@Req() req: any) {
-    return (
-      'JWT is working! profile_id=' + (req.user as JwtPayload).thirdPartyId
-    );
+  jwtCheck() {
+    return { success: true };
   }
 }
