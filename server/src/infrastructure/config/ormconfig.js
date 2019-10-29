@@ -6,7 +6,7 @@ module.exports = {
   password: process.env.MYSQL_PASSWORD, // DBパスワード
   database: process.env.MYSQL_DATABASE, // DB名
   synchronize: false,
-  logging: false,
+  logging: true,
   entities: ['dist/src/domain/entities/**/*.js'],
   migrations: ['dist/src/infrastructure/db/migrations/**/*.js'],
   cli: {
