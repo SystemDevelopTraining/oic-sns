@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="backgroundImage">
     <v-content>
       <v-container>
         <router-view />
@@ -38,3 +38,4 @@ export default class extends Vue {
   }
 }
 </script>
+
