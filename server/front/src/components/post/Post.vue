@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { PostInfos }from '../domain/post/PostInfos';
+import { PostInfos }from '../../domain/post/PostInfos';
 
 @Component({})
 export default class extends Vue {

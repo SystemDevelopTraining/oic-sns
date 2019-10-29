@@ -16,7 +16,7 @@ import { Component, Vue }from 'vue-property-decorator';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { UserDto }from '../domain/user/UserDto';
 import UserInfo from '../components/userPage/UserInfo.vue';
-import PostList from '../components/PostList.vue';
+import PostList from '../components/post/PostList.vue';
 
 @Component({ components: { UserInfo, PostList } })
 export default class extends Vue {

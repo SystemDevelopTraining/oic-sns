@@ -14,12 +14,12 @@
 </template>
 
 <script lang="ts">
-import Post from '../components/Post.vue';
-import NewPostGetButton from '../components/post/NewPostGetButton.vue';
-import { PostInfos }from '../domain/post/PostInfos';
+import Post from './Post.vue';
+import NewPostGetButton from './NewPostGetButton.vue';
+import { PostInfos }from '../../domain/post/PostInfos';
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { CreatePostApplication }from '../create/CreatePostApplication';
-import { UserId }from '../domain/user/UserId';
+import { CreatePostApplication }from '../../create/CreatePostApplication';
+import { UserId }from '../../domain/user/UserId';
 @Component({ components: { Post, NewPostGetButton } })
 export default class extends Vue {
   @Prop({ type: Object, required: false }) filterUserId: UserId | undefined;
