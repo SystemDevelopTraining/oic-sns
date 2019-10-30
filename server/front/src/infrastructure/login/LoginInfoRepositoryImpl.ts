@@ -25,6 +25,9 @@ export class LoginInfoRepositoryImpl implements LoginInfoRepository {
     return Cookies.get('jwt') !== undefined;
   }
   public ClearJwt():void{
-    Cookies.remove('jwt');
+    if (PwaChecker.isPwa)
+      localStorage.removeItem('jwt');
+    else
+      Cookies.remove('jwt');
   }
 }
