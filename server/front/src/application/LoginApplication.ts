@@ -1,10 +1,19 @@
 import { LoginInfoRepository }from '../domain/login/LoginInfoRepository';
+import { LoginService }from '../domain/login/LoginService';
 
 //ログインに関する機能を提供
 export class LoginApplication {
   private readonly repository: LoginInfoRepository;
-  public constructor(repository: LoginInfoRepository) {
+  private readonly service:LoginService;
+
+  public constructor(repository: LoginInfoRepository,service:LoginService) {
     this.repository = repository;
+    this.service = service;
+  }
+
+  //ログイン処理をする
+  public Login():void{
+    this.service.Login();
   }
 
   //ログイン中かどうかを判定する関数

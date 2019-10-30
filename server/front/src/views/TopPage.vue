@@ -40,8 +40,6 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
-import { EnvManager }from '../utils/EnvManager';
-import { PwaChecker }from '../utils/PwaChecker';
 @Component({})
 export default class extends Vue {
   isNotLogin() {
@@ -49,18 +47,7 @@ export default class extends Vue {
   }
 
   onLogin() {
-    if (PwaChecker.isPwa) {
-      window.open(
-        EnvManager.ApiServerUrl + '/auth-user/v1',
-        'about:blank',
-        '_self',
-      );
-      window.addEventListener('message', e => {
-        this.$router.push({ name: e.data });
-      });
-    }else {
-      location.href = EnvManager.ApiServerUrl + '/auth-user/v1';
-    }
+    return CreateLoginInfoApplication().Login();
   }
 }
 </script>
