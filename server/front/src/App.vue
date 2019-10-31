@@ -5,9 +5,7 @@
         <router-view />
       </v-container>
     </v-content>
-    <div>
-      <Footer />
-    </div>
+    <Footer />
   </v-app>
 </template>
 

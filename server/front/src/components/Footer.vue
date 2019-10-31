@@ -1,8 +1,9 @@
 <template>
   <v-app-bar
     v-if="isLogin"
-    app
+    id="bar"
     bottom
+    app
     color="black"
   >
     <v-container>
@@ -108,3 +109,8 @@ export default class extends Vue {
   }
 }
 </script>
+<style scoped>
+#bar {
+  top: auto;
+}
+</style>
