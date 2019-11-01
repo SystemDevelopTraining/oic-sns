@@ -16,7 +16,7 @@ export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
+  @Column({ length: 25 })
   name: string;
 
   @Column({ type: 'enum', enum: Sex })
@@ -25,7 +25,7 @@ export class User {
   @Column({ length: 5 })
   oicNumber: string;
 
-  @Column()
+  @Column({ length: 6 })
   classNumber: string;
 
   @Column()
