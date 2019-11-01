@@ -57,6 +57,7 @@
             rounded
             large
             color="#F18D9E"
+            href="/user/:id/edit_profile"
           >
             プロフィール編集
           </v-btn>
