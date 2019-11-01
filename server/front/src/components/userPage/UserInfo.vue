@@ -3,6 +3,7 @@
     v-if="user"
     class="mx-auto"
     outlined
+    @click="onClickShowUserDetails"
   >
     <div
       class="mt-6"
@@ -16,8 +17,8 @@
         <v-col>
           <div class="grid-content">
             <v-avatar
-              color="indigo"
-              size="88"
+              color="grey"
+              size="80"
             >
               <v-icon dark>
                 mdi-account-circle
@@ -31,16 +32,20 @@
       fluid
       class="center"
     >
-      <v-row>名前：{{ name }}</v-row>
-      <v-row>性別：{{ sex }}</v-row>
-      <v-row>学生番号：{{ oicNumber }}</v-row>
-      <v-row>Note：{{ note }}</v-row>
-      <v-row>誕生日：{{ birthday }}</v-row>
+      <v-row
+        justify="center"
+        class="display-1 font-weight-black"
+      >
+        {{ name }}
+      </v-row>
       <v-row>
         <v-col align="right">
           <v-btn
             v-if="isOtherUser"
+            rounded
+            large
             max-width="120"
+            color="yellow"
             @click="onFollowClick"
           >
             {{ followText }}
@@ -49,12 +54,30 @@
         <v-col>
           <v-btn
             max-width="120"
+            rounded
+            large
+            color="#F18D9E"
             @click="onClickFollowList"
           >
             フォローリスト
           </v-btn>
         </v-col>
       </v-row>
+      <div v-if="showUserDetails">
+        <v-row justify="center">
+          性別：{{ sex }}
+        </v-row>
+        <v-row justify="center">
+          学生番号：{{ oicNumber }}
+        </v-row>
+
+        <v-row justify="center">
+          誕生日：{{ birthday }}
+        </v-row>
+        <div class="mt-5 text-center">
+          {{ note }}
+        </div>
+      </div>
     </v-container>
   </v-card>
 </template>
@@ -67,6 +90,7 @@ import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
 @Component({})
 export default class extends Vue {
+  showUserDetails = false;
   asyncOnce = new AsyncOnce();
 
   @Prop({ type: Object, required: true }) user!: UserDto;
@@ -112,6 +136,10 @@ export default class extends Vue {
 
   onClickFollowList() {
     this.$router.push({ name: 'followList' });
+  }
+
+  onClickShowUserDetails() {
+    this.showUserDetails = !this.showUserDetails;
   }
 
   onFollowClick() {

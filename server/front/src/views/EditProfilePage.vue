@@ -86,9 +86,7 @@
       </v-row>
     </v-container>
     <v-container fluid>
-      <v-row
-        md="6"
-      >
+      <v-row md="6">
         <v-textarea
           filled
           name="input-7-4"
