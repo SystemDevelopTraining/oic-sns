@@ -69,7 +69,13 @@ export default class extends Vue {
     this.$emit('input', newValue);
   }
 
-  postRule = [(v: string) => !!v || '投稿内容を入力してください。'];
+  postRule = [
+    (v: string) => !!v || '投稿内容を入力してください。',
+    (value: string) => {
+      const pattern = /\S\s*?/;
+      return pattern.test(value) || '空白、改行だけの投稿はできません。';
+    },
+  ];
   valid = true;
 
   onClickCancel() {
