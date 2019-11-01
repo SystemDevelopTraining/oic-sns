@@ -53,6 +53,7 @@
         </v-col>
         <v-col>
           <v-btn
+            v-if="isMyUser"
             max-width="130"
             rounded
             large
@@ -137,6 +138,10 @@ export default class extends Vue {
 
   get isOtherUser() {
     return this.user === null ? false : this.user.isMyself === false;
+  }
+
+  get isMyUser() {
+    return this.user === null ? true : this.user.isMyself === true;
   }
 
   get name() {
