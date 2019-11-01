@@ -10,6 +10,7 @@ import { PostModule } from './infrastructure/post/post.module';
 import { TimelineModule } from './infrastructure/timeline/timeline.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CourseModule } from './infrastructure/course/course.module';
+import { StudySubjectModule } from './infrastructure/study-subject/course.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CourseModule } from './infrastructure/course/course.module';
     PostModule,
     TimelineModule,
     CourseModule,
+    StudySubjectModule,
     getTypeOrmModule(),
     CacheModule.register({ ttl: 8, max: 150 }),
   ],
