@@ -3,7 +3,6 @@ import {
   Entity,
   Column,
   OneToMany,
-  OneToOne,
   ManyToOne,
 } from 'typeorm';
 import { Sex } from '../user/user.sex';
@@ -32,28 +31,26 @@ export class User {
   @Column()
   schoolYear: number;
 
-  @Column()
   @ManyToOne(type => Course, course => course.users)
   courseId: number;
 
-  @Column()
   @ManyToOne(type => StudySubject, studySubject => studySubject.users)
   studySubjectId: number;
 
   @Column({ nullable: true })
   birthday?: Date;
 
-  @Column()
-  license: string;
+  @Column({ default: '' })
+  license: string = '';
 
-  @Column()
-  githubUrl: string;
+  @Column({ default: '' })
+  githubUrl: string = '';
 
-  @Column()
-  twitterUrl: string;
+  @Column({ default: '' })
+  twitterUrl: string = '';
 
-  @Column()
-  homePageUrl: string;
+  @Column({ default: '' })
+  homePageUrl: string = '';
 
   @Column({ length: 200, default: '' })
   note: string = '';

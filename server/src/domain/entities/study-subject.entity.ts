@@ -9,7 +9,6 @@ export class StudySubject {
   @Column()
   name: string;
 
-  @Column()
   @OneToMany(type => User, user => user.studySubjectId)
   users: User[];
 }
