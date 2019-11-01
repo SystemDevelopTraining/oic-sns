@@ -39,33 +39,7 @@
         >
           <v-card-text>{{ postDate }}</v-card-text>
         </v-col>
-
-        <v-col cols="auto">
-          <v-speed-dial direction="left">
-            <template v-slot:activator>
-              <v-btn
-                fab
-                small
-              >
-                <v-icon v-if="fab">
-                  mdi-close
-                </v-icon>
-                <v-icon v-else>
-                  mdi-dots-vertical
-                </v-icon>
-              </v-btn>
-            </template>
-
-            <v-btn
-              fab
-              dark
-              color="red"
-              small
-            >
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </v-speed-dial>
-        </v-col>
+        <post-menu />
       </v-row>
     </v-card>
   </v-row>
@@ -74,9 +48,10 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
+import PostMenu from './PostMenu.vue';
 import Moment from 'moment';
 
-@Component({})
+@Component({ components: { PostMenu } })
 export default class extends Vue {
   @Prop({
     required: true,
