@@ -74,7 +74,7 @@
         <v-row justify="center">
           誕生日：{{ birthday }}
         </v-row>
-        <div class="mt-5 justify-center">
+        <div class="mt-5 text-center">
           {{ note }}
         </div>
       </div>
@@ -139,11 +139,7 @@ export default class extends Vue {
   }
 
   onClickShowUserDetails() {
-    if (this.showUserDetails === true) {
-      this.showUserDetails = false;
-    }else {
-      this.showUserDetails = true;
-    }
+    this.showUserDetails = !this.showUserDetails;
   }
 
   onFollowClick() {
