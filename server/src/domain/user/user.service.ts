@@ -57,7 +57,7 @@ export class UserService {
 
   //ユーザの検索
   async findById(id: number, googleProfileId: string): Promise<FrontUserDto> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne(id, { relations: ["course", "studySubject"] });
     const myUser = await this.userRepository.findOne({ googleProfileId });
 
     try {
@@ -69,6 +69,14 @@ export class UserService {
         oicNumber: user.oicNumber,
         birthday: user.birthday && user.birthday.toDateString(),
         isMyself: user.googleProfileId === googleProfileId,
+        classNumber: user.classNumber,
+        schoolYear: user.schoolYear,
+        license: user.license,
+        course: user.course.name,
+        studySubject: user.studySubject.name,
+        githubUrl: user.githubUrl,
+        twitterUrl: user.twitterUrl,
+        homePageUrl: user.homePageUrl,
         isFollow:
           (await this.followingRepository.count({
             followUserId: myUser.id,
@@ -76,6 +84,7 @@ export class UserService {
           })) !== 0,
       };
     } catch (e) {
+      console.log(e)
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
     }
   }
