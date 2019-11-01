@@ -1,8 +1,8 @@
 import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { PostRepository }from '../domain/post/PostRepository';
 import { CreatePostResult }from '../domain/post/CreatePostResult';
-import { PostInfos }from '../domain/post/PostInfos';
-import { SearchPostParamsDto }from '../domain/post/SearchPostParamsDto';
+import { UserId }from '../domain/user/UserId';
+import { PostInfosList }from '../domain/post/PostInfosList';
 
 //投稿する機能
 export class PostApplication {
@@ -17,8 +17,12 @@ export class PostApplication {
   ): Promise<CreatePostResult> {
     return this.postRepository.Save(createPostParams);
   }
-  //最新の投稿10件を取得する
-  public GetLatestPosts(searchPostParams:SearchPostParamsDto = {}): Promise<PostInfos[]> {
-    return this.postRepository.TakeLatest(searchPostParams);
+
+  //投稿一覧を取得する
+  public async GetPostInfosList(filterUserId?:UserId):Promise< PostInfosList> {
+    const initPostList = await this.postRepository.TakeLatest({ 
+      userId: filterUserId ? filterUserId.id.toString() : undefined,
+    });
+    return new PostInfosList(initPostList,this.postRepository,filterUserId);
   }
 }
