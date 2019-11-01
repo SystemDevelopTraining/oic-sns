@@ -56,8 +56,8 @@ export default class extends Vue {
   }
   get postDate() {
     Moment.locale('ja');
-    const time = Moment().format('LLL');
-    return time;
+    const date = Moment(this.postInfos.postDate).format('LLL');
+    return date;
   }
 
   async goToUserPage() {
