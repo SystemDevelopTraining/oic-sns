@@ -1,5 +1,5 @@
 import { Sex } from './user.sex';
-import { IsNotEmpty, IsIn, MinDate, MaxDate } from 'class-validator';
+import { IsNotEmpty, IsIn, MinDate, MaxDate, IsOptional } from 'class-validator';
 
 
 const maxDate = new Date();
@@ -16,6 +16,7 @@ export class UserDto {
   @IsIn(["男", "女"])
   sex: Sex;
 
+  @IsOptional()
   @MaxDate(maxDate)
   @MinDate(minDate)
   birthday?: Date;
