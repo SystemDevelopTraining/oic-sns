@@ -6,10 +6,14 @@ export class AsyncOnce {
   
     //同時に一度しか実行したくない処理を実行
     public async Do<R>(f: () => R) :Promise<R|undefined>{
-      if (this.onceFlags)return;
+     try { if (this.onceFlags)return;
       this.onceFlags = true;
       const result = await f();
       this.onceFlags = false;
       return result;
+     }catch (e){
+      this.onceFlags = false;
+       throw e;
+     }
     }
   }

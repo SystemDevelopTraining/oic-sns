@@ -12,10 +12,10 @@ import { UserDto } from '../../domain/user/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
-import { FollowResult } from '../../domain/user/response/follow-result';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
+import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 
 @Controller('user')
 export class UserController {
@@ -57,7 +57,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async follow(
     @Req() req: Request,
-    @Param('id') id: number,
+    @Param('id') id: string,
   ): Promise<FollowResult> {
     return await this.userService.follow(
       (req.user as JwtPayload).thirdPartyId,
@@ -67,7 +67,14 @@ export class UserController {
 
   //idに対応するユーザのフォローリストを返す
   @Get('v1/:id/follows')
-  async follows(@Param('id') id: number): Promise<FollowListDto> {
-    return await this.userService.follows(id);
+  @UseGuards(AuthGuard('jwt'))
+  async follows(
+    @Req() req: Request,
+    @Param('id') id: number,
+  ): Promise<FollowListDto> {
+    return await this.userService.follows(
+      id,
+      (req.user as JwtPayload).thirdPartyId,
+    );
   }
 }

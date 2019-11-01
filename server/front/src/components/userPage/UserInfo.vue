@@ -45,9 +45,10 @@
             rounded
             large
             max-width="120"
-            color="#F18D9E"
+            color="yellow"
+            @click="onFollowClick"
           >
-            フォロー
+            {{ followText }}
           </v-btn>
         </v-col>
         <v-col>
@@ -69,25 +70,45 @@
         <v-row justify="center">
           学生番号：{{ oicNumber }}
         </v-row>
-        <v-row justify="center">
-          Note：{{ note }}
-        </v-row>
+
         <v-row justify="center">
           誕生日：{{ birthday }}
         </v-row>
+        <div class="mt-5 justify-center">
+          {{ note }}
+        </div>
       </div>
     </v-container>
   </v-card>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop }from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch }from 'vue-property-decorator';
 import { UserDto }from '~/src/domain/user/UserDto';
+import { AsyncOnce }from '../../utils/AsyncOnce';
+import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
 @Component({})
 export default class extends Vue {
   showUserDetails = false;
+  asyncOnce = new AsyncOnce();
+
   @Prop({ type: Object, required: true }) user!: UserDto;
+
+  followText: 'フォロー' | 'フォロー解除' = 'フォロー';
+
+  created() {
+    this.setFollowText(this.user.isFollow);
+  }
+
+  @Watch('user')
+  async onChangeUser() {
+    this.setFollowText(this.user.isFollow);
+  }
+
+  setFollowText(isFollow: boolean) {
+    this.followText = isFollow ? 'フォロー解除' : 'フォロー';
+  }
 
   get isOtherUser() {
     return this.user === null ? false : this.user.isMyself === false;
@@ -123,6 +144,17 @@ export default class extends Vue {
     }else {
       this.showUserDetails = true;
     }
+  }
+
+  onFollowClick() {
+    this.asyncOnce.Do(this.follow);
+  }
+
+  async follow() {
+    const result = await CreateFollowApplication().FollowOrUnfollow(
+      this.user.id,
+    );
+    this.setFollowText(result.isFollow);
   }
 }
 </script>
