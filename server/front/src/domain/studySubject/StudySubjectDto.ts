@@ -1,4 +1,4 @@
-import { StudySubjectId } from './StudySubjectId';
+import { StudySubjectId }from './StudySubjectId';
 
 //学科の情報
 export interface StudySubjectDto {
