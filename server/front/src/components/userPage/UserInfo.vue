@@ -42,10 +42,10 @@
         <v-col align="right">
           <v-btn
             v-if="isOtherUser"
-            rounded
             large
+            rounded
             max-width="120"
-            color="yellow"
+            :color="followBtnColor"
             @click="onFollowClick"
           >
             {{ followText }}
@@ -67,7 +67,7 @@
             max-width="120"
             rounded
             large
-            color="#F18D9E"
+            color="yellow"
             @click="onClickFollowList"
           >
             フォローリスト
@@ -75,16 +75,24 @@
         </v-col>
       </v-row>
       <div v-if="showUserDetails">
-        <v-row justify="center">
-          性別：{{ sex }}
-        </v-row>
-        <v-row justify="center">
-          学生番号：{{ oicNumber }}
-        </v-row>
+        <div class="text-center">
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学籍番号：{{ oicNumber }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            {{ birthday }}
+          </v-chip>
+          <v-chip label>
+            {{ sex }}
+          </v-chip>
+        </div>
 
-        <v-row justify="center">
-          誕生日：{{ birthday }}
-        </v-row>
         <div class="mt-5 text-center">
           {{ note }}
         </div>
@@ -102,6 +110,7 @@ import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 @Component({})
 export default class extends Vue {
   showUserDetails = false;
+  followBtnColor = 'yellow';
   asyncOnce = new AsyncOnce();
 
   @Prop({ type: Object, required: true }) user!: UserDto;
@@ -119,6 +128,11 @@ export default class extends Vue {
 
   setFollowText(isFollow: boolean) {
     this.followText = isFollow ? 'フォロー解除' : 'フォロー';
+    if (this.followText === 'フォロー解除') {
+      this.followBtnColor = 'red';
+    }else {
+      this.followBtnColor = 'yellow';
+    }
   }
 
   get isOtherUser() {
@@ -161,6 +175,7 @@ export default class extends Vue {
     const result = await CreateFollowApplication().FollowOrUnfollow(
       this.user.id,
     );
+
     this.setFollowText(result.isFollow);
   }
   editProfileClick() {
