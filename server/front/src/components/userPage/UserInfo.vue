@@ -53,6 +53,16 @@
         </v-col>
         <v-col>
           <v-btn
+            max-width="130"
+            rounded
+            large
+            color="#F18D9E"
+          >
+            プロフィール編集
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn
             max-width="120"
             rounded
             large
