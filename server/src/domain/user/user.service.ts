@@ -20,7 +20,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) {}
+  ) { }
 
   //ユーザ作成
   async create(userDto: UserDto, googleProfileId: string): Promise<User> {
@@ -28,6 +28,10 @@ export class UserService {
     user.name = userDto.name;
     user.note = userDto.note;
     user.sex = userDto.sex;
+    user.classNumber = "2A23KS";
+    user.schoolYear = 1;
+    user.studySubjectId = 1;
+    user.courseId = 1;
     user.oicNumber = this.googleProfilesRepository
       .getProfile(googleProfileId)
       .emails[0].value.substr(0, 5);
