@@ -57,7 +57,7 @@
             rounded
             large
             color="#F18D9E"
-            href="/user/:id/edit_profile"
+            @click="editProfileClick"
           >
             プロフィール編集
           </v-btn>
@@ -162,6 +162,9 @@ export default class extends Vue {
       this.user.id,
     );
     this.setFollowText(result.isFollow);
+  }
+  editProfileClick() {
+    this.$router.push({ name: 'editProfile' });
   }
 }
 </script>
