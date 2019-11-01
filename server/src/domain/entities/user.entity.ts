@@ -4,6 +4,7 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Sex } from '../user/user.sex';
 import { Following } from './following.entity';
@@ -31,11 +32,19 @@ export class User {
   @Column()
   schoolYear: number;
 
-  @ManyToOne(type => Course, course => course.users)
+  @Column()
   courseId: number;
 
-  @ManyToOne(type => StudySubject, studySubject => studySubject.users)
+  @Column()
   studySubjectId: number;
+
+  @ManyToOne(type => Course, course => course.users)
+  @JoinColumn({ name: 'courseId' })
+  course: number;
+
+  @ManyToOne(type => StudySubject, studySubject => studySubject.users)
+  @JoinColumn({ name: 'studySubjectId' })
+  studySubject: number;
 
   @Column({ nullable: true })
   birthday?: Date;
