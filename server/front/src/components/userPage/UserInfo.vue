@@ -53,6 +53,17 @@
         </v-col>
         <v-col>
           <v-btn
+            max-width="130"
+            rounded
+            large
+            color="#F18D9E"
+            @click="editProfileClick"
+          >
+            プロフィール編集
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn
             max-width="120"
             rounded
             large
@@ -151,6 +162,9 @@ export default class extends Vue {
       this.user.id,
     );
     this.setFollowText(result.isFollow);
+  }
+  editProfileClick() {
+    this.$router.push({ name: 'editProfile' });
   }
 }
 </script>
