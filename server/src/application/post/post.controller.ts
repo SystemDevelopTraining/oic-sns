@@ -3,8 +3,8 @@ import { PostService } from '../../domain/post/service/post.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
-import { CreatePostParamsDto } from '../../../front/src/domain/post/CreatePostParamsDto';
 import { CreatePostResult } from '../../../front/src/domain/post/CreatePostResult';
+import { PostDto } from '../../domain/post/post.dto';
 
 @Controller('post')
 export class PostController {
@@ -12,7 +12,7 @@ export class PostController {
   @Post('v1')
   @UseGuards(AuthGuard('jwt'))
   async post(
-    @Body() postDto: CreatePostParamsDto,
+    @Body() postDto: PostDto,
     @Req() req: Request,
   ): Promise<CreatePostResult> {
     return await this.postService.create(

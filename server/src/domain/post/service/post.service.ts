@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CreatePostResult } from '../../../../front/src/domain/post/CreatePostResult';
-import { CreatePostParamsDto } from '../../../../front/src/domain/post/CreatePostParamsDto';
+import { PostDto } from '../post.dto';
 
 @Injectable()
 export class PostService {
@@ -16,7 +16,7 @@ export class PostService {
   ) { }
 
   async create(
-    postDto: CreatePostParamsDto,
+    postDto: PostDto,
     googleProfileId: string,
   ): Promise<CreatePostResult> {
     const post = new PostItem();
