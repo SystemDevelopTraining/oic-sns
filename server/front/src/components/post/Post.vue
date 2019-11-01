@@ -25,7 +25,13 @@
       </v-row>
       <v-row class="justify-center">
         <v-card-text class="headline">
-          {{ postText }}
+          <div
+            v-for="postText in postTexts"
+            :key="postText"
+          >
+            {{ postText }}
+            <br>
+          </div>
         </v-card-text>
         <v-card-text>{{ postDate }}</v-card-text>
       </v-row>
@@ -48,8 +54,8 @@ export default class extends Vue {
   get name() {
     return this.postInfos.userName;
   }
-  get postText() {
-    return this.postInfos.postText;
+  get postTexts() {
+    return this.postInfos.postText.split('\n');
   }
   get postDate() {
     return this.postInfos.postDate;
