@@ -19,12 +19,44 @@
         v-model="name"
         label="本名"
         :rules="nameRules"
-        required
+        counter="25"
       />
       <v-select
         v-model="sex"
+        :rules="requiredRules"
         label="性別"
         :items="['男','女']"
+      />
+      <v-select
+        v-model="subject"
+        :rules="requiredRules"
+        label="学科"
+        :items="[
+          '総合情報メディア学科','情報システム開発学科',
+          '情報処理学科','ITテクニカル学科',
+          'ITビジネス学科','総合情報メディア学科',
+          'メディアクリエイト学科','メディアデザイン学科',
+          'メディアクリエイト学科','メディアデザイン学科'
+        ]"
+        required
+      />
+      <v-select
+        v-model="course"
+        :rules="requiredRules"
+        label="専攻"
+        :items="['A','B']"
+      />
+      <v-select
+        v-model="schoolYear"
+        :rules="requiredRules"
+        label="学年"
+        :items="['1年','2年','3年','4年']"
+      />
+      <v-text-field
+        v-model="classNumber"
+        label="クラス番号"
+        :rules="classNumberRules"
+        counter="6"
       />
     </v-form>
     <div class="mt-auto pa-3">
@@ -49,6 +81,10 @@ import { AsyncOnce }from '../utils/AsyncOnce';
 export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
+  private subject: string = '';
+  private course: string = '';
+  private schoolYear: number = 0;
+  private classNumber: string = '';
   private asyncOnce = new AsyncOnce();
 
   created() {
@@ -56,7 +92,25 @@ export default class extends Vue {
     if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
   }
 
-  nameRules = [(v: string) => !!v || '本名を入力してください'];
+  nameRules = [
+    (v: string) => !!v || '本名を入力してください',
+    (v: string) => v.length <= 25 || '25文字以内で入力してください',
+    (v: string) => {
+      const pattern = /^\S/;
+      return pattern.test(v) || '正しい本名を入力してください';
+    },
+  ];
+  requiredRules = [(v: string) => !!v || '選択してください'];
+
+  classNumberRules = [
+    (v: string) => !!v || 'クラス番号を入力してください',
+    (v: string) => v.length <= 6 || '6文字以内で入力してください',
+    (v: string) => {
+      const pattern = /^[1-4][A-Z][0-9]{2}[A-Z]{2}/;
+      return pattern.test(v) || '正しいクラス番号を入力してください';
+    },
+  ];
+
   valid = true;
 
   onClickRegister() {
