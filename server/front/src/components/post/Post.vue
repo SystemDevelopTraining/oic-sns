@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
+import Moment from 'moment';
 
 @Component({})
 export default class extends Vue {
@@ -64,7 +65,9 @@ export default class extends Vue {
     return this.postInfos.postText.split('\n');
   }
   get postDate() {
-    return this.postInfos.postDate;
+    Moment.locale('ja');
+    const date = Moment(this.postInfos.postDate).format('LLL');
+    return date;
   }
 
   async goToUserPage() {
