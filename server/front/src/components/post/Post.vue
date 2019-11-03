@@ -33,8 +33,6 @@
   </v-row>
 </template>
 
-
-
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
