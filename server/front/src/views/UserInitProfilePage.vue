@@ -41,13 +41,13 @@
         required
       />
       <v-select
-        v-model="major"
+        v-model="course"
         :rules="requiredRules"
         label="専攻"
         :items="['A','B']"
       />
       <v-select
-        v-model="grade"
+        v-model="schoolYear"
         :rules="requiredRules"
         label="学年"
         :items="['1年','2年','3年','4年']"
@@ -82,8 +82,8 @@ export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
   private subject: string = '';
-  private major: string = '';
-  private grade: number = 0;
+  private course: string = '';
+  private schoolYear: number = 0;
   private classNumber: string = '';
   private asyncOnce = new AsyncOnce();
 
@@ -95,9 +95,9 @@ export default class extends Vue {
   nameRules = [
     (v: string) => !!v || '本名を入力してください',
     (v: string) => v.length <= 25 || '25文字以内で入力してください',
-    (value: string) => {
+    (v: string) => {
       const pattern = /^\S/;
-      return pattern.test(value) || '正しい本名を入力してください';
+      return pattern.test(v) || '正しい本名を入力してください';
     },
   ];
   requiredRules = [(v: string) => !!v || '選択してください'];
@@ -105,9 +105,9 @@ export default class extends Vue {
   classNumberRules = [
     (v: string) => !!v || 'クラス番号を入力してください',
     (v: string) => v.length <= 6 || '6文字以内で入力してください',
-    (value: string) => {
+    (v: string) => {
       const pattern = /^[1-4][A-Z][0-9]{2}[A-Z]{2}/;
-      return pattern.test(value) || '正しいクラス番号を入力してください';
+      return pattern.test(v) || '正しいクラス番号を入力してください';
     },
   ];
 
