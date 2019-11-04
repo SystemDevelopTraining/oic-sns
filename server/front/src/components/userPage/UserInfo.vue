@@ -87,10 +87,26 @@
             class="ma-2"
             label
           >
-            {{ birthday }}
+            生年月日: {{ birthday }}
           </v-chip>
           <v-chip label>
-            {{ sex }}
+            性別: {{ sex }}
+          </v-chip>
+          <v-chip label>
+            資格: {{ lisense }}
+          </v-chip>
+          <v-chip label>
+            クラス番号: {{ classNumber }}
+            学年: {{ schoolYear }}
+          </v-chip>
+          <v-chip label>
+            学科: {{ studySubject }}
+            専攻: {{ course }}
+          </v-chip>
+          <v-chip label>
+            マイホームページ: {{ homePageUrl }}
+            GitHub URL: {{ githubUrl }}
+            Twitter URL: {{ twitterUrl }}
           </v-chip>
         </div>
 
@@ -162,6 +178,30 @@ export default class extends Vue {
 
   get oicNumber() {
     return this.user === null ? '' : this.user.oicNumber;
+  }
+  get classNumber() {
+    return '3B31KS';
+  }
+  get schoolYear() {
+    return '3年';
+  }
+  get lisense() {
+    return 'NONE';
+  }
+  get homePageUrl() {
+    return 'homePageUrl';
+  }
+  get githubUrl() {
+    return 'https://github.com/LeoMinhKhanh';
+  }
+  get twitterUrl() {
+    return 'twitterUrl';
+  }
+  get studySubject() {
+    return '開発学科';
+  }
+  get course() {
+    return 'システムエンジニア専攻';
   }
 
   onClickFollowList() {
