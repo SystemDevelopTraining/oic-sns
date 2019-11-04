@@ -53,15 +53,10 @@ import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication'
 
 @Component({})
 export default class extends Vue {
+  dialog = false;
   onLogoutClick() {
     CreateLoginInfoApplication().ClearJwt();
     location.href = '/';
-  }
-
-  data() {
-    return {
-      dialog: false,
-    };
   }
 }
 </script>
