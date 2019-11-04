@@ -11,8 +11,8 @@
           dark
           left
         >
-          mdi-arrow-left
-        </v-icon>Back
+          home
+        </v-icon>
       </v-btn>
       <v-toolbar-title>Follow List</v-toolbar-title>
     </v-toolbar>
