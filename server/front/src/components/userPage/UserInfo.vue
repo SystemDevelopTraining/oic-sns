@@ -5,17 +5,7 @@
     outlined
     @click="onClickShowUserDetails"
   >
-    <v-btn
-      color="pink"
-      dark
-      small
-      fixed
-      top
-      right
-      fab
-    >
-      <v-icon>settings_power</v-icon>
-    </v-btn>
+    <logout-btn />
     <div
       class="mt-6"
       align="center"
@@ -119,7 +109,9 @@ import { UserDto }from '~/src/domain/user/UserDto';
 import { AsyncOnce }from '../../utils/AsyncOnce';
 import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
-@Component({})
+import LogoutBtn from '../LogoutBtn.vue';
+
+@Component({ components: { LogoutBtn } })
 export default class extends Vue {
   showUserDetails = false;
   followBtnColor = 'yellow';
