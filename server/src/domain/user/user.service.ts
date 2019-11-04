@@ -84,7 +84,6 @@ export class UserService {
           })) !== 0,
       };
     } catch (e) {
-      console.log(e)
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
     }
   }
