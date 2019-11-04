@@ -5,6 +5,17 @@
     outlined
     @click="onClickShowUserDetails"
   >
+    <v-btn
+      color="pink"
+      dark
+      small
+      fixed
+      top
+      right
+      fab
+    >
+      <v-icon>settings_power</v-icon>
+    </v-btn>
     <div
       class="mt-6"
       align="center"
