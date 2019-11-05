@@ -90,24 +90,59 @@
           >
             生年月日: {{ birthday }}
           </v-chip>
-          <v-chip label>
+          <v-chip
+            class="ma-2"
+            label
+          >
             性別: {{ sex }}
           </v-chip>
-          <v-chip label>
+          <v-chip
+            class="ma-2"
+            label
+          >
             資格: {{ lisense }}
           </v-chip>
-          <v-chip label>
-            クラス番号: {{ classNumber }}
+          <v-chip
+            class="ma-2"
+            label
+          >
             学年: {{ schoolYear }}
           </v-chip>
-          <v-chip label>
-            学科: {{ studySubject }}
-            専攻: {{ course }}
+          <v-chip
+            class="ma-2"
+            label
+          >
+            クラス番号: {{ classNumber }}
           </v-chip>
-          <v-chip label>
-            マイホームページ: {{ homePageUrl }}
-            GitHub URL: {{ githubUrl }}
-            Twitter URL: {{ twitterUrl }}
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学科: {{ studySubject }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            専攻:{{ course }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="homePageUrl">マイホームページ: {{ homePageUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="twitterUrl">Twitter URL: {{ twitterUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="githubUrl">GitHub URL: {{ githubUrl }}</a>
           </v-chip>
         </div>
 
@@ -183,28 +218,28 @@ export default class extends Vue {
     return this.user === null ? '' : this.user.oicNumber;
   }
   get classNumber() {
-    return '3B31KS';
+    return this.user === null ? '' : this.user.classNumber;
   }
   get schoolYear() {
-    return '3年';
+    return this.user === null ? '' : this.user.schoolYear;
   }
   get lisense() {
-    return 'NONE';
+    return this.user === null ? '' : this.user.license;
   }
   get homePageUrl() {
-    return 'homePageUrl';
+    return this.user === null ? '' : this.user.homePageUrl;
   }
   get githubUrl() {
-    return 'https://github.com/LeoMinhKhanh';
+    return this.user === null ? '' : this.user.githubUrl;
   }
   get twitterUrl() {
-    return 'twitterUrl';
+    return this.user === null ? '' : this.user.twitterUrl;
   }
   get studySubject() {
-    return '開発学科';
+    return this.user === null ? '' : this.user.studySubject;
   }
   get course() {
-    return 'システムエンジニア専攻';
+    return this.user === null ? '' : this.user.course;
   }
 
   onClickFollowList() {
