@@ -53,6 +53,12 @@ export default class extends Vue {
   postText = '';
   myUserName = '';
   asyncOnce = new AsyncOnce();
+  selectedType = { label: 'フォロー中', value: 'follow' };
+  types = [
+    { label: 'フォロー中', value: 'follow' },
+    { label: '全て', value: 'all' },
+    { label: '開発', value: 'develop' },
+  ];
 
   async created() {
     const userApplication = CreateUserApplication();
@@ -99,16 +105,6 @@ export default class extends Vue {
     this.buttonOff = false;
     this.postBtnColor = 'primary';
     this.postText = '';
-  }
-  data() {
-    return {
-      selectedType: { label: 'フォロー中', value: 'follow' },
-      types: [
-        { label: 'フォロー中', value: 'follow' },
-        { label: '全て', value: 'all' },
-        { label: '開発', value: 'develop' },
-      ],
-    };
   }
 }
 </script>
