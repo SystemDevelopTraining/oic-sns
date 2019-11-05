@@ -22,58 +22,8 @@
             </v-btn>
           </v-card-title>
         </v-col>
-
-        <v-speed-dial
-          v-model="fab"
-          :bottom="bottom"
-          :right="right"
-          :left="left"
-          :direction="direction"
-          :open-on-hover="hover"
-          :transition="transition"
-        >
-          <template v-slot:activator>
-            <v-btn
-              v-model="fab"
-              color="blue darken-2"
-              dark
-              fab
-            >
-              <v-icon v-if="fab">
-                mdi-close
-              </v-icon>
-              <v-icon v-else>
-                mdi-account-circle
-              </v-icon>
-            </v-btn>
-          </template>
-          <v-btn
-            fab
-            dark
-            small
-            color="green"
-          >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-          <v-btn
-            fab
-            dark
-            small
-            color="indigo"
-          >
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <v-btn
-            fab
-            dark
-            small
-            color="red"
-          >
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-speed-dial>
       </v-row>
-      <v-row class="justify-center">
+      <v-row class="justify-end">
         <v-card-text class="headline">
           <div
             v-for="postText in postTexts"
@@ -83,7 +33,39 @@
             <br>
           </div>
         </v-card-text>
-        <v-card-text>{{ postDate }}</v-card-text>
+        <v-col
+          cols="auto"
+          class="mr-auto"
+        >
+          <v-card-text>{{ postDate }}</v-card-text>
+        </v-col>
+
+        <v-col cols="auto">
+          <v-speed-dial direction="left">
+            <template v-slot:activator>
+              <v-btn
+                fab
+                small
+              >
+                <v-icon v-if="fab">
+                  mdi-close
+                </v-icon>
+                <v-icon v-else>
+                  mdi-dots-vertical
+                </v-icon>
+              </v-btn>
+            </template>
+
+            <v-btn
+              fab
+              dark
+              color="red"
+              small
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-speed-dial>
+        </v-col>
       </v-row>
     </v-card>
   </v-row>
