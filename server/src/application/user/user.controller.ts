@@ -8,7 +8,7 @@ import {
   UseGuards,
   Delete,
 } from '@nestjs/common';
-import { UserService } from '../../domain/user/user.service';
+import { UserService } from '../../domain/user/service/user.service';
 import { UserDto } from '../../domain/user/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';

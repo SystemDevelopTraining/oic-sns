@@ -1,15 +1,15 @@
 import { Injectable, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Following } from '../entities/following.entity';
+import { User } from '../../entities/user.entity';
+import { Following } from '../../entities/following.entity';
 import { Repository } from 'typeorm';
-import { UserDto } from './user.dto';
-import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { MyUserResponse } from './response/my-user-responcse';
-import { GoogleProfilesRepository } from '../google-profiles.repository';
-import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
-import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
-import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
+import { UserDto } from '../user.dto';
+import { UserDto as FrontUserDto } from '../../../../front/src/domain/user/UserDto';
+import { MyUserResponse } from '../response/my-user-responcse';
+import { GoogleProfilesRepository } from '../../google-profiles.repository';
+import { FollowListDto } from '../../../../front/src/domain/follow_list/followList.dto';
+import { FollowResult } from '../../../../front/src/domain/follow/FollowResult';
+import { FollowUserDto } from '../../../../front/src/domain/follow_list/followUser.dto';
 
 @Injectable()
 export class UserService {
