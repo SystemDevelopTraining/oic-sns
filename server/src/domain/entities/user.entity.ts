@@ -40,11 +40,11 @@ export class User {
 
   @ManyToOne(type => Course, course => course.users)
   @JoinColumn({ name: 'courseId' })
-  course: number;
+  course: Course;
 
   @ManyToOne(type => StudySubject, studySubject => studySubject.users)
   @JoinColumn({ name: 'studySubjectId' })
-  studySubject: number;
+  studySubject: StudySubject;
 
   @Column({ nullable: true })
   birthday?: Date;
