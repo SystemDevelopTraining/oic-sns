@@ -1,12 +1,12 @@
-import { LoginInfoRepository }from '../domain/login/LoginInfoRepository';
+import { LoginRepository }from '../domain/login/LoginRepository';
 import { LoginService }from '../domain/login/LoginService';
 
 //ログインに関する機能を提供
 export class LoginApplication {
-  private readonly repository: LoginInfoRepository;
+  private readonly repository: LoginRepository;
   private readonly service:LoginService;
 
-  public constructor(repository: LoginInfoRepository,service:LoginService) {
+  public constructor(repository: LoginRepository,service:LoginService) {
     this.repository = repository;
     this.service = service;
   }

@@ -7,9 +7,9 @@ import { UserDto } from './user.dto';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { MyUserResponse } from './response/my-user-responcse';
 import { GoogleProfilesRepository } from '../google-profiles.repository';
-import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
-import { FollowUserDto } from '../../../front/src/domain/follow_list/followUser.dto';
+import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
+import { FollowUserDto } from '../../../front/src/domain/followList/followUserDto';
 
 @Injectable()
 export class UserService {

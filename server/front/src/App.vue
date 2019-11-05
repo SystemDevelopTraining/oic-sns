@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import Footer from './components/Footer.vue';
-import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from './create/CreateLoginApplication';
 
 @Component({
   components: { Footer },
@@ -20,7 +20,7 @@ import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
 export default class extends Vue {
   async created() {
     const jwt = this.$route.query['jwt'];
-    const loginApplication = CreateLoginInfoApplication();
+    const loginApplication = CreateLoginApplication();
     if (typeof jwt === 'string') {
       const query = Object.assign({}, this.$route.query);
       loginApplication.SaveJwt(jwt);
