@@ -49,13 +49,13 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from '../create/CreateLoginApplication';
 
 @Component({})
 export default class extends Vue {
   dialog = false;
   onLogoutClick() {
-    CreateLoginInfoApplication().ClearJwt();
+    CreateLoginApplication().ClearJwt();
     location.href = '/';
   }
 }

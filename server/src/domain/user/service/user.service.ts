@@ -1,15 +1,15 @@
 import { Injectable, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Following } from '../entities/following.entity';
+import { User } from '../../entities/user.entity';
+import { Following } from '../../entities/following.entity';
 import { Repository } from 'typeorm';
-import { UserDto } from './user.dto';
-import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { MyUserResponse } from './response/my-user-responcse';
-import { GoogleProfilesRepository } from '../google-profiles.repository';
-import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
-import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
-import { FollowUserDto } from '../../../front/src/domain/followList/followUserDto';
+import { UserDto } from '../user.dto';
+import { UserDto as FrontUserDto } from '../../../../front/src/domain/user/UserDto';
+import { MyUserResponse } from '../response/my-user-responcse';
+import { GoogleProfilesRepository } from '../../google-profiles.repository';
+import { FollowResult } from '../../../../front/src/domain/follow/FollowResult';
+import { FollowListDto } from '../../../../front/src/domain/followList/followListDto';
+import { FollowUserDto } from '../../../../front/src/domain/followList/followUserDto';
 
 @Injectable()
 export class UserService {
@@ -86,6 +86,12 @@ export class UserService {
     } catch (e) {
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
     }
+  }
+
+  //ユーザ削除
+  async deleteMyUser(googleProfileId: string) {
+    await this.userRepository.delete({ googleProfileId })
+    return { success: true };
   }
 
   //ユーザのフォロー、アンフォロー

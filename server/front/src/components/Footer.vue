@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch }from 'vue-property-decorator';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from '../create/CreateLoginApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 
@@ -91,11 +91,11 @@ export default class extends Vue {
     this.iconColorTimeline = 'teal';
   }
 
-  isLogin = CreateLoginInfoApplication().IsLogin();
+  isLogin = CreateLoginApplication().IsLogin();
 
   @Watch('$route')
   onChangeRoute() {
-    this.isLogin = CreateLoginInfoApplication().IsLogin();
+    this.isLogin = CreateLoginApplication().IsLogin();
     this.changeIconColor();
   }
 

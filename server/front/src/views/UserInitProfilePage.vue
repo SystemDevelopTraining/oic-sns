@@ -75,7 +75,7 @@
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from '../create/CreateLoginApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 @Component({})
 export default class extends Vue {
@@ -89,7 +89,7 @@ export default class extends Vue {
 
   created() {
     const jwt = this.$route.query['jwt'];
-    if (typeof jwt === 'string') CreateLoginInfoApplication().SaveJwt(jwt);
+    if (typeof jwt === 'string') CreateLoginApplication().SaveJwt(jwt);
   }
 
   nameRules = [

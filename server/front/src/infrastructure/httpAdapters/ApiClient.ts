@@ -1,7 +1,6 @@
 import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
-import { FollowListDto }from '~/src/domain/follow_list/followList.dto';
 import { PostInfos }from '../../domain/post/PostInfos';
 import { UserDto }from '../../domain/user/UserDto';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
@@ -9,6 +8,7 @@ import { CreatePostResult }from '../../domain/post/CreatePostResult';
 import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 import { FollowResult }from '../../domain/follow/FollowResult';
 import { CreateAxios, MyAxios }from './CreateAxios';
+import { FollowListDto }from '../../domain/followList/followListDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
