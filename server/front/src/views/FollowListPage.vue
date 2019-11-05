@@ -9,10 +9,10 @@
       >
         <v-icon
           dark
-          left
+          right
         >
-          mdi-arrow-left
-        </v-icon>Back
+          fa-backspace
+        </v-icon>
       </v-btn>
       <v-toolbar-title>Follow List</v-toolbar-title>
     </v-toolbar>
