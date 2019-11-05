@@ -88,10 +88,61 @@
             class="ma-2"
             label
           >
-            {{ birthday }}
+            生年月日: {{ birthday }}
           </v-chip>
-          <v-chip label>
-            {{ sex }}
+          <v-chip
+            class="ma-2"
+            label
+          >
+            性別: {{ sex }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            資格: {{ lisense }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学年: {{ schoolYear }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            クラス番号: {{ classNumber }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学科: {{ studySubject }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            専攻:{{ course }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="homePageUrl">マイホームページ: {{ homePageUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="twitterUrl">Twitter URL: {{ twitterUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="githubUrl">GitHub URL: {{ githubUrl }}</a>
           </v-chip>
         </div>
 
@@ -165,6 +216,30 @@ export default class extends Vue {
 
   get oicNumber() {
     return this.user === null ? '' : this.user.oicNumber;
+  }
+  get classNumber() {
+    return this.user === null ? '' : this.user.classNumber;
+  }
+  get schoolYear() {
+    return this.user === null ? '' : this.user.schoolYear;
+  }
+  get lisense() {
+    return this.user === null ? '' : this.user.license;
+  }
+  get homePageUrl() {
+    return this.user === null ? '' : this.user.homePageUrl;
+  }
+  get githubUrl() {
+    return this.user === null ? '' : this.user.githubUrl;
+  }
+  get twitterUrl() {
+    return this.user === null ? '' : this.user.twitterUrl;
+  }
+  get studySubject() {
+    return this.user === null ? '' : this.user.studySubject;
+  }
+  get course() {
+    return this.user === null ? '' : this.user.course;
   }
 
   onClickFollowList() {
