@@ -88,6 +88,12 @@ export class UserService {
     }
   }
 
+  //ユーザ削除
+  async deleteMyUser(googleProfileId: string) {
+    await this.userRepository.delete({ googleProfileId })
+    return { success: true };
+  }
+
   //ユーザのフォロー、アンフォロー
   async follow(
     googleProfileId: string,

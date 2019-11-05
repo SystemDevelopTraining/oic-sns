@@ -67,12 +67,12 @@ export class User {
   @Column({ unique: true })
   googleProfileId: string;
 
-  @OneToMany(type => Post, post => post.postUser)
+  @OneToMany(type => Post, post => post.postUser, { cascade: true })
   posts: Post[];
 
-  @OneToMany(type => Following, following => following.followUser)
+  @OneToMany(type => Following, following => following.followUser, { cascade: true })
   followings: Following[];
 
-  @OneToMany(type => Following, following => following.followeeUser)
+  @OneToMany(type => Following, following => following.followeeUser, { cascade: true })
   followers: Following[];
 }

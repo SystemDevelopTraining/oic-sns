@@ -6,6 +6,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { UserService } from '../../domain/user/user.service';
 import { UserDto } from '../../domain/user/user.dto';
@@ -19,7 +20,7 @@ import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   //ユーザ作成
   @Post('v1')
@@ -50,6 +51,12 @@ export class UserController {
       id,
       (req.user as JwtPayload).thirdPartyId,
     );
+  }
+
+  @Delete('v1/my_user')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteMyUser(@Req() req: Request) {
+    return await this.userService.deleteMyUser((req.user as JwtPayload).thirdPartyId);
   }
 
   //idに対応したユーザをフォローする
