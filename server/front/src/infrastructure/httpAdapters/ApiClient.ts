@@ -41,6 +41,10 @@ export class ApiClient {
       {
         name: createUserParams.name,
         sex: createUserParams.sex,
+        schoolYear: createUserParams.schoolYear,
+        classYear: createUserParams.classNumber,
+        studySubjectId: createUserParams.studySubjectId,
+        courseId: createUserParams.courseId,
       }
     );
     return response.data;
