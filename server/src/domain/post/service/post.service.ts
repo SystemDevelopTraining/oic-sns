@@ -36,7 +36,8 @@ export class PostService {
     googleProfileId: string, ) {
     try {
       const postUser = await this.userRepository.findOne({ googleProfileId });
-      await this.postRepository.delete({ id, postUserId: postUser.id })
+      const result = await this.postRepository.delete({ id, postUserId: postUser.id })
+      if (result.affected === 0) throw "";
     } catch (e) {
       throw new HttpException('投稿削除に失敗しました', HttpStatus.BAD_REQUEST);
     }

@@ -20,6 +20,7 @@
         dark
         color="red"
         small
+        @click="$emit('delete')"
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>

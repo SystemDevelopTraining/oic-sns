@@ -39,7 +39,7 @@
         >
           <v-card-text>{{ postDate }}</v-card-text>
         </v-col>
-        <post-menu />
+        <post-menu @delete="$emit('delete')" />
       </v-row>
     </v-card>
   </v-row>
