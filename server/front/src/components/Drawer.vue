@@ -27,7 +27,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>John Leider</v-list-item-title>
+            <v-list-item-title>{{ userName }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -50,6 +50,11 @@
         </v-list>
         <template v-slot:append>
           <div class="pa-2">
+            退会
+          </div>
+        </template>
+        <template v-slot:append>
+          <div class="pa-2">
             <logout-btn />
           </div>
         </template>
@@ -63,15 +68,27 @@ import LogoutBtn from '../components/LogoutBtn.vue';
 import { Component, Vue }from 'vue-property-decorator';
 import { CreateLoginApplication }from '../create/CreateLoginApplication';
 
+import { CreateUserApplication }from '../create/CreateUserApplication';
+
 @Component({ components: { LogoutBtn } })
 export default class extends Vue {
   drawer = null;
+  userName = '';
   items = [
     { title: 'プロファイル編集', icon: 'question_answer' },
     { title: '退会', icon: 'dashboard' },
   ];
 
   isLogin = CreateLoginApplication().IsLogin();
+  async created() {
+    const userApp = CreateUserApplication();
+    const userId = await userApp.GetMyUserId();
+
+    const userInfo = await userApp.GetUser(userId);
+
+    const userName = userInfo.name;
+    this.userName = userName;
+  }
 }
 </script>
 
