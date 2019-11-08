@@ -77,71 +77,22 @@
       </v-row>
       <div v-if="showUserDetails">
         <div class="text-center">
+          <!-- chip'roop -->
           <v-chip
+            v-for="oneUserInfo in oneUserInfoArray"
+            :key="oneUserInfo.label"
             class="ma-2"
             label
+            @click.stop
           >
-            学籍番号：{{ oicNumber }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            生年月日: {{ birthday }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            性別: {{ sex }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            資格: {{ lisense }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            学年: {{ schoolYear }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            クラス番号: {{ classNumber }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            学科: {{ studySubject }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            専攻:{{ course }}
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            <a :href="homePageUrl">マイホームページ: {{ homePageUrl }}</a>
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            <a :href="twitterUrl">Twitter URL: {{ twitterUrl }}</a>
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            label
-          >
-            <a :href="githubUrl">GitHub URL: {{ githubUrl }}</a>
+            <div v-if="oneUserInfo.isLink">
+              {{ oneUserInfo.label }}:
+              <a :href="oneUserInfo.value">{{ oneUserInfo.value }}</a>
+            </div>
+
+            <div v-else>
+              {{ oneUserInfo.label }}:{{ oneUserInfo.value }}
+            </div>
           </v-chip>
         </div>
 
@@ -159,6 +110,13 @@ import { UserDto }from '~/src/domain/user/UserDto';
 import { AsyncOnce }from '../../utils/AsyncOnce';
 import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
+interface OneOfUserInfo {
+  label: string;
+  value: string;
+  //chipはlinkかどうか
+  isLink: boolean;
+}
+
 @Component({ components: {} })
 export default class extends Vue {
   showUserDetails = false;
@@ -168,6 +126,23 @@ export default class extends Vue {
   @Prop({ type: Object, required: true }) user!: UserDto;
 
   followText: 'フォロー' | 'フォロー解除' = 'フォロー';
+
+  get oneUserInfoArray() {
+    const info: OneOfUserInfo[] = [
+      { label: '学籍番号', value: this.user.oicNumber, isLink: false },
+      { label: '生年月日', value: this.user.birthday || '', isLink: false },
+      { label: '性別', value: this.user.sex, isLink: false },
+      { label: '資格', value: this.user.license, isLink: false },
+      { label: '学年', value: this.user.schoolYear + '年', isLink: false },
+      { label: 'クラス番号', value: this.user.classNumber, isLink: false },
+      { label: '学科', value: this.user.studySubject, isLink: false },
+      { label: '専攻', value: this.user.course, isLink: false },
+      { label: 'マイホームページ', value: this.user.homePageUrl, isLink: true },
+      { label: 'TwitterURL', value: this.user.twitterUrl, isLink: true },
+      { label: 'GitHubURL', value: this.user.githubUrl, isLink: true },
+    ];
+    return info.filter(x => x.value !== '');
+  }
 
   created() {
     this.setFollowText(this.user.isFollow);
@@ -199,44 +174,8 @@ export default class extends Vue {
     return this.user.name;
   }
 
-  get sex() {
-    return this.user.sex;
-  }
-
-  get birthday() {
-    return this.user.birthday;
-  }
-
   get note() {
     return this.user.note;
-  }
-
-  get oicNumber() {
-    return this.user.oicNumber;
-  }
-  get classNumber() {
-    return this.user.classNumber;
-  }
-  get schoolYear() {
-    return this.user.schoolYear;
-  }
-  get lisense() {
-    return this.user.license;
-  }
-  get homePageUrl() {
-    return this.user.homePageUrl;
-  }
-  get githubUrl() {
-    return this.user.githubUrl;
-  }
-  get twitterUrl() {
-    return this.user.twitterUrl;
-  }
-  get studySubject() {
-    return this.user.studySubject;
-  }
-  get course() {
-    return this.user.course;
   }
 
   onClickFollowList() {
