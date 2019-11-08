@@ -71,6 +71,11 @@ import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { CreateLoginApplication }from '../create/CreateLoginApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
+import {
+  requiredRules,
+  nameRules,
+  classNumberRules
+}from '../domain/validationRules/CommonRules';
 import { CourseId }from '../domain/course/CourseId';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
 @Component({})
@@ -87,25 +92,9 @@ export default class extends Vue {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginApplication().SaveJwt(jwt);
   }
-
-  nameRules = [
-    (v: string) => !!v || '本名を入力してください',
-    (v: string) => v.length <= 25 || '25文字以内で入力してください',
-    (v: string) => {
-      const pattern = /^\S/;
-      return pattern.test(v) || '正しい本名を入力してください';
-    },
-  ];
-  requiredRules = [(v: string) => !!v || '選択してください'];
-
-  classNumberRules = [
-    (v: string) => !!v || 'クラス番号を入力してください',
-    (v: string) => v.length <= 6 || '6文字以内で入力してください',
-    (v: string) => {
-      const pattern = /^[1-4][A-Z][0-9]{2}[A-Z]{2}/;
-      return pattern.test(v) || '正しいクラス番号を入力してください';
-    },
-  ];
+  get nameRules(){return nameRules;}
+  get requiredRules(){return requiredRules;}
+  get classNumberRules(){return classNumberRules;}
 
   valid = true;
 
