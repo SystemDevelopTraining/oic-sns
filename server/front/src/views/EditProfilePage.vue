@@ -20,8 +20,14 @@
     </v-card>
     <v-container fluid>
       <v-form>
-        <v-text-field label="本名" />
+        <v-text-field
+          v-model="name"
+          label="本名"
+          :rules="nameRules"
+          counter="25"
+        />
         <v-select
+          v-model="sex"
           label="性別"
           :items="['男','女']"
         />
@@ -35,7 +41,6 @@
       >
         <v-menu
           ref="menu"
-          v-model="menu"
           :close-on-content-click="false"
           :return-value.sync="date"
           transition="scale-transition"
@@ -80,7 +85,6 @@
         <v-col>
           <v-select
             v-model="subject"
-            :rules="requiredRules"
             label="学科"
             :items="[
               '総合情報メディア学科','情報システム開発学科',
@@ -93,13 +97,11 @@
           />
           <v-select
             v-model="course"
-            :rules="requiredRules"
             label="専攻"
             :items="['ITスペシャリスト専攻','システムエンジニア専攻']"
           />
           <v-select
             v-model="schoolYear"
-            :rules="requiredRules"
             label="学年"
             :items="['1年','2年','3年','4年']"
           />
@@ -112,8 +114,7 @@
         </v-col>
         <v-col cols="12">
           <v-combobox
-            v-model="select"
-            :items="items"
+            v-model="license"
             label="資格"
             multiple
             chips
@@ -124,6 +125,7 @@
     <v-container fluid>
       <v-row md="6">
         <v-textarea
+          v-model="free"
           class="mx-2"
           filled
           name="input-7-4"
@@ -131,12 +133,12 @@
           value
         />
       </v-row>
-
       <v-row
         md="2"
         sm="6"
       >
         <v-text-field
+          v-model="gitHubUrl"
           class="mx-2"
           filled
           name="input-7-4"
@@ -144,12 +146,12 @@
           value
         />
       </v-row>
-
       <v-row
         md="2"
         sm="6"
       >
         <v-text-field
+          v-model="twitterUrl"
           class="mx-2"
           filled
           name="input-7-4"
@@ -157,29 +159,30 @@
           value
         />
       </v-row>
-
       <v-row
         md="2"
         sm="6"
       >
         <v-text-field
+          v-model="qiitaUrl"
           class="mx-2"
           filled
           name="input-7-4"
-          label="Qitta URL"
+          label="Qiita URL"
           value
         />
       </v-row>
-
       <v-row
         -x3c-v-row
         md="2"
         sm="6"
       >
         <v-text-field
+          v-model="webSiteUrl"
           class="mx-2"
           filled
           name="input-7-4"
+          :rules="urlRules"
           label="My Website URL"
           value
         />
@@ -196,3 +199,30 @@
     </div>
   </v-card>
 </template>
+
+<script lang="ts">
+import { Component, Vue }from 'vue-property-decorator';
+import { Sex }from '../domain/user/Sex';
+import {nameRules,classNumberRules}from '../domain/validationRules/CommonRules';
+import {urlRules}from '../domain/validationRules/EditProfilePageRules';
+@Component({})
+export default class extends Vue {
+  private name: string = '';
+  private sex: Sex = Sex.man;
+  private subject: string = '';
+  private course: string = '';
+  private schoolYear: number = 0;
+  private classNumber: string = '';
+  private date:string='';
+  private license:string='';
+  private free:string='';
+  private gitHubUrl:string='';
+  private twitterUrl:string='';
+  private qiitaUrl:string='';
+  private webSiteUrl:string='';
+
+  get urlRules(){return urlRules;}
+  get nameRules(){return nameRules;}
+  get classNumberRules(){return classNumberRules;}
+}
+</script>
