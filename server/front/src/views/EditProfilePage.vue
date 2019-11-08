@@ -132,19 +132,47 @@
         />
       </v-row>
 
-      <v-row>
-        <v-col cols="12">
-          <v-combobox
-            v-model="select"
-            :items="items"
-            label="Github,Twitterまたは、Qita URL"
-            multiple
-            chips
-          />
-        </v-col>
+      <v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Github URL"
+          value
+        />
       </v-row>
 
       <v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Twitter URL"
+          value
+        />
+      </v-row>
+
+      <v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Qitta URL"
+          value
+        />
+      </v-row>
+
+      <v-row
+        -x3c-v-row
         md="2"
         sm="6"
       >
