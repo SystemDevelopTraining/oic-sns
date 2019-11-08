@@ -10,6 +10,8 @@ import { FollowResult }from '../../domain/follow/FollowResult';
 import { CreateAxios, MyAxios }from './CreateAxios';
 import { FollowListDto }from '../../domain/followList/followListDto';
 import { PostId }from '../../domain/post/PostId';
+import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
+import *as Axios from 'axios';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -99,5 +101,10 @@ export class ApiClient {
   //フォローアンフォローリクエストする
   public async FollowOrUnFollow({ id }: UserId): Promise<FollowResult> {
     return (await this.axios.post("user/v1/follow/" + id)).data;
+  }
+
+  //自身のグーグルプロフィールをリクエストする
+  public async GetMyGoogleProfile():Promise<MyGoogleProfileDto>{
+    return (await this.axios.get("user/v1/my_user_google_profile")).data;
   }
 }
