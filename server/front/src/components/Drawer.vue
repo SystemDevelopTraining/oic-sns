@@ -39,6 +39,7 @@
             v-for="item in items"
             :key="item.title"
             link
+            @click="doAction(item.action)"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -49,11 +50,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-        <template v-slot:append>
-          <div class="pa-2">
-            退会
-          </div>
-        </template>
+
         <template v-slot:append>
           <div class="pa-2">
             <logout-btn />
@@ -76,9 +73,9 @@ export default class extends Vue {
   drawer = null;
   userName = '';
   items = [
-    { title: 'プロファイル編集', icon: 'fa-user-edit' },
-    { title: 'フォローリスト', icon: 'fa-users' },
-    { title: '退会', icon: 'fa-user-slash' },
+    { title: 'プロファイル編集', icon: 'fa-user-edit', action: 'profileEdit' },
+    { title: 'フォローリスト', icon: 'fa-users', action: 'followList' },
+    { title: '退会', icon: 'fa-user-slash', action: 'profileDelete' },
   ];
 
   isLogin = CreateLoginApplication().IsLogin();
@@ -90,6 +87,14 @@ export default class extends Vue {
 
     const userName = userInfo.name;
     this.userName = userName;
+  }
+
+  doAction(params: string) {
+    switch (params) {
+      case 'followList':
+        this.$router.push({ name: 'followList' });
+        break;
+    }
   }
 }
 </script>
