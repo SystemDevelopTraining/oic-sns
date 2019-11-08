@@ -20,8 +20,9 @@
         v-model="drawer"
         app
         temporary
+        dark
       >
-        <v-list-item>
+        <v-list-item class="color : primary">
           <v-list-item-avatar>
             <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
           </v-list-item-avatar>
@@ -75,8 +76,9 @@ export default class extends Vue {
   drawer = null;
   userName = '';
   items = [
-    { title: 'プロファイル編集', icon: 'question_answer' },
-    { title: '退会', icon: 'dashboard' },
+    { title: 'プロファイル編集', icon: 'fa-user-edit' },
+    { title: 'フォローリスト', icon: 'fa-users' },
+    { title: '退会', icon: 'fa-user-slash' },
   ];
 
   isLogin = CreateLoginApplication().IsLogin();
