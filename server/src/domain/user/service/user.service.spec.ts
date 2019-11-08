@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Following } from '../entities/following.entity';
-import { GoogleProfilesData } from '../../infrastructure/temp-data/google.profiles.data';
+import { User } from '../../entities/user.entity';
+import { Following } from '../../entities/following.entity';
+import { GoogleProfilesData } from '../../../infrastructure/temp-data/google.profiles.data';
 
 describe('UserService', () => {
   let service: UserService;

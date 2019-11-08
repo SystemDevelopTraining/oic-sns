@@ -1,5 +1,5 @@
-import { FollowListRepository }from '../domain/follow_list/FollowListRepository';
-import { FollowListDto }from '../domain/follow_list/followList.dto';
+import { FollowListRepository }from '../domain/followList/FollowListRepository';
+import { FollowListDto }from '../domain/followList/followListDto';
 import { UserId }from '../domain/user/UserId';
 
 export class FollowListApplication {

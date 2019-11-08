@@ -5,6 +5,7 @@ import * as rateLimit from 'express-rate-limit';
 import * as compression from 'compression';
 import passport = require('passport');
 import { DefaultHeaderMiddleware } from './infrastructure/default-header.middleware';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,7 @@ async function bootstrap() {
       max: 75, //1人のユーザのwindowMsあたりのリクエスト数
     }),
   );
+  app.useGlobalPipes(new ValidationPipe())
   app.use(compression());
   app.use(helmet());
   app.use(new DefaultHeaderMiddleware().use)

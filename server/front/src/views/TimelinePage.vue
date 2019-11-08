@@ -15,6 +15,17 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <v-select
+          v-model="selectedType"
+          :items="types"
+          item-value="value"
+          item-text="label"
+          label="種別"
+        />
+      </v-col>
+    </v-row>
     <post-form
       v-if="showPostFormFlag"
       v-model="postText"
@@ -42,6 +53,12 @@ export default class extends Vue {
   postText = '';
   myUserName = '';
   asyncOnce = new AsyncOnce();
+  selectedType = { label: 'フォロー中', value: 'follow' };
+  types = [
+    { label: 'フォロー中', value: 'follow' },
+    { label: '全て', value: 'all' },
+    { label: '開発', value: 'develop' },
+  ];
 
   async created() {
     const userApplication = CreateUserApplication();

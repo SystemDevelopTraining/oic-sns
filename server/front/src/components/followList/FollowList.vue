@@ -11,7 +11,7 @@
 <script lang='ts'>
 import { Component, Vue }from 'vue-property-decorator';
 import FollowUser from './FollowUser.vue';
-import { FollowListDto }from '../../domain/follow_list/followList.dto';
+import { FollowListDto }from '../../domain/followList/followListDto';
 import { CreateFollowListApplication }from '../../create/CreateFollowListApplication';
 
 @Component({

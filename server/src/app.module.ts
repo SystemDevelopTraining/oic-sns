@@ -9,6 +9,8 @@ import * as ormconfigProd from './infrastructure/config/ormconfig.prod';
 import { PostModule } from './infrastructure/post/post.module';
 import { TimelineModule } from './infrastructure/timeline/timeline.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CourseModule } from './infrastructure/course/course.module';
+import { StudySubjectModule } from './infrastructure/study-subject/course.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     UserModule,
     PostModule,
     TimelineModule,
+    CourseModule,
+    StudySubjectModule,
     getTypeOrmModule(),
     CacheModule.register({ ttl: 8, max: 150 }),
   ],
@@ -28,7 +32,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
 
 function getTypeOrmModule() {
   // --- TypeORMの設定

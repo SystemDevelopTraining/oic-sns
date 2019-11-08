@@ -88,10 +88,61 @@
             class="ma-2"
             label
           >
-            {{ birthday }}
+            生年月日: {{ birthday }}
           </v-chip>
-          <v-chip label>
-            {{ sex }}
+          <v-chip
+            class="ma-2"
+            label
+          >
+            性別: {{ sex }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            資格: {{ lisense }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学年: {{ schoolYear }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            クラス番号: {{ classNumber }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            学科: {{ studySubject }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            専攻:{{ course }}
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="homePageUrl">マイホームページ: {{ homePageUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="twitterUrl">Twitter URL: {{ twitterUrl }}</a>
+          </v-chip>
+          <v-chip
+            class="ma-2"
+            label
+          >
+            <a :href="githubUrl">GitHub URL: {{ githubUrl }}</a>
           </v-chip>
         </div>
 
@@ -140,31 +191,55 @@ export default class extends Vue {
   }
 
   get isOtherUser() {
-    return this.user === null ? false : this.user.isMyself === false;
+    return this.user.isMyself === false;
   }
 
   get isMyUser() {
-    return this.user === null ? true : this.user.isMyself === true;
+    return this.user.isMyself === true;
   }
 
   get name() {
-    return this.user === null ? '' : this.user.name;
+    return this.user.name;
   }
 
   get sex() {
-    return this.user === null ? '' : this.user.sex;
+    return this.user.sex;
   }
 
   get birthday() {
-    return this.user === null ? '' : this.user.birthday;
+    return this.user.birthday;
   }
 
   get note() {
-    return this.user === null ? '' : this.user.note;
+    return this.user.note;
   }
 
   get oicNumber() {
-    return this.user === null ? '' : this.user.oicNumber;
+    return this.user.oicNumber;
+  }
+  get classNumber() {
+    return this.user.classNumber;
+  }
+  get schoolYear() {
+    return this.user.schoolYear;
+  }
+  get lisense() {
+    return this.user.license;
+  }
+  get homePageUrl() {
+    return this.user.homePageUrl;
+  }
+  get githubUrl() {
+    return this.user.githubUrl;
+  }
+  get twitterUrl() {
+    return this.user.twitterUrl;
+  }
+  get studySubject() {
+    return this.user.studySubject;
+  }
+  get course() {
+    return this.user.course;
   }
 
   onClickFollowList() {

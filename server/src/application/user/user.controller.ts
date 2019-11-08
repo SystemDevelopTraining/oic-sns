@@ -6,20 +6,21 @@ import {
   Body,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
-import { UserService } from '../../domain/user/user.service';
+import { UserService } from '../../domain/user/service/user.service';
 import { UserDto } from '../../domain/user/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
+import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   //ユーザ作成
   @Post('v1')
@@ -50,6 +51,12 @@ export class UserController {
       id,
       (req.user as JwtPayload).thirdPartyId,
     );
+  }
+
+  @Delete('v1/my_user')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteMyUser(@Req() req: Request) {
+    return await this.userService.deleteMyUser((req.user as JwtPayload).thirdPartyId);
   }
 
   //idに対応したユーザをフォローする

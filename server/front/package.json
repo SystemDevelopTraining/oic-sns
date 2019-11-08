@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "@mdi/font": "^4.5.95",
     "@types/jest": "^23.1.4",
     "@typescript-eslint/parser": "^1.13.0",
     "@vue/cli-plugin-babel": "^3.12.1",

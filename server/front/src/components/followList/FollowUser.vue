@@ -1,23 +1,38 @@
 <template>
-  <v-list-item class="d-flex flex-row">
-    <v-btn @click="onUserClick">
-      <p>{{ name }}</p>
-    </v-btn>
-    <v-btn
-      class="ml-auto"
-      depressed
-      small
-      color="blue"
-      @click="onFollowClick"
-    >
-      {{ followText }}
-    </v-btn>
+  <v-list-item>
+    <v-row>
+      <v-col
+        cols="7"
+        class="pa-2"
+      >
+        <v-btn
+          width="100%"
+          small
+          @click="onUserClick"
+        >
+          <p>{{ name }}</p>
+        </v-btn>
+      </v-col>
+      <v-col class="pa-2">
+        <v-row justify="center">
+          <v-btn
+            max-width="100px"
+            small
+            width="100%"
+            color="blue"
+            @click="onFollowClick"
+          >
+            {{ followText }}
+          </v-btn>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-list-item>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { FollowUserDto }from '../../domain/follow_list/followUser.dto';
+import { FollowUserDto }from '../../domain/followList/followUserDto';
 import { AsyncOnce }from '../../utils/AsyncOnce';
 import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 @Component({})
@@ -26,8 +41,8 @@ export default class extends Vue {
 
   asyncOnce = new AsyncOnce();
 
-  followText: 'フォロー' | 'フォロー解除' = this.followUser.isFollow
-    ? 'フォロー解除'
+  followText: 'フォロー' | 'フォロー中' = this.followUser.isFollow
+    ? 'フォロー中'
     : 'フォロー';
 
   get name() {
@@ -49,7 +64,7 @@ export default class extends Vue {
     const result = await CreateFollowApplication().FollowOrUnfollow(
       this.followUser.id,
     );
-    this.followText = result.isFollow ? 'フォロー解除' : 'フォロー';
+    this.followText = result.isFollow ? 'フォロー中' : 'フォロー';
   }
 }
 </script>

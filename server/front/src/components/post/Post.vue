@@ -23,7 +23,7 @@
           </v-card-title>
         </v-col>
       </v-row>
-      <v-row class="justify-center">
+      <v-row class="justify-end">
         <v-card-text class="headline">
           <div
             v-for="postText in postTexts"
@@ -33,7 +33,13 @@
             <br>
           </div>
         </v-card-text>
-        <v-card-text>{{ postDate }}</v-card-text>
+        <v-col
+          cols="auto"
+          class="mr-auto"
+        >
+          <v-card-text>{{ postDate }}</v-card-text>
+        </v-col>
+        <post-menu @delete="$emit('delete')" />
       </v-row>
     </v-card>
   </v-row>
@@ -42,9 +48,10 @@
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
+import PostMenu from './PostMenu.vue';
 import Moment from 'moment';
 
-@Component({})
+@Component({ components: { PostMenu } })
 export default class extends Vue {
   @Prop({
     required: true,
