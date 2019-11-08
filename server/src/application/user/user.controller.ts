@@ -6,8 +6,9 @@ import {
   Body,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
-import { UserService } from '../../domain/user/user.service';
+import { UserService } from '../../domain/user/service/user.service';
 import { UserDto } from '../../domain/user/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
@@ -50,6 +51,12 @@ export class UserController {
       id,
       (req.user as JwtPayload).thirdPartyId,
     );
+  }
+
+  @Delete('v1/my_user')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteMyUser(@Req() req: Request) {
+    return await this.userService.deleteMyUser((req.user as JwtPayload).thirdPartyId);
   }
 
   //idに対応したユーザをフォローする
