@@ -5,7 +5,6 @@
     outlined
     @click="onClickShowUserDetails"
   >
-    <logout-btn />
     <div
       class="mt-6"
       align="center"
@@ -111,8 +110,6 @@ import { UserDto }from '~/src/domain/user/UserDto';
 import { AsyncOnce }from '../../utils/AsyncOnce';
 import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 
-import LogoutBtn from '../LogoutBtn.vue';
-
 interface OneOfUserInfo {
   label: string;
   value: string;
@@ -120,7 +117,7 @@ interface OneOfUserInfo {
   isLink: boolean;
 }
 
-@Component({ components: { LogoutBtn } })
+@Component({ components: {} })
 export default class extends Vue {
   showUserDetails = false;
   followBtnColor = 'yellow';

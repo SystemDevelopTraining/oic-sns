@@ -11,6 +11,7 @@ import { TimelineModule } from './infrastructure/timeline/timeline.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CourseModule } from './infrastructure/course/course.module';
 import { StudySubjectModule } from './infrastructure/study-subject/course.module';
+import { CategoryModule } from './infrastructure/category/category.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { StudySubjectModule } from './infrastructure/study-subject/course.module
     TimelineModule,
     CourseModule,
     StudySubjectModule,
+    CategoryModule,
     getTypeOrmModule(),
     CacheModule.register({ ttl: 8, max: 150 }),
   ],
