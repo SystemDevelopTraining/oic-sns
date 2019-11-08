@@ -22,12 +22,13 @@
       <v-form>
         <v-text-field
           v-model="name"
-          label="本名"
           :rules="nameRules"
+          label="本名"
           counter="25"
         />
         <v-select
           v-model="sex"
+          :rules="requiredRules"
           label="性別"
           :items="['男','女']"
         />
@@ -79,12 +80,12 @@
         </v-menu>
       </v-col>
     </v-row>
-
     <v-container fluid>
       <v-row>
         <v-col>
           <v-select
             v-model="subject"
+            :rules="requiredRules"
             label="学科"
             :items="[
               '総合情報メディア学科','情報システム開発学科',
@@ -97,11 +98,13 @@
           />
           <v-select
             v-model="course"
+            :rules="requiredRules"
             label="専攻"
             :items="['ITスペシャリスト専攻','システムエンジニア専攻']"
           />
           <v-select
             v-model="schoolYear"
+            :rules="requiredRules"
             label="学年"
             :items="['1年','2年','3年','4年']"
           />
@@ -139,6 +142,7 @@
       >
         <v-text-field
           v-model="gitHubUrl"
+          :rules="gitHubUrlRules"
           class="mx-2"
           filled
           name="input-7-4"
@@ -152,6 +156,7 @@
       >
         <v-text-field
           v-model="twitterUrl"
+          :rules="twitterUrlRules"
           class="mx-2"
           filled
           name="input-7-4"
@@ -165,6 +170,7 @@
       >
         <v-text-field
           v-model="qiitaUrl"
+          :rules="qiitaUrlRules"
           class="mx-2"
           filled
           name="input-7-4"
@@ -173,16 +179,15 @@
         />
       </v-row>
       <v-row
-        -x3c-v-row
         md="2"
         sm="6"
       >
         <v-text-field
           v-model="webSiteUrl"
+          :rules="urlRules"
           class="mx-2"
           filled
           name="input-7-4"
-          :rules="urlRules"
           label="My Website URL"
           value
         />
@@ -203,8 +208,8 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
-import {nameRules,classNumberRules}from '../domain/validationRules/CommonRules';
-import {urlRules}from '../domain/validationRules/EditProfilePageRules';
+import {nameRules,classNumberRules,requiredRules}from '../domain/validationRules/CommonRules';
+import {urlRules,qiitaUrlRules,twitterUrlRules,gitHubUrlRules}from '../domain/validationRules/EditProfilePageRules';
 @Component({})
 export default class extends Vue {
   private name: string = '';
@@ -224,5 +229,9 @@ export default class extends Vue {
   get urlRules(){return urlRules;}
   get nameRules(){return nameRules;}
   get classNumberRules(){return classNumberRules;}
+  get qiitaUrlRules(){return qiitaUrlRules;}
+  get twitterUrlRules(){return twitterUrlRules;}
+  get gitHubUrlRules(){return gitHubUrlRules;}
+  get requiredRules(){return requiredRules;}
 }
 </script>

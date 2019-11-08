@@ -1,4 +1,3 @@
-
 export const nameRules = [
     (v: string) => !!v || '本名を入力してください',
     (v: string) => v.length <= 25 || '25文字以内で入力してください',
