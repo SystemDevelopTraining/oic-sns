@@ -31,20 +31,14 @@
         v-model="subject"
         :rules="requiredRules"
         label="学科"
-        :items="[
-          '総合情報メディア学科','情報システム開発学科',
-          '情報処理学科','ITテクニカル学科',
-          'ITビジネス学科','総合情報メディア学科',
-          'メディアクリエイト学科','メディアデザイン学科',
-          'メディアクリエイト学科','メディアデザイン学科'
-        ]"
+        :items="subjectItems"
         required
       />
       <v-select
         v-model="course"
         :rules="requiredRules"
         label="専攻"
-        :items="['A','B']"
+        :items="courseItems"
       />
       <v-select
         v-model="schoolYear"
@@ -82,13 +76,15 @@ import {
   nameRules,
   classNumberRules
 }from '../domain/validationRules/CommonRules';
+import { CourseId }from '../domain/course/CourseId';
+import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
 @Component({})
 export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
-  private subject: string = '';
-  private course: string = '';
-  private schoolYear: number = 0;
+  private subject: StudySubjectId = { id: 1 };
+  private course: CourseId = { id: 1 };
+  private schoolYear: string = '';
   private classNumber: string = '';
   private asyncOnce = new AsyncOnce();
 
@@ -102,8 +98,38 @@ export default class extends Vue {
 
   valid = true;
 
+  get subjectItems() {
+    const items = [
+      {
+        text: '総合情報メディア学科',
+        value: 1,
+      },
+      {
+        text: 'goehehehfefe',
+        value: 2,
+      },
+    ];
+    return items;
+  }
+  get courseItems() {
+    const items = [
+      {
+        text: 'A',
+        value: 1,
+      },
+      {
+        text: 'B',
+        value: 2,
+      },
+    ];
+    return items;
+  }
   onClickRegister() {
     this.asyncOnce.Do(this.register);
+  }
+  toNumberSchoolYear(): number {
+    const numberSchoolYear = this.schoolYear.substr(0, 1);
+    return Number(numberSchoolYear);
   }
 
   async register() {
@@ -111,9 +137,13 @@ export default class extends Vue {
       await CreateUserApplication().MakeUser({
         name: this.name,
         sex: this.sex,
+        schoolYear: this.toNumberSchoolYear(),
+        classNumber: this.classNumber,
+        courseId: this.course,
+        studySubjectId: this.subject,
       });
       this.$router.push({ name: 'timeline' });
-    }catch {
+    }catch (e) {
       alert('ユーザ作成に失敗しました');
     }
   }

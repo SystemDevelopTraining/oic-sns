@@ -20,6 +20,9 @@ export class User {
   @Column({ length: 25 })
   name: string;
 
+  @Column()
+  email: string;
+
   @Column({ type: 'enum', enum: Sex })
   sex: Sex;
 
