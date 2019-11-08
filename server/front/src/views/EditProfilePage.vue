@@ -4,7 +4,10 @@
     max-width="600"
     height="100%"
   >
-    <v-card-title class="mx-auto">
+    <v-card-title
+      class="mx-auto"
+      outlined
+    >
       プロフィール編集ページ
     </v-card-title>
     <v-card outlined>
@@ -24,7 +27,7 @@
         />
       </v-form>
     </v-container>
-    <v-row>
+    <v-row class="px-3">
       <v-col
         cols="12"
         sm="6"
@@ -43,7 +46,6 @@
             <v-text-field
               v-model="date"
               label="生年月日"
-              prepend-icon="event"
               readonly
               v-on="on"
             />
@@ -72,8 +74,42 @@
         </v-menu>
       </v-col>
     </v-row>
+
     <v-container fluid>
       <v-row>
+        <v-col>
+          <v-select
+            v-model="subject"
+            :rules="requiredRules"
+            label="学科"
+            :items="[
+              '総合情報メディア学科','情報システム開発学科',
+              '情報処理学科','ITテクニカル学科',
+              'ITビジネス学科','総合情報メディア学科',
+              'メディアクリエイト学科','メディアデザイン学科',
+              'メディアクリエイト学科','メディアデザイン学科'
+            ]"
+            required
+          />
+          <v-select
+            v-model="course"
+            :rules="requiredRules"
+            label="専攻"
+            :items="['ITスペシャリスト専攻','システムエンジニア専攻']"
+          />
+          <v-select
+            v-model="schoolYear"
+            :rules="requiredRules"
+            label="学年"
+            :items="['1年','2年','3年','4年']"
+          />
+          <v-text-field
+            v-model="classNumber"
+            label="クラス番号"
+            :rules="classNumberRules"
+            counter="6"
+          />
+        </v-col>
         <v-col cols="12">
           <v-combobox
             v-model="select"
@@ -88,41 +124,71 @@
     <v-container fluid>
       <v-row md="6">
         <v-textarea
+          class="mx-2"
           filled
           name="input-7-4"
           label="自由記述欄"
-          value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+          value
         />
       </v-row>
-    </v-container>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="12">
-          <v-combobox
-            v-model="select"
-            :items="items"
-            label="Github,Twitterまたは、Qita URL"
-            multiple
-            chips
-          />
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container fluid>
+
       <v-row
         md="2"
         sm="6"
       >
         <v-text-field
-          label="Solo"
-          placeholder="My Website URL"
-          solo
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Github URL"
+          value
+        />
+      </v-row>
+
+      <v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Twitter URL"
+          value
+        />
+      </v-row>
+
+      <v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="Qitta URL"
+          value
+        />
+      </v-row>
+
+      <v-row
+        -x3c-v-row
+        md="2"
+        sm="6"
+      >
+        <v-text-field
+          class="mx-2"
+          filled
+          name="input-7-4"
+          label="My Website URL"
+          value
         />
       </v-row>
     </v-container>
     <div class="mt-auto pa-3">
       <v-btn
-        large
+        class="float-right"
+        dark
         width="100"
       >
         登録
