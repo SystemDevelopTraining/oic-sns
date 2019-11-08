@@ -1,7 +1,6 @@
 import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
-import { FollowListDto }from '~/src/domain/follow_list/followList.dto';
 import { PostInfos }from '../../domain/post/PostInfos';
 import { UserDto }from '../../domain/user/UserDto';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
@@ -9,6 +8,8 @@ import { CreatePostResult }from '../../domain/post/CreatePostResult';
 import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 import { FollowResult }from '../../domain/follow/FollowResult';
 import { CreateAxios, MyAxios }from './CreateAxios';
+import { FollowListDto }from '../../domain/followList/followListDto';
+import { PostId }from '../../domain/post/PostId';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -55,13 +56,13 @@ export class ApiClient {
   }
 
   public async GetFollowList(id: UserId): Promise<FollowListDto> {
-    return (await this.axios.get('user/v1/' + id.id + '/follows',{useCache: true})).data;
+    return (await this.axios.get('user/v1/' + id.id + '/follows', { useCache: true })).data;
   }
   //最新10件の投稿を返す
   public async TakeLatestPosts(
     params: SearchPostParamsDto,
   ): Promise<PostInfos[]> {
-    const response = await this.axios.get('timeline/v1/latest', { params ,useCache: true});
+    const response = await this.axios.get('timeline/v1/latest', { params, useCache: true });
     return response.data;
   }
 
@@ -74,10 +75,17 @@ export class ApiClient {
     return response.data;
   }
 
+
+  //投稿を削除する
+  public async DeletePost(id: PostId): Promise<unknown> {
+    const response = await this.axios.delete('post/v1/' + id.id);
+    return response.data;
+  }
+
   //jwtが正しいか確認する
   public async CheckJwt(): Promise<boolean> {
     try {
-      await this.axios.get('auth-user/v1/jwt_check',{useCache: true});
+      await this.axios.get('auth-user/v1/jwt_check', { useCache: true });
     }catch (error) {
       return false;
     }

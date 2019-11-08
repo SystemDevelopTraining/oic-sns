@@ -15,7 +15,7 @@
 import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { UserDto }from '../domain/user/UserDto';
-import UserInfo from '../components/userPage/UserInfo.vue';
+import UserInfo from '../components/user/UserInfo.vue';
 import PostList from '../components/post/PostList.vue';
 
 @Component({ components: { UserInfo, PostList } })

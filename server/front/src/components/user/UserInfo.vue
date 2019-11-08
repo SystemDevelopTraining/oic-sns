@@ -191,55 +191,55 @@ export default class extends Vue {
   }
 
   get isOtherUser() {
-    return this.user === null ? false : this.user.isMyself === false;
+    return this.user.isMyself === false;
   }
 
   get isMyUser() {
-    return this.user === null ? true : this.user.isMyself === true;
+    return this.user.isMyself === true;
   }
 
   get name() {
-    return this.user === null ? '' : this.user.name;
+    return this.user.name;
   }
 
   get sex() {
-    return this.user === null ? '' : this.user.sex;
+    return this.user.sex;
   }
 
   get birthday() {
-    return this.user === null ? '' : this.user.birthday;
+    return this.user.birthday;
   }
 
   get note() {
-    return this.user === null ? '' : this.user.note;
+    return this.user.note;
   }
 
   get oicNumber() {
-    return this.user === null ? '' : this.user.oicNumber;
+    return this.user.oicNumber;
   }
   get classNumber() {
-    return this.user === null ? '' : this.user.classNumber;
+    return this.user.classNumber;
   }
   get schoolYear() {
-    return this.user === null ? '' : this.user.schoolYear;
+    return this.user.schoolYear;
   }
   get lisense() {
-    return this.user === null ? '' : this.user.license;
+    return this.user.license;
   }
   get homePageUrl() {
-    return this.user === null ? '' : this.user.homePageUrl;
+    return this.user.homePageUrl;
   }
   get githubUrl() {
-    return this.user === null ? '' : this.user.githubUrl;
+    return this.user.githubUrl;
   }
   get twitterUrl() {
-    return this.user === null ? '' : this.user.twitterUrl;
+    return this.user.twitterUrl;
   }
   get studySubject() {
-    return this.user === null ? '' : this.user.studySubject;
+    return this.user.studySubject;
   }
   get course() {
-    return this.user === null ? '' : this.user.course;
+    return this.user.course;
   }
 
   onClickFollowList() {

@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { FollowUserDto }from '../../domain/follow_list/followUser.dto';
+import { FollowUserDto }from '../../domain/followList/followUserDto';
 import { AsyncOnce }from '../../utils/AsyncOnce';
 import { CreateFollowApplication }from '../../create/CreateFollowApplication';
 @Component({})

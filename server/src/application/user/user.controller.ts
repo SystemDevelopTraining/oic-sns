@@ -15,8 +15,8 @@ import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
 import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
-import { FollowListDto } from '../../../front/src/domain/follow_list/followList.dto';
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
+import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
 
 @Controller('user')
 export class UserController {

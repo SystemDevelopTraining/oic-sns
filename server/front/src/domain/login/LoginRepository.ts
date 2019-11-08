@@ -1,4 +1,4 @@
-export interface LoginInfoRepository {
+export interface LoginRepository {
   ClearJwt():void;
   //Jwtが正しいか確認する関数
   CheckJwt(): Promise<boolean>;

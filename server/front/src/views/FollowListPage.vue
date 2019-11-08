@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import FollowList from '../components/FollowList/FollowList.vue';
+import FollowList from '../components/followList/FollowList.vue';
 @Component({
   components: { FollowList },
 })

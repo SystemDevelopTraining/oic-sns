@@ -39,15 +39,15 @@
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from '../create/CreateLoginApplication';
 @Component({})
 export default class extends Vue {
   isNotLogin() {
-    return !CreateLoginInfoApplication().IsLogin();
+    return !CreateLoginApplication().IsLogin();
   }
 
   onLogin() {
-    return CreateLoginInfoApplication().Login();
+    return CreateLoginApplication().Login();
   }
 }
 </script>
