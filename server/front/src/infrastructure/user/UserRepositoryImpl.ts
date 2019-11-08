@@ -25,6 +25,10 @@ export class UserRepositoryimpl implements UserRepository {
     return await apiClient.CreateUser({
       name: makeUserDto.name,
       sex: makeUserDto.sex,
+      schoolYear: makeUserDto.schoolYear,
+      classNumber: makeUserDto.classNumber,
+      studySubjectId: makeUserDto.studySubjectId,
+      courseId: makeUserDto.courseId
     }).catch(UnauthorizedErrorHook);
   }
 }

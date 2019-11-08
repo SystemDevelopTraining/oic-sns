@@ -24,17 +24,17 @@ export class UserService {
 
   //ユーザ作成
   async create(userDto: UserDto, googleProfileId: string): Promise<User> {
+    const googleProfile = this.googleProfilesRepository.getProfile(googleProfileId)
     const user = new User();
     user.name = userDto.name;
+    user.email = googleProfile.emails[0].value
     user.note = userDto.note;
     user.sex = userDto.sex;
     user.classNumber = "2A23KS";
     user.schoolYear = 1;
     user.studySubjectId = 1;
     user.courseId = 1;
-    user.oicNumber = this.googleProfilesRepository
-      .getProfile(googleProfileId)
-      .emails[0].value.substr(0, 5);
+    user.oicNumber = googleProfile.emails[0].value.substr(0, 5);
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
     try {
@@ -64,6 +64,7 @@ export class UserService {
       return {
         id: { id: user.id },
         name: user.name,
+        email: user.email,
         sex: user.sex,
         note: user.note,
         oicNumber: user.oicNumber,
