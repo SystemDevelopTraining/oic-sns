@@ -5,22 +5,20 @@
     persistent
     max-width="290"
   >
-    <template v-slot:activator="{ on }">
-      <v-btn
-        color="red"
-        dark
-        small
-        fixed
-        top
-        right
-        fab
-        v-on="on"
-      >
-        <v-icon>
-          fas
-          fa-sign-out-alt
-        </v-icon>
-      </v-btn>
+    <template
+      v-slot:activator="{ on }"
+      v-slot:append
+    >
+      <div class="pa-2">
+        <v-btn
+          color="red"
+          dark
+          block=""
+          v-on="on"
+        >
+          Logout
+        </v-btn>
+      </div>
     </template>
     <v-card>
       <v-card-title class="headline">
