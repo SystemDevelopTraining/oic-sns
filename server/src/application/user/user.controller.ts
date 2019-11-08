@@ -17,6 +17,7 @@ import { MyUserResponse } from '../../domain/user/response/my-user-responcse';
 import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto';
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
+import { MyGoogleProfileDto } from '../../../front/src/domain/user/MyGoogleProfileDto';
 
 @Controller('user')
 export class UserController {
@@ -36,6 +37,15 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async myUserId(@Req() req: Request): Promise<MyUserResponse> {
     return await this.userService.myUserId(
+      (req.user as JwtPayload).thirdPartyId,
+    );
+  }
+
+  //自身のグーグル情報を返す
+  @Get('v1/my_user_google_profile')
+  @UseGuards(AuthGuard('jwt'))
+  async getMyGoogleProfile(@Req() req: Request): Promise<MyGoogleProfileDto> {
+    return await this.userService.getMyGoogleProfile(
       (req.user as JwtPayload).thirdPartyId,
     );
   }
