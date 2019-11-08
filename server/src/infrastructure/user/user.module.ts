@@ -3,7 +3,7 @@ import { UserController } from '../../application/user/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../../domain/entities/user.entity';
 import { Following } from '../../domain/entities/following.entity';
-import { UserService } from '../../domain/user/user.service';
+import { UserService } from '../../domain/user/service/user.service';
 import { JwtStrategy } from '../strategy/jwt.strategy';
 import { GoogleProfilesData } from '../temp-data/google.profiles.data';
 
@@ -16,4 +16,4 @@ import { GoogleProfilesData } from '../temp-data/google.profiles.data';
     { provide: 'GoogleProfilesRepository', useClass: GoogleProfilesData },
   ],
 })
-export class UserModule {}
+export class UserModule { }

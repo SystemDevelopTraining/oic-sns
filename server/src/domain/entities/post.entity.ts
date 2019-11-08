@@ -16,7 +16,7 @@ export class Post {
   @Column()
   readonly postUserId: number;
 
-  @ManyToOne(type => User, user => user.posts)
+  @ManyToOne(type => User, user => user.posts, { onDelete: "CASCADE" })
   @JoinColumn({ name: 'postUserId' })
   postUser: User;
 
