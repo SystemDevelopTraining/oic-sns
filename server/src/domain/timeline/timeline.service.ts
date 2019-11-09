@@ -10,7 +10,7 @@ export class TimelineService {
   constructor(
     @InjectRepository(PostItem)
     private readonly postRepository: Repository<PostItem>,
-  ) {}
+  ) { }
 
   async latest(params: SearchPostParamsDto): Promise<PostInfos[]> {
     const query = this.postRepository
@@ -18,6 +18,7 @@ export class TimelineService {
       .innerJoinAndSelect('post.postUser', 'user')
       .select([
         'post.id',
+        'post.categoryId',
         'post.text',
         'post.createdAt',
         'user.name',
@@ -41,6 +42,11 @@ export class TimelineService {
     if (params.userId) {
       query.andWhere('user.id= :userId', { userId: params.userId });
     }
+
+    if (params.categoryId) {
+      query.andWhere('post.categoryId= :categoryId', { categoryId: params.categoryId });
+    }
+
 
     const posts: PostItem[] = (await query.getMany()) as any;
 
