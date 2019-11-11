@@ -21,7 +21,7 @@ import Drawer from './components/Drawer.vue';
   components: { Footer, Drawer },
 })
 export default class extends Vue {
-  async created() {
+  created() {
     const jwt = this.$route.query['jwt'];
     const loginApplication = CreateLoginApplication();
     if (typeof jwt === 'string') {
@@ -39,10 +39,12 @@ export default class extends Vue {
       this.$router.push({ path: '/' });
       return;
     }
-    if (!(await loginApplication.CheckJwt())) {
-      loginApplication.ClearJwt();
-      location.href = '/';
-    }
+    loginApplication.CheckJwt().then(flag => {
+      if (!flag) {
+        loginApplication.ClearJwt();
+        location.href = '/';
+      }
+    });
   }
 }
 </script>
