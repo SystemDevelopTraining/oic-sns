@@ -6,6 +6,7 @@
     <v-row>
       <v-col>
         <v-btn
+          v-show="showPosts"
           block
           :color="postBtnColor"
           :disabled="buttonOff"
@@ -18,6 +19,7 @@
     <v-row>
       <v-col>
         <v-select
+          v-show="showPosts"
           v-model="selectedType"
           :items="types"
           item-value="value"
@@ -27,13 +29,13 @@
       </v-col>
     </v-row>
     <post-form
-      v-if="showPostFormFlag"
+      v-show="showPostFormFlag"
       v-model="postText"
       :my-user-name="myUserName"
       @cancel="onClickCancel"
       @post="onClickPost"
     />
-    <post-list v-if="showPosts" />
+    <post-list v-show="showPosts" />
   </v-container>
 </template>
 
