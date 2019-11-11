@@ -114,9 +114,11 @@ export default class extends Vue {
     const {
       email,
       oicNumber,
+      name,
     } = await CreateUserApplication().GetMyUserGoogleProfile();
     this.email = email;
     this.oicNumber = oicNumber;
+    this.name = name;
   }
   get nameRules() {
     return nameRules;

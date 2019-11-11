@@ -2,4 +2,5 @@
 export interface MyGoogleProfileDto {
     oicNumber: string;
     email: string;
+    name: string;
 }

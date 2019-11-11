@@ -13,6 +13,10 @@ export class GoogleProfilesData implements GoogleProfilesRepository {
   }
   getProfile(id: string): MyGoogleProfileDto {
     const profile = GoogleProfilesData.profiles.get(id);
-    return { email: profile.emails[0].value, oicNumber: profile.emails[0].value.substr(0, 5) }
+    return {
+      email: profile.emails[0].value,
+      oicNumber: profile.emails[0].value.substr(0, 5),
+      name: profile.name.givenName
+    }
   }
 }
