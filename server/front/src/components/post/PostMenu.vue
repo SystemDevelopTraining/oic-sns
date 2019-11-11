@@ -16,6 +16,7 @@
       </template>
 
       <v-btn
+        v-if="isMyself"
         fab
         dark
         color="red"
@@ -29,10 +30,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Prop }from 'vue-property-decorator';
 
 @Component({})
 export default class extends Vue {
+  @Prop({ type: Boolean, required: true }) isMyself!: boolean;
   fab: boolean = false;
 }
 </script>

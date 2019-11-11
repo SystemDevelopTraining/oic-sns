@@ -47,7 +47,7 @@ export default class extends Vue {
     this.postInfosList = CreatePostApplication().GetPostInfosList(
       this.filterUserId,
     );
-    await this.postInfosList.GetUpdateLatestPost();
+    this.postInfosList.GetUpdateLatestPost();
   }
 
   //現在の一番古い投稿より古い最新の投稿を取得する
