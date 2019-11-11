@@ -46,7 +46,7 @@
             rounded
             max-width="120"
             :color="followBtnColor"
-            @click="onFollowClick"
+            @click.stop="onFollowClick"
           >
             {{ followText }}
           </v-btn>
@@ -58,7 +58,7 @@
             rounded
             large
             color="#F18D9E"
-            @click="editProfileClick"
+            @click.stop="editProfileClick"
           >
             プロフィール編集
           </v-btn>
