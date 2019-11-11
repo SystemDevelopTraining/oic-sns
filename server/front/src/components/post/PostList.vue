@@ -28,7 +28,7 @@ export default class extends Vue {
   @Prop({ type: Object, required: false }) filterUserId: UserId | undefined;
   asyncOnce = new AsyncOnce();
 
-  postInfosList: PostInfosList | null = null;
+  postInfosList: PostInfosList = CreatePostApplication().GetPostInfosList();
 
   get postInfosListDto() {
     return this.postInfosList ? this.postInfosList.PostInfosListDto : [];
@@ -44,14 +44,15 @@ export default class extends Vue {
   }
 
   async setPostInfosList() {
-    this.postInfosList = await CreatePostApplication().GetPostInfosList(
+    this.postInfosList = CreatePostApplication().GetPostInfosList(
       this.filterUserId,
     );
+    await this.postInfosList.GetUpdateLatestPost();
   }
 
   //現在の一番古い投稿より古い最新の投稿を取得する
   async oldPostGet() {
-    if (this.postInfosList)await this.postInfosList.GetUpdateOldPost();
+    await this.postInfosList.GetUpdateOldPost();
   }
 
   onLatestPostGetClick() {
@@ -60,11 +61,11 @@ export default class extends Vue {
 
   //現在の一番新しい投稿より最新の投稿を取得する
   async latestPostGet() {
-    if (this.postInfosList)await this.postInfosList.GetUpdateLatestPost();
+    await this.postInfosList.GetUpdateLatestPost();
   }
 
   deletePost(id: PostId) {
-    this.postInfosList && this.postInfosList.DeletePost(id);
+    this.postInfosList.DeletePost(id);
   }
 }
 </script>
