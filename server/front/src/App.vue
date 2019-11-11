@@ -1,10 +1,12 @@
 <template>
   <v-app>
     <v-content>
+      <drawer />
       <v-container>
         <router-view />
       </v-container>
     </v-content>
+
     <Footer />
   </v-app>
 </template>
@@ -13,9 +15,10 @@
 import { Component, Vue }from 'vue-property-decorator';
 import Footer from './components/Footer.vue';
 import { CreateLoginApplication }from './create/CreateLoginApplication';
+import Drawer from './components/Drawer.vue';
 
 @Component({
-  components: { Footer },
+  components: { Footer, Drawer },
 })
 export default class extends Vue {
   async created() {

@@ -6,15 +6,31 @@
     <v-card-title class="mx-auto">
       初期プロフィール設定ページ
     </v-card-title>
-    <v-card outlined>
-      <v-img
-        class="mx-auto"
-        width="100px"
-        height="100px"
-        src="user_photo.png"
-      />
-    </v-card>
+    <v-row
+      type="flex"
+      class="row-bg"
+      justify="center"
+    >
+      <v-avatar
+        color="grey"
+        size="80"
+      >
+        <v-icon dark>
+          mdi-account-circle
+        </v-icon>
+      </v-avatar>
+    </v-row>
     <v-form v-model="valid">
+      <v-text-field
+        label="学籍番号"
+        :value="oicNumber"
+        readonly
+      />
+      <v-text-field
+        label="メールアドレス"
+        :value="email"
+        readonly
+      />
       <v-text-field
         v-model="name"
         label="本名"
@@ -71,8 +87,14 @@ import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { CreateLoginApplication }from '../create/CreateLoginApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
+import {
+  requiredRules,
+  nameRules,
+  classNumberRules,
+}from '../domain/validationRules/CommonRules';
 import { CourseId }from '../domain/course/CourseId';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
+
 @Component({})
 export default class extends Vue {
   private name: string = '';
@@ -82,32 +104,31 @@ export default class extends Vue {
   private schoolYear: string = '';
   private classNumber: string = '';
   private asyncOnce = new AsyncOnce();
+  oicNumber = '';
+  email = '';
+  valid = true;
 
-  created() {
+  async created() {
     const jwt = this.$route.query['jwt'];
     if (typeof jwt === 'string') CreateLoginApplication().SaveJwt(jwt);
+    const {
+      email,
+      oicNumber,
+      name,
+    } = await CreateUserApplication().GetMyUserGoogleProfile();
+    this.email = email;
+    this.oicNumber = oicNumber;
+    this.name = name;
   }
-
-  nameRules = [
-    (v: string) => !!v || '本名を入力してください',
-    (v: string) => v.length <= 25 || '25文字以内で入力してください',
-    (v: string) => {
-      const pattern = /^\S/;
-      return pattern.test(v) || '正しい本名を入力してください';
-    },
-  ];
-  requiredRules = [(v: string) => !!v || '選択してください'];
-
-  classNumberRules = [
-    (v: string) => !!v || 'クラス番号を入力してください',
-    (v: string) => v.length <= 6 || '6文字以内で入力してください',
-    (v: string) => {
-      const pattern = /^[1-4][A-Z][0-9]{2}[A-Z]{2}/;
-      return pattern.test(v) || '正しいクラス番号を入力してください';
-    },
-  ];
-
-  valid = true;
+  get nameRules() {
+    return nameRules;
+  }
+  get requiredRules() {
+    return requiredRules;
+  }
+  get classNumberRules() {
+    return classNumberRules;
+  }
 
   get subjectItems() {
     const items = [

@@ -10,6 +10,7 @@ import { GoogleProfilesRepository } from '../../google-profiles.repository';
 import { FollowResult } from '../../../../front/src/domain/follow/FollowResult';
 import { FollowListDto } from '../../../../front/src/domain/followList/followListDto';
 import { FollowUserDto } from '../../../../front/src/domain/followList/followUserDto';
+import { MyGoogleProfileDto } from '../../../../front/src/domain/user/MyGoogleProfileDto';
 
 @Injectable()
 export class UserService {
@@ -27,14 +28,14 @@ export class UserService {
     const googleProfile = this.googleProfilesRepository.getProfile(googleProfileId)
     const user = new User();
     user.name = userDto.name;
-    user.email = googleProfile.emails[0].value
+    user.email = googleProfile.email
     user.note = userDto.note;
     user.sex = userDto.sex;
     user.classNumber = "2A23KS";
     user.schoolYear = 1;
     user.studySubjectId = 1;
     user.courseId = 1;
-    user.oicNumber = googleProfile.emails[0].value.substr(0, 5);
+    user.oicNumber = googleProfile.oicNumber;
     user.googleProfileId = googleProfileId;
     user.birthday = userDto.birthday;
     try {
@@ -158,6 +159,15 @@ export class UserService {
     const user = await this.userRepository.findOne({ googleProfileId });
     try {
       return { id: user.id };
+    } catch (e) {
+      throw new HttpException('ユーザが見つかりません', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async getMyGoogleProfile(googleProfileId: string): Promise<MyGoogleProfileDto> {
+    const profile = await this.googleProfilesRepository.getProfile(googleProfileId);
+    try {
+      return profile;
     } catch (e) {
       throw new HttpException('ユーザが見つかりません', HttpStatus.NOT_FOUND);
     }
