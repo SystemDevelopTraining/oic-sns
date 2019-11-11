@@ -160,7 +160,7 @@ export class UserService {
     try {
       return { id: user.id };
     } catch (e) {
-      throw new HttpException('ユーザが見つかりません', HttpStatus.NOT_FOUND);
+      throw new HttpException('ユーザが見つかりません', HttpStatus.UNAUTHORIZED);
     }
   }
 

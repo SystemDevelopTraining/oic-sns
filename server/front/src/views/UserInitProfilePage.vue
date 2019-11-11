@@ -85,7 +85,6 @@
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import { CreateUserApplication }from '../create/CreateUserApplication';
-import { CreateLoginApplication }from '../create/CreateLoginApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import {
   requiredRules,
@@ -109,8 +108,6 @@ export default class extends Vue {
   valid = true;
 
   async created() {
-    const jwt = this.$route.query['jwt'];
-    if (typeof jwt === 'string') CreateLoginApplication().SaveJwt(jwt);
     const {
       email,
       oicNumber,
