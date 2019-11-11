@@ -39,7 +39,7 @@ export class PostInfosList {
                 basePostId: lastPost ? String(lastPost.id.id) : undefined,
                 after: true,
             });
-            newPostInfosList.reverse().forEach(x => this.postInfosListDto.unshift(x));
+            newPostInfosList.slice().reverse().forEach(x => this.postInfosListDto.unshift(x));
     }
 
     //特定の投稿を削除する
