@@ -33,15 +33,13 @@ export class PostInfosList {
 
     //最新の投稿を10件取得して更新する
     public async GetUpdateLatestPost(): Promise<void> {
-        if (this.postInfosListDto.length > 0) {
-            const lastPost = this.postInfosListDto[0];
+            const lastPost = this.postInfosListDto[0] as (PostInfos|undefined );
             const newPostInfosList = await this.repository.TakeLatest({
                 userId: this.filterUserId ? this.filterUserId.id.toString() : undefined,
-                basePostId: String(lastPost.id.id),
+                basePostId: lastPost ? String(lastPost.id.id) : undefined,
                 after: true,
             });
             newPostInfosList.reverse().forEach(x => this.postInfosListDto.unshift(x));
-        }
     }
 
     //特定の投稿を削除する

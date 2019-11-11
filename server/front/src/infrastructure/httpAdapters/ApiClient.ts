@@ -11,7 +11,6 @@ import { CreateAxios, MyAxios }from './CreateAxios';
 import { FollowListDto }from '../../domain/followList/followListDto';
 import { PostId }from '../../domain/post/PostId';
 import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
-import *as Axios from 'axios';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
