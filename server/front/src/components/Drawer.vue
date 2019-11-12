@@ -92,14 +92,14 @@ export default class extends Vue {
   doAction(params: string) {
     switch (params) {
       case 'profileEdit':
-        alert('Enさんに任せます。');
+        this.$router.push({ name: 'editProfile' });
         break;
       case 'followList':
         this.$router.push({ name: 'followList' });
         break;
 
       case 'profileDelete':
-        alert('機能作ります次回');
+        this.$router.push({ name: 'deleteAccount' });
         break;
     }
   }
