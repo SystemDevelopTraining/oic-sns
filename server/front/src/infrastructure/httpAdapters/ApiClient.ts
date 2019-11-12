@@ -68,19 +68,19 @@ export class ApiClient {
   }
 
   //専攻リストを取得する
-public async GetCourseItems(): Promise<CourseDto[]>{
+  public async GetCourseItems(): Promise<CourseDto[]>{
     return (await this.axios.get('course/v1',{ useCache: true})).data;
-}
+  }
 
 //学科リストを取得する
-public async GetStudySubjectItems(): Promise<StudySubjectDto[]>{
+  public async GetStudySubjectItems(): Promise<StudySubjectDto[]>{
     return (await this.axios.get('study-subject/v1',{useCache: true })).data;
-}
+  }
 
 //分野種別リストを取得する
-public async GetCategoryItems(): Promise<CategoryDto[]>{
+  public async GetCategoryItems(): Promise<CategoryDto[]>{
     return (await this.axios.get('category/v1',{useCache: true})).data;
-}
+  }
 
   //最新10件の投稿を返す
   public async TakeLatestPosts(

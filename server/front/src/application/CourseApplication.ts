@@ -2,7 +2,7 @@ import { CourseRepository }from '../domain/course/CourseRepository';
 import { CourseDto }from '../domain/course/CourseDto';
 
 export class CourseApplication{
-private readonly repository: CourseRepository;
+    private readonly repository: CourseRepository;
     public constructor(repository: CourseRepository) {
         this.repository = repository;
     }
