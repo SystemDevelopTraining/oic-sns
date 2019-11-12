@@ -7,7 +7,7 @@ import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
 import { CreatePostResult }from '../../domain/post/CreatePostResult';
 import { SearchPostParamsDto }from '../../domain/post/SearchPostParamsDto';
 import { FollowResult }from '../../domain/follow/FollowResult';
-import { CreateAxios, MyAxios }from './CreeAxios';
+import { CreateAxios, MyAxios }from './CreateAxios';
 import { FollowListDto }from '../../domain/followList/followListDto';
 import { PostId }from '../../domain/post/PostId';
 import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
@@ -77,6 +77,7 @@ public async GetStudySubjectItems(): Promise<StudySubjectDto>{
     return (await this.axios.get('study-subject/v1',{useCache: true })).data;
 }
 
+//分野種別リストを取得する
 public async GetCategoryItems(): Promise<CategoryDto>{
     return (await this.axios.get('category/v1',{useCache: true})).data;
 }
