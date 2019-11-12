@@ -8,8 +8,8 @@
         <v-btn
           v-show="showPosts"
           block
-          :color="postBtnColor"
-          :disabled="buttonOff"
+          color="primary"
+          :disabled="false"
           @click="onClickShowPostForm"
         >
           投稿
@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
     <post-form
-      v-show="showPostFormFlag"
+      v-if="showPostFormFlag"
       v-model="postText"
       :my-user-name="myUserName"
       @cancel="onClickCancel"
@@ -49,9 +49,6 @@ import { AsyncOnce }from '../utils/AsyncOnce';
 @Component({ components: { PostList, PostForm } })
 export default class extends Vue {
   showPostFormFlag = false;
-  showPosts = true;
-  buttonOff = false;
-  postBtnColor = 'primary';
   postText = '';
   myUserName = '';
   asyncOnce = new AsyncOnce();
@@ -70,11 +67,13 @@ export default class extends Vue {
     this.myUserName = myUser.name;
   }
 
+  get showPosts() {
+    return !this.showPostFormFlag;
+  }
+
   //投稿表示のボタンが表示された時の処理
   onClickShowPostForm() {
     this.showPostFormFlag = true;
-    this.showPosts = false;
-    this.postBtnColor = 'secondary';
   }
 
   //投稿ボタンが押された時の処理
@@ -103,9 +102,6 @@ export default class extends Vue {
   //投稿フォームを非表示にする
   hidePostForm() {
     this.showPostFormFlag = false;
-    this.showPosts = true;
-    this.buttonOff = false;
-    this.postBtnColor = 'primary';
     this.postText = '';
   }
 }
