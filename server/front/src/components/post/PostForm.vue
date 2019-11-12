@@ -17,7 +17,7 @@
         <v-container fluid>
           <v-row>
             <v-textarea
-              v-model="postText"
+              :value="value"
               outlined
               auto-grow
               label="投稿を書きましょう！"
@@ -25,7 +25,8 @@
               row-height="30"
               shaped
               required
-              :rules="postRule"
+              :rules="postRules"
+              @input="(v)=>$emit('input',v)"
             />
           </v-row>
         </v-container>
@@ -55,25 +56,18 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop, Watch }from 'vue-property-decorator';
+import { Component, Vue, Prop }from 'vue-property-decorator';
 
 @Component({})
 export default class extends Vue {
   @Prop({ type: String, required: true }) myUserName!: string;
   @Prop({ type: String, required: true }) value!: string;
 
-  postText: string = this.value;
-
-  @Watch('postText')
-  onChangePostText(newValue: string) {
-    this.$emit('input', newValue);
-  }
-
-  postRule = [
+  postRules = [
     (v: string) => !!v || '投稿内容を入力してください。',
-    (value: string) => {
+    (v: string) => {
       const pattern = /\S\s*?/;
-      return pattern.test(value) || '空白、改行だけの投稿はできません。';
+      return pattern.test(v) || '空白、改行だけの投稿はできません。';
     },
   ];
   valid = true;
