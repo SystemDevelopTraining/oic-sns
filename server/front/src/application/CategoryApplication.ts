@@ -7,7 +7,7 @@ private readonly repository: CategoryRepository;
         this.repository = repository;
     }
 //分野種別一覧取得する
-public async GetCategory(): Promise<CategoryDto> {
-    return this.repository.GetCategory();
+public async GetCategoryItems(): Promise<CategoryDto[]> {
+    return this.repository.GetCategoryItems();
     }
 }

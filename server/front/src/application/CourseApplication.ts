@@ -7,7 +7,7 @@ private readonly repository: CourseRepository;
         this.repository = repository;
     }
     //  専攻一覧取得する
-    public async GetCourseItems(): Promise<CourseDto> {
+    public async GetCourseItems(): Promise<CourseDto[]> {
         return this.repository.GetCourseItems();   
     }
 }

@@ -7,7 +7,7 @@ private readonly repository: StudySubjectRepository;
         this.repository = repository;
     }
  // 学科一覧取得する
-public async GetStudySubjectItems(): Promise<StudySubjectDto> {
+public async GetStudySubjectItems(): Promise<StudySubjectDto[]> {
     return this.repository.GetStudySubjectItems();
     }
 }

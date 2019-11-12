@@ -4,7 +4,7 @@ import { CreateLoginApplication }from '../../create/CreateLoginApplication';
 import { ApiClient }from '../httpAdapters/ApiClient';
 
 export class StudySubjectRepositoryImpl implements StudySubjectRepository {
-    public async GetStudySubjectItems(): Promise<StudySubjectDto> {
+    public async GetStudySubjectItems(): Promise<StudySubjectDto[]> {
         const jwt = CreateLoginApplication().GetJwt();
         const apiClient = new ApiClient(jwt);
         return await apiClient.GetStudySubjectItems();
