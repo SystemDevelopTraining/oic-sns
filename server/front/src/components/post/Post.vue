@@ -39,7 +39,10 @@
         >
           <v-card-text>{{ postDate }}</v-card-text>
         </v-col>
-        <post-menu @delete="$emit('delete')" />
+        <post-menu
+          :is-myself="isMyself"
+          @delete="$emit('delete')"
+        />
       </v-row>
     </v-card>
   </v-row>
@@ -75,6 +78,10 @@ export default class extends Vue {
     Moment.locale('ja');
     const date = Moment(this.postInfos.postDate).format('LLL');
     return date;
+  }
+
+  get isMyself() {
+    return this.postInfos.isMyself;
   }
 
   async goToUserPage() {

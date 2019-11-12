@@ -10,72 +10,71 @@
     >
       プロフィール編集ページ
     </v-card-title>
-    <v-card outlined>
-      <v-img
-        class="mx-auto"
-        width="100px"
-        height="100px"
-        src="/user_photo.png"
-      />
-    </v-card>
-    <v-container fluid>
-      <v-form>
-        <v-text-field label="本名" />
-        <v-select
-          label="性別"
-          :items="['男','女']"
-        />
-      </v-form>
-    </v-container>
-    <v-row class="px-3">
-      <v-col
-        cols="12"
-        sm="6"
-        md="4"
+    <v-row
+      type="flex"
+      class="row-bg"
+      justify="center"
+    >
+      <v-avatar
+        color="grey"
+        size="80"
       >
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          :return-value.sync="date"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="生年月日"
-              readonly
-              v-on="on"
-            />
-          </template>
-          <v-date-picker
-            v-model="date"
-            no-title
-            scrollable
-          >
-            <div class="flex-grow-1" />
-            <v-btn
-              text
-              color="primary"
-              @click="menu = false"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu.save(date)"
-            >
-              OK
-            </v-btn>
-          </v-date-picker>
-        </v-menu>
-      </v-col>
+        <v-icon dark>
+          mdi-account-circle
+        </v-icon>
+      </v-avatar>
     </v-row>
-
     <v-container fluid>
+      <v-text-field
+        v-model="name"
+        :rules="nameRules"
+        label="本名"
+        counter="25"
+      />
+      <v-select
+        v-model="sex"
+        :rules="requiredRules"
+        label="性別"
+        :items="['男','女']"
+      />
+      <v-menu
+        ref="menu"
+        :close-on-content-click="false"
+        :return-value.sync="date"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="date"
+            label="生年月日"
+            readonly
+            v-on="on"
+          />
+        </template>
+        <v-date-picker
+          v-model="date"
+          no-title
+          scrollable
+        >
+          <div class="flex-grow-1" />
+          <v-btn
+            text
+            color="primary"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.menu.save(date)"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
       <v-row>
         <v-col>
           <v-select
@@ -109,83 +108,53 @@
             :rules="classNumberRules"
             counter="6"
           />
-        </v-col>
-        <v-col cols="12">
           <v-combobox
-            v-model="select"
-            :items="items"
+            v-model="license"
             label="資格"
             multiple
             chips
           />
+          <v-textarea
+            v-model="note"
+            filled
+            name="input-7-4"
+            label="自由記述欄"
+            value
+          />
+          <v-text-field
+            v-model="gitHubUrl"
+            :rules="gitHubUrlRules"
+            filled
+            name="input-7-4"
+            label="Github URL"
+            value
+          />
+          <v-text-field
+            v-model="twitterUrl"
+            :rules="twitterUrlRules"
+            filled
+            name="input-7-4"
+            label="Twitter URL"
+            value
+          />
+          <v-text-field
+            v-model="qiitaUrl"
+            :rules="qiitaUrlRules"
+            filled
+            name="input-7-4"
+            label="Qiita URL"
+            value
+          />
+          <v-text-field
+            v-model="webSiteUrl"
+            :rules="urlRules"
+            filled
+            name="input-7-4"
+            label="My Website URL"
+            value
+          />
         </v-col>
       </v-row>
-    </v-container>
-    <v-container fluid>
-      <v-row md="6">
-        <v-textarea
-          class="mx-2"
-          filled
-          name="input-7-4"
-          label="自由記述欄"
-          value
-        />
-      </v-row>
-
-      <v-row
-        md="2"
-        sm="6"
-      >
-        <v-text-field
-          class="mx-2"
-          filled
-          name="input-7-4"
-          label="Github URL"
-          value
-        />
-      </v-row>
-
-      <v-row
-        md="2"
-        sm="6"
-      >
-        <v-text-field
-          class="mx-2"
-          filled
-          name="input-7-4"
-          label="Twitter URL"
-          value
-        />
-      </v-row>
-
-      <v-row
-        md="2"
-        sm="6"
-      >
-        <v-text-field
-          class="mx-2"
-          filled
-          name="input-7-4"
-          label="Qitta URL"
-          value
-        />
-      </v-row>
-
-      <v-row
-        -x3c-v-row
-        md="2"
-        sm="6"
-      >
-        <v-text-field
-          class="mx-2"
-          filled
-          name="input-7-4"
-          label="My Website URL"
-          value
-        />
-      </v-row>
-    </v-container>
-    <div class="mt-auto pa-3">
       <v-btn
         class="float-right"
         dark
@@ -193,6 +162,60 @@
       >
         登録
       </v-btn>
-    </div>
+    </v-container>
   </v-card>
 </template>
+
+<script lang="ts">
+import { Component, Vue }from 'vue-property-decorator';
+import { Sex }from '../domain/user/Sex';
+import {
+  nameRules,
+  classNumberRules,
+  requiredRules,
+}from '../domain/validationRules/CommonRules';
+import {
+  urlRules,
+  qiitaUrlRules,
+  twitterUrlRules,
+  gitHubUrlRules,
+}from '../domain/validationRules/EditProfilePageRules';
+@Component({})
+export default class extends Vue {
+  private name: string = '';
+  private sex: Sex = Sex.man;
+  private subject: string = '';
+  private course: string = '';
+  private schoolYear: number = 0;
+  private classNumber: string = '';
+  private date: string = '';
+  private license: string = '';
+  private note: string = '';
+  private gitHubUrl: string = '';
+  private twitterUrl: string = '';
+  private qiitaUrl: string = '';
+  private webSiteUrl: string = '';
+
+  get urlRules() {
+    return urlRules;
+  }
+  get nameRules() {
+    return nameRules;
+  }
+  get classNumberRules() {
+    return classNumberRules;
+  }
+  get qiitaUrlRules() {
+    return qiitaUrlRules;
+  }
+  get twitterUrlRules() {
+    return twitterUrlRules;
+  }
+  get gitHubUrlRules() {
+    return gitHubUrlRules;
+  }
+  get requiredRules() {
+    return requiredRules;
+  }
+}
+</script>
