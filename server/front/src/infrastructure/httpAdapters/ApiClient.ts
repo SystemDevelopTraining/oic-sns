@@ -11,6 +11,9 @@ import { CreateAxios, MyAxios }from './CreateAxios';
 import { FollowListDto }from '../../domain/followList/followListDto';
 import { PostId }from '../../domain/post/PostId';
 import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
+import { CourseDto }from '../../domain/course/CourseDto';
+import { StudySubjectDto }from '../../domain/studySubject/StudySubjectDto';
+import { CategoryDto }from '../../domain/category/CategoryDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -63,6 +66,22 @@ export class ApiClient {
   public async GetFollowList(id: UserId): Promise<FollowListDto> {
     return (await this.axios.get('user/v1/' + id.id + '/follows', { useCache: true })).data;
   }
+
+  //専攻リストを取得する
+  public async GetCourseItems(): Promise<CourseDto[]>{
+    return (await this.axios.get('course/v1',{ useCache: true})).data;
+  }
+
+//学科リストを取得する
+  public async GetStudySubjectItems(): Promise<StudySubjectDto[]>{
+    return (await this.axios.get('study-subject/v1',{useCache: true })).data;
+  }
+
+//分野種別リストを取得する
+  public async GetCategoryItems(): Promise<CategoryDto[]>{
+    return (await this.axios.get('category/v1',{useCache: true})).data;
+  }
+
   //最新10件の投稿を返す
   public async TakeLatestPosts(
     params: SearchPostParamsDto,
