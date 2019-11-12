@@ -1,4 +1,3 @@
-import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
 import { PostInfos }from '../../domain/post/PostInfos';
@@ -14,6 +13,7 @@ import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
 import { CourseDto }from '../../domain/course/CourseDto';
 import { StudySubjectDto }from '../../domain/studySubject/StudySubjectDto';
 import { CategoryDto }from '../../domain/category/CategoryDto';
+import { MakeUserDto }from '../../domain/user/MakeUserDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -39,17 +39,17 @@ export class ApiClient {
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
   public async CreateUser(
-    createUserParams: CreateUserParams,
+    makeUserDto: MakeUserDto,
   ): Promise<MakeUserResult> {
     const response = await this.axios.post(
       'user/v1',
       {
-        name: createUserParams.name,
-        sex: createUserParams.sex,
-        schoolYear: createUserParams.schoolYear,
-        classYear: createUserParams.classNumber,
-        studySubjectId: createUserParams.studySubjectId,
-        courseId: createUserParams.courseId,
+        name: makeUserDto.name,
+        sex: makeUserDto.sex,
+        schoolYear: makeUserDto.schoolYear,
+        classYear: makeUserDto.classNumber,
+        studySubjectId: makeUserDto.studySubjectId,
+        courseId: makeUserDto.courseId,
       }
     );
     return response.data;
