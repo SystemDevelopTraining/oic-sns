@@ -1,6 +1,9 @@
-//投稿を取得するする際のパラメータ
+import { CategoryId }from "../category/CategoryId";
+
+//投稿を取得する際のパラメータ
 export interface SearchPostParamsDto {
   basePostId?: string;
   userId?: string;
+  categoryId?: string;
   after?: boolean;
 }

@@ -8,4 +8,5 @@ export interface PostInfos {
   userName: string;
   postText: string;
   postDate: Date;
+  isMyself: boolean;
 }

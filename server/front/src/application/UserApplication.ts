@@ -3,6 +3,7 @@ import { MakeUserResult }from '../domain/user/MakeUserResult';
 import { UserRepository }from '../domain/user/UserRepository';
 import {UserId}from '../domain/user/UserId';
 import { UserDto }from '../domain/user/UserDto';
+import { MyGoogleProfileDto }from '../domain/user/MyGoogleProfileDto';
 
 //ユーザに関する機能を提供
 export class UserApplication {
@@ -16,7 +17,7 @@ export class UserApplication {
     return this.repository.MakeUser(makeUserDto);
   }
 
-  //ユーザidを取得する
+  //自身のユーザidを取得する
   public GetMyUserId():Promise<UserId>{
     return this.repository.GetMyUserId();
   }
@@ -24,5 +25,10 @@ export class UserApplication {
   //ユーザidからユーザを取得する
   public GetUser(userId:UserId):Promise<UserDto>{
     return this.repository.GetUser(userId);
+  }
+
+  //自身のグーグルプロフィールを取得する
+  public GetMyUserGoogleProfile():Promise<MyGoogleProfileDto>{
+    return this.repository.GetMyUserGoogleProfile();
   }
 }

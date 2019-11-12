@@ -6,9 +6,15 @@ import { ApiClient }from '../httpAdapters/ApiClient';
 import { CreateLoginApplication }from '../../create/CreateLoginApplication';
 import { UserDto }from '../../domain/user/UserDto';
 import { UnauthorizedErrorHook }from '../UnauthorizedErrorHook';
+import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
 
 // UserRepositoryの実装
 export class UserRepositoryimpl implements UserRepository {
+  public GetMyUserGoogleProfile(): Promise<MyGoogleProfileDto> {
+    const jwt = CreateLoginApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
+    return apiClient.GetMyGoogleProfile();
+  }
   public GetUser(userId: UserId): Promise<UserDto> {
     const jwt = CreateLoginApplication().GetJwt();
     const apiClient = new ApiClient(jwt);
