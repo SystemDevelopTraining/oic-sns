@@ -77,7 +77,7 @@
       </v-row>
       <div v-if="showUserDetails">
         <div class="text-center">
-          <!-- chip'roop -->
+          <!-- chip's roop -->
           <v-chip
             v-for="oneUserInfo in oneUserInfoArray"
             :key="oneUserInfo.label"
@@ -140,6 +140,7 @@ export default class extends Vue {
       { label: 'マイホームページ', value: this.user.homePageUrl, isLink: true },
       { label: 'TwitterURL', value: this.user.twitterUrl, isLink: true },
       { label: 'GitHubURL', value: this.user.githubUrl, isLink: true },
+      { label: 'EMail',value: this.user.email,isLink: false}
     ];
     return info.filter(x => x.value !== '');
   }
