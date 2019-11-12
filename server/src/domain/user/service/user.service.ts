@@ -11,6 +11,7 @@ import { FollowResult } from '../../../../front/src/domain/follow/FollowResult';
 import { FollowListDto } from '../../../../front/src/domain/followList/followListDto';
 import { FollowUserDto } from '../../../../front/src/domain/followList/followUserDto';
 import { MyGoogleProfileDto } from '../../../../front/src/domain/user/MyGoogleProfileDto';
+import { UpdateUserDto } from '../update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -54,6 +55,29 @@ export class UserService {
           );
       }
     }
+  }
+
+  //ユーザの更新
+  async updateMyUser(googleProfileId: string, updateMyUserDto: UpdateUserDto): Promise<unknown> {
+    let updateProps = {
+      name: updateMyUserDto.name,
+      birthday: updateMyUserDto.birthday,
+      note: updateMyUserDto.note,
+      schoolYear: updateMyUserDto.schoolYear,
+      license: updateMyUserDto.license,
+      githubUrl: updateMyUserDto.githubUrl,
+      twitterUrl: updateMyUserDto.twitterUrl,
+      homePageUrl: updateMyUserDto.homePageUrl,
+      classNumber: updateMyUserDto.classNumber,
+      courseId: updateMyUserDto.courseId && updateMyUserDto.courseId.id,
+      studySubjectId: updateMyUserDto.studySubjectId && updateMyUserDto.studySubjectId.id
+    }
+    Object.keys(updateProps).forEach(k => {
+      if (updateProps[k] === undefined) delete updateProps[k]
+    })
+    return this.userRepository.update(
+      { googleProfileId }, updateProps
+    )
   }
 
   //ユーザの検索

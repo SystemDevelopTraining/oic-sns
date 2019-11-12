@@ -7,6 +7,7 @@ import {
   Param,
   UseGuards,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from '../../domain/user/service/user.service';
 import { UserDto } from '../../domain/user/user.dto';
@@ -18,6 +19,7 @@ import { UserDto as FrontUserDto } from '../../../front/src/domain/user/UserDto'
 import { FollowResult } from '../../../front/src/domain/follow/FollowResult';
 import { FollowListDto } from '../../../front/src/domain/followList/followListDto';
 import { MyGoogleProfileDto } from '../../../front/src/domain/user/MyGoogleProfileDto';
+import { UpdateUserDto } from '../../domain/user/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -61,6 +63,12 @@ export class UserController {
       id,
       (req.user as JwtPayload).thirdPartyId,
     );
+  }
+
+  @Patch('v1/my_user')
+  @UseGuards(AuthGuard('jwt'))
+  async updateMyUser(@Body() updateUserDto: UpdateUserDto, @Req() req: Request) {
+    return await this.userService.updateMyUser((req.user as JwtPayload).thirdPartyId, updateUserDto);
   }
 
   @Delete('v1/my_user')
