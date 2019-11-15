@@ -28,13 +28,15 @@ export class UserRepositoryimpl implements UserRepository {
   public async MakeUser(makeUserDto: MakeUserDto): Promise<MakeUserResult> {
     const jwt = CreateLoginApplication().GetJwt();
     const apiClient = new ApiClient(jwt);
-    return await apiClient.CreateUser({
-      name: makeUserDto.name,
-      sex: makeUserDto.sex,
-      schoolYear: makeUserDto.schoolYear,
-      classNumber: makeUserDto.classNumber,
-      studySubjectId: makeUserDto.studySubjectId,
-      courseId: makeUserDto.courseId
-    }).catch(UnauthorizedErrorHook);
+    return await apiClient
+      .CreateUser({
+        name: makeUserDto.name,
+        sex: makeUserDto.sex,
+        schoolYear: makeUserDto.schoolYear,
+        classNumber: makeUserDto.classNumber,
+        studySubjectId: makeUserDto.studySubjectId,
+        courseId: makeUserDto.courseId,
+      })
+      .catch(UnauthorizedErrorHook);
   }
 }
