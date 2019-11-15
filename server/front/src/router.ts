@@ -6,7 +6,7 @@ import UserInitProfile from './views/UserInitProfilePage.vue';
 import User from './views/UserPage.vue';
 import FollowList from './views/FollowListPage.vue';
 import EditProfile from './views/EditProfilePage.vue';
-import DeleteAccountPage from './views/DeleteAccountPage.vue';
+import DeleteAccount from './views/DeleteAccountPage.vue';
 
 Vue.use(Router);
 
@@ -52,7 +52,7 @@ export default new Router({
     {
       path: '/user/:id/delete_account',
       name: 'deleteAccount',
-      component: DeleteAccountPage,
+      component: DeleteAccount,
     } 
   ],
 });

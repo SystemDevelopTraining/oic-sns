@@ -73,9 +73,9 @@ export default class extends Vue {
   drawer = null;
   userName = '';
   items = [
-    { title: 'プロファイル編集', icon: 'fa-user-edit', action: 'profileEdit' },
+    { title: 'プロフィール編集', icon: 'fa-user-edit', action: 'profileEdit' },
     { title: 'フォローリスト', icon: 'fa-users', action: 'followList' },
-    { title: '退会', icon: 'fa-user-slash', action: 'profileDelete' },
+    { title: 'アカウント削除', icon: 'fa-user-slash', action: 'profileDelete' },
   ];
 
   isLogin = CreateLoginApplication().IsLogin();
