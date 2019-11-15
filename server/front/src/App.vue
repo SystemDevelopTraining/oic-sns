@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-content>
-      <drawer />
       <v-container>
         <router-view />
       </v-container>
@@ -15,10 +14,9 @@
 import { Component, Vue }from 'vue-property-decorator';
 import Footer from './components/Footer.vue';
 import { CreateLoginApplication }from './create/CreateLoginApplication';
-import Drawer from './components/Drawer.vue';
 
 @Component({
-  components: { Footer, Drawer },
+  components: { Footer },
 })
 export default class extends Vue {
   created() {
@@ -48,4 +46,3 @@ export default class extends Vue {
   }
 }
 </script>
-
