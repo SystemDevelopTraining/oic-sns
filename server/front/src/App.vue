@@ -2,6 +2,7 @@
   <v-app>
     <v-content>
       <drawer />
+
       <v-container>
         <router-view />
       </v-container>
