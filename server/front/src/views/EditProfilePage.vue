@@ -139,21 +139,21 @@
           />
         </v-col>
       </v-row>
-      <v-btn
-        class="float-right"
-        dark
-        width="100"
-        @click="BackFrontPage"
-      >
-        キャンセル
-      </v-btn>
-      <v-btn
-        class="float-right"
-        dark
-        width="100"
-      >
-        登録
-      </v-btn>
+      <v-card-actions class="float-right">
+        <v-btn
+          dark
+          width="100"
+          @click="BackFrontPage"
+        >
+          キャンセル
+        </v-btn>
+        <v-btn
+          dark
+          width="100"
+        >
+          登録
+        </v-btn>
+      </v-card-actions>
     </v-container>
   </v-card>
 </template>
