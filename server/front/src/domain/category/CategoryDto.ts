@@ -5,3 +5,4 @@ export interface CategoryDto {
     id: CategoryId;
     name: string;
 }
+

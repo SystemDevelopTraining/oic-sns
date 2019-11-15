@@ -66,8 +66,8 @@
         <v-col>
           <v-btn
             max-width="120"
-            rounded
             large
+            rounded
             color="yellow"
             @click="onClickFollowList"
           >
@@ -77,7 +77,7 @@
       </v-row>
       <div v-if="showUserDetails">
         <div class="text-center">
-          <!-- chip'roop -->
+          <!-- chip's roop -->
           <v-chip
             v-for="oneUserInfo in oneUserInfoArray"
             :key="oneUserInfo.label"
@@ -95,8 +95,19 @@
             </div>
           </v-chip>
         </div>
-
-        <div class="mt-5 text-center">
+        <v-divider
+          class="mx-4"
+          :inset="inset"
+        />
+        <div class="mt-5 text-left">
+          <div>
+            <font
+              size="2"
+              color="grey"
+            >
+              自己紹介：
+            </font>
+          </div>
           {{ note }}
         </div>
       </div>
@@ -140,6 +151,7 @@ export default class extends Vue {
       { label: 'マイホームページ', value: this.user.homePageUrl, isLink: true },
       { label: 'TwitterURL', value: this.user.twitterUrl, isLink: true },
       { label: 'GitHubURL', value: this.user.githubUrl, isLink: true },
+      { label: 'EMail', value: this.user.email, isLink: false },
     ];
     return info.filter(x => x.value !== '');
   }

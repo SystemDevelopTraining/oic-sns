@@ -1,4 +1,3 @@
-import { CreateUserParams }from './Protocol';
 import { MakeUserResult }from '../../domain/user/MakeUserResult';
 import { UserId }from '../../domain/user/UserId';
 import { PostInfos }from '../../domain/post/PostInfos';
@@ -11,6 +10,10 @@ import { CreateAxios, MyAxios }from './CreateAxios';
 import { FollowListDto }from '../../domain/followList/followListDto';
 import { PostId }from '../../domain/post/PostId';
 import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
+import { CourseDto }from '../../domain/course/CourseDto';
+import { StudySubjectDto }from '../../domain/studySubject/StudySubjectDto';
+import { CategoryDto }from '../../domain/category/CategoryDto';
+import { MakeUserDto }from '../../domain/user/MakeUserDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -36,17 +39,17 @@ export class ApiClient {
   }
   // 作成したユーザーデータをサーバーとやり取りをする関数
   public async CreateUser(
-    createUserParams: CreateUserParams,
+    makeUserDto: MakeUserDto,
   ): Promise<MakeUserResult> {
     const response = await this.axios.post(
       'user/v1',
       {
-        name: createUserParams.name,
-        sex: createUserParams.sex,
-        schoolYear: createUserParams.schoolYear,
-        classYear: createUserParams.classNumber,
-        studySubjectId: createUserParams.studySubjectId,
-        courseId: createUserParams.courseId,
+        name: makeUserDto.name,
+        sex: makeUserDto.sex,
+        schoolYear: makeUserDto.schoolYear,
+        classYear: makeUserDto.classNumber,
+        studySubjectId: makeUserDto.studySubjectId,
+        courseId: makeUserDto.courseId,
       }
     );
     return response.data;
@@ -63,6 +66,22 @@ export class ApiClient {
   public async GetFollowList(id: UserId): Promise<FollowListDto> {
     return (await this.axios.get('user/v1/' + id.id + '/follows', { useCache: true })).data;
   }
+
+  //専攻リストを取得する
+  public async GetCourseItems(): Promise<CourseDto[]>{
+    return (await this.axios.get('course/v1',{ useCache: true})).data;
+  }
+
+//学科リストを取得する
+  public async GetStudySubjectItems(): Promise<StudySubjectDto[]>{
+    return (await this.axios.get('study-subject/v1',{useCache: true })).data;
+  }
+
+//分野種別リストを取得する
+  public async GetCategoryItems(): Promise<CategoryDto[]>{
+    return (await this.axios.get('category/v1',{useCache: true})).data;
+  }
+
   //最新10件の投稿を返す
   public async TakeLatestPosts(
     params: SearchPostParamsDto,

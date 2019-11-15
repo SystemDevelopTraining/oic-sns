@@ -6,7 +6,7 @@ import { PostInfosList }from '../domain/post/PostInfosList';
 
 //投稿する機能
 export class PostApplication {
-  private postRepository: PostRepository;
+  private readonly postRepository: PostRepository;
 
   public constructor(postRepository: PostRepository) {
     this.postRepository = postRepository;
