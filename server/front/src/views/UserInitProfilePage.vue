@@ -131,11 +131,11 @@ export default class extends Vue {
     const items = [
       {
         text: '総合情報メディア学科',
-        value: 1,
+        value: { id: 1 },
       },
       {
         text: 'goehehehfefe',
-        value: 2,
+        value: { id: 2 },
       },
     ];
     return items;
@@ -144,7 +144,7 @@ export default class extends Vue {
     const items = [
       {
         text: 'A',
-        value: 1,
+        value: { id: 1 },
       },
       {
         text: 'B',

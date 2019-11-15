@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../entities/user.entity';
 import { Following } from '../../entities/following.entity';
 import { Repository } from 'typeorm';
-import { UserDto } from '../user.dto';
+import { MakeUserDto } from '../make-user.dto';
 import { UserDto as FrontUserDto } from '../../../../front/src/domain/user/UserDto';
 import { MyUserResponse } from '../response/my-user-responcse';
 import { GoogleProfilesRepository } from '../../google-profiles.repository';
@@ -22,23 +22,26 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) { }
+  ) {}
 
   //ユーザ作成
-  async create(userDto: UserDto, googleProfileId: string): Promise<User> {
-    const googleProfile = this.googleProfilesRepository.getProfile(googleProfileId)
+  async create(
+    makeUserDto: MakeUserDto,
+    googleProfileId: string,
+  ): Promise<User> {
+    const googleProfile = this.googleProfilesRepository.getProfile(
+      googleProfileId,
+    );
     const user = new User();
-    user.name = userDto.name;
-    user.email = googleProfile.email
-    user.note = userDto.note;
-    user.sex = userDto.sex;
-    user.classNumber = "2A23KS";
-    user.schoolYear = 1;
-    user.studySubjectId = 1;
-    user.courseId = 1;
+    user.name = makeUserDto.name;
+    user.email = googleProfile.email;
+    user.sex = makeUserDto.sex;
+    user.classNumber = makeUserDto.classNumber;
+    user.schoolYear = makeUserDto.schoolYear;
+    user.studySubjectId = makeUserDto.studySubjectId.id;
+    user.courseId = makeUserDto.courseId.id;
     user.oicNumber = googleProfile.oicNumber;
     user.googleProfileId = googleProfileId;
-    user.birthday = userDto.birthday;
     try {
       return await this.userRepository.save(user);
     } catch (e) {
@@ -58,7 +61,10 @@ export class UserService {
   }
 
   //ユーザの更新
-  async updateMyUser(googleProfileId: string, updateMyUserDto: UpdateUserDto): Promise<unknown> {
+  async updateMyUser(
+    googleProfileId: string,
+    updateMyUserDto: UpdateUserDto,
+  ): Promise<unknown> {
     let updateProps = {
       name: updateMyUserDto.name,
       birthday: updateMyUserDto.birthday,
@@ -70,19 +76,20 @@ export class UserService {
       homePageUrl: updateMyUserDto.homePageUrl,
       classNumber: updateMyUserDto.classNumber,
       courseId: updateMyUserDto.courseId && updateMyUserDto.courseId.id,
-      studySubjectId: updateMyUserDto.studySubjectId && updateMyUserDto.studySubjectId.id
-    }
+      studySubjectId:
+        updateMyUserDto.studySubjectId && updateMyUserDto.studySubjectId.id,
+    };
     Object.keys(updateProps).forEach(k => {
-      if (updateProps[k] === undefined) delete updateProps[k]
-    })
-    return this.userRepository.update(
-      { googleProfileId }, updateProps
-    )
+      if (updateProps[k] === undefined) delete updateProps[k];
+    });
+    return this.userRepository.update({ googleProfileId }, updateProps);
   }
 
   //ユーザの検索
   async findById(id: number, googleProfileId: string): Promise<FrontUserDto> {
-    const user = await this.userRepository.findOne(id, { relations: ["course", "studySubject"] });
+    const user = await this.userRepository.findOne(id, {
+      relations: ['course', 'studySubject'],
+    });
     const myUser = await this.userRepository.findOne({ googleProfileId });
 
     try {
@@ -116,7 +123,7 @@ export class UserService {
 
   //ユーザ削除
   async deleteMyUser(googleProfileId: string) {
-    await this.userRepository.delete({ googleProfileId })
+    await this.userRepository.delete({ googleProfileId });
     return { success: true };
   }
 
@@ -184,12 +191,19 @@ export class UserService {
     try {
       return { id: user.id };
     } catch (e) {
-      throw new HttpException('ユーザが見つかりません', HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        'ユーザが見つかりません',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
 
-  async getMyGoogleProfile(googleProfileId: string): Promise<MyGoogleProfileDto> {
-    const profile = await this.googleProfilesRepository.getProfile(googleProfileId);
+  async getMyGoogleProfile(
+    googleProfileId: string,
+  ): Promise<MyGoogleProfileDto> {
+    const profile = await this.googleProfilesRepository.getProfile(
+      googleProfileId,
+    );
     try {
       return profile;
     } catch (e) {

@@ -52,16 +52,16 @@ export class User {
   @Column({ nullable: true })
   birthday?: Date;
 
-  @Column({ default: '' })
+  @Column({ length: 255, default: '' })
   license: string = '';
 
-  @Column({ default: '' })
+  @Column({ length: 255, default: '' })
   githubUrl: string = '';
 
-  @Column({ default: '' })
+  @Column({ length: 255, default: '' })
   twitterUrl: string = '';
 
-  @Column({ default: '' })
+  @Column({ length: 255, default: '' })
   homePageUrl: string = '';
 
   @Column({ length: 200, default: '' })

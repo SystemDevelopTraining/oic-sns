@@ -16,6 +16,8 @@ export class TimelineService {
   ) { }
 
   async latest(params: SearchPostParamsDto, googleProfileId: string): Promise<PostInfos[]> {
+    const myUser = await this.userRepository.findOne({ googleProfileId })
+
     const query = this.postRepository
       .createQueryBuilder('post')
       .innerJoinAndSelect('post.postUser', 'user')
@@ -49,10 +51,15 @@ export class TimelineService {
     if (params.categoryId) {
       query.andWhere('post.categoryId= :categoryId', { categoryId: params.categoryId });
     }
+    if (params.followOnly) {
+      query.andWhere(
+        'user.id in (select followeeUserId from following where followUserId = :myUserId)',
+        { myUserId: myUser.id }
+      )
+    }
 
 
     const posts: PostItem[] = (await query.getMany()) as any;
-    const myUser = await this.userRepository.findOne({ googleProfileId })
     return posts.map<PostInfos>(x => ({
       userId: { id: x.postUser.id },
       id: { id: x.id },
