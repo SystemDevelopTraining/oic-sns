@@ -4,6 +4,7 @@
     max-width="600"
     height="100%"
   >
+    <back-btn />
     <v-card-title
       class="mx-auto"
       outlined
@@ -161,6 +162,7 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
+import BackBtn from '../components/BackBtn.vue';
 import {
   nameRules,
   classNumberRules,
@@ -172,7 +174,7 @@ import {
   twitterUrlRules,
   gitHubUrlRules,
 }from '../domain/validationRules/EditProfilePageRules';
-@Component({})
+@Component({ components: { BackBtn } })
 export default class extends Vue {
   private name: string = '';
   private sex: Sex = Sex.man;
