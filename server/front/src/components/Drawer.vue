@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <template v-if="isLogin">
@@ -105,7 +104,3 @@ export default class extends Vue {
   }
 }
 </script>
-
-
-
-
