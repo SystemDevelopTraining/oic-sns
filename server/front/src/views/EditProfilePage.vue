@@ -81,25 +81,14 @@
             v-model="subject"
             :rules="requiredRules"
             label="学科"
-            :items="[
-              '総合情報メディア学科',
-              '情報システム開発学科',
-              '情報処理学科',
-              'ITテクニカル学科',
-              'ITビジネス学科',
-              '総合情報メディア学科',
-              'メディアクリエイト学科',
-              'メディアデザイン学科',
-              'メディアクリエイト学科',
-              'メディアデザイン学科',
-            ]"
+            :items="studySubjectItems"
             required
           />
           <v-select
             v-model="course"
             :rules="requiredRules"
             label="専攻"
-            :items="['ITスペシャリスト専攻', 'システムエンジニア専攻']"
+            :items="courseItems"
           />
           <v-select
             v-model="schoolYear"
@@ -178,6 +167,8 @@ import {
 }from '../domain/validationRules/EditProfilePageRules';
 import { CourseDto }from '../domain/course/CourseDto';
 import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
+import { CreateStudySubjectApplication }from '../create/CreateStudySubjectApplication';
+import { CreateCourseApplication }from '../create/CreateCourseApplication';
 @Component({})
 export default class extends Vue {
   courseDtoList: CourseDto[] = [];
@@ -194,6 +185,22 @@ export default class extends Vue {
   gitHubUrl: string = '';
   twitterUrl: string = '';
   webSiteUrl: string = '';
+
+  async created() {
+    const [studySubjectDtoList, courseDtoList] = await Promise.all([
+      CreateStudySubjectApplication().GetStudySubjectItems(),
+      CreateCourseApplication().GetCourseItems(),
+    ]);
+    this.studySubjectDtoList = studySubjectDtoList;
+    this.courseDtoList = courseDtoList;
+  }
+
+  get courseItems() {
+    return this.courseDtoList.map(x => ({ text: x.name, value: x.id }));
+  }
+  get studySubjectItems() {
+    return this.studySubjectDtoList.map(x => ({ text: x.name, value: x.id }));
+  }
 
   get urlRules() {
     return urlRules;
