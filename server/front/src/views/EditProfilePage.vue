@@ -108,53 +108,45 @@
             :rules="classNumberRules"
             counter="6"
           />
-          <v-combobox
+
+          <v-text-field
             v-model="license"
             label="資格"
-            multiple
-            chips
+            filled
           />
           <v-textarea
             v-model="note"
             filled
-            name="input-7-4"
             label="自由記述欄"
-            value
           />
           <v-text-field
             v-model="gitHubUrl"
             :rules="gitHubUrlRules"
             filled
-            name="input-7-4"
             label="Github URL"
-            value
           />
           <v-text-field
             v-model="twitterUrl"
             :rules="twitterUrlRules"
             filled
-            name="input-7-4"
             label="Twitter URL"
-            value
-          />
-          <v-text-field
-            v-model="qiitaUrl"
-            :rules="qiitaUrlRules"
-            filled
-            name="input-7-4"
-            label="Qiita URL"
-            value
           />
           <v-text-field
             v-model="webSiteUrl"
             :rules="urlRules"
             filled
-            name="input-7-4"
             label="My Website URL"
-            value
           />
         </v-col>
       </v-row>
+      <v-btn
+        class="float-right"
+        dark
+        width="100"
+        @click="BackFrontPage"
+      >
+        キャンセル
+      </v-btn>
       <v-btn
         class="float-right"
         dark
