@@ -6,4 +6,6 @@ export interface SearchPostParamsDto {
   userId?: string;
   categoryId?: string;
   after?: boolean;
+  followOnly?: boolean;
+
 }
