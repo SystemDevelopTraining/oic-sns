@@ -3,6 +3,7 @@
     fluid
     class="center"
   >
+    <scroller />
     <v-row>
       <v-col>
         <v-btn
@@ -46,7 +47,9 @@ import PostForm from '../components/post/PostForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
-@Component({ components: { PostList, PostForm } })
+import Scroller from '../components/Scroller.vue';
+
+@Component({ components: { PostList, PostForm, Scroller } })
 export default class extends Vue {
   showPostFormFlag = false;
   postText = '';

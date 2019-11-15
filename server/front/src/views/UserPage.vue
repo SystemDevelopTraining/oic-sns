@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <drawer />
+    <scroller />
     <user-info
       v-if="user"
       :user="user"
@@ -19,8 +20,9 @@ import { UserDto }from '../domain/user/UserDto';
 import UserInfo from '../components/user/UserInfo.vue';
 import PostList from '../components/post/PostList.vue';
 import Drawer from '../components/Drawer.vue';
+import Scroller from '../components/Scroller.vue';
 
-@Component({ components: { UserInfo, PostList, Drawer } })
+@Component({ components: { UserInfo, PostList, Drawer, Scroller } })
 export default class extends Vue {
   user: UserDto | null = null;
 
