@@ -1,4 +1,4 @@
-import { CategoryId } from "../category/CategoryId";
+import { CategoryId }from "../category/CategoryId";
 
 //投稿を取得する際のパラメータ
 export interface SearchPostParamsDto {
