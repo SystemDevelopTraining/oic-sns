@@ -1,4 +1,4 @@
-import { CategoryId }from "../category/CategoryId";
+import { CategoryId } from "../category/CategoryId";
 
 //投稿を取得する際のパラメータ
 export interface SearchPostParamsDto {
@@ -6,4 +6,6 @@ export interface SearchPostParamsDto {
   userId?: string;
   categoryId?: string;
   after?: boolean;
+  followOnly?: boolean;
+
 }
