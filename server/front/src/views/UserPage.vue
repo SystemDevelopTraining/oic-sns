@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <drawer />
+    <drawer v-if="isMyUser" />
     <scroller />
     <user-info
       v-if="user"
@@ -39,6 +39,10 @@ export default class extends Vue {
     this.user = await CreateUserApplication().GetUser({
       id: Number(this.$route.params.id),
     });
+  }
+
+  get isMyUser() {
+    return this.user && this.user.isMyself;
   }
 }
 </script>
