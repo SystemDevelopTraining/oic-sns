@@ -58,7 +58,7 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { postRules }from '../../domain/validationRules/CommonRules';
+import { postRules }from '../../domain/validationRules/PostFormRules';
 
 @Component({})
 export default class extends Vue {
