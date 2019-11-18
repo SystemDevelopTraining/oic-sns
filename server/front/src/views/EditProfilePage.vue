@@ -35,7 +35,7 @@
         v-model="sex"
         :rules="requiredRules"
         label="性別"
-        :items="['男','女']"
+        :items="['男', '女']"
       />
       <v-menu
         ref="menu"
@@ -81,26 +81,20 @@
             v-model="subject"
             :rules="requiredRules"
             label="学科"
-            :items="[
-              '総合情報メディア学科','情報システム開発学科',
-              '情報処理学科','ITテクニカル学科',
-              'ITビジネス学科','総合情報メディア学科',
-              'メディアクリエイト学科','メディアデザイン学科',
-              'メディアクリエイト学科','メディアデザイン学科'
-            ]"
+            :items="studySubjectItems"
             required
           />
           <v-select
             v-model="course"
             :rules="requiredRules"
             label="専攻"
-            :items="['ITスペシャリスト専攻','システムエンジニア専攻']"
+            :items="courseItems"
           />
           <v-select
             v-model="schoolYear"
             :rules="requiredRules"
             label="学年"
-            :items="['1年','2年','3年','4年']"
+            :items="['1年', '2年', '3年', '4年']"
           />
           <v-text-field
             v-model="classNumber"
@@ -168,25 +162,45 @@ import {
 }from '../domain/validationRules/CommonRules';
 import {
   urlRules,
-  qiitaUrlRules,
   twitterUrlRules,
   gitHubUrlRules,
 }from '../domain/validationRules/EditProfilePageRules';
+import { CourseDto }from '../domain/course/CourseDto';
+import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
+import { CreateStudySubjectApplication }from '../create/CreateStudySubjectApplication';
+import { CreateCourseApplication }from '../create/CreateCourseApplication';
 @Component({})
 export default class extends Vue {
-  private name: string = '';
-  private sex: Sex = Sex.man;
-  private subject: string = '';
-  private course: string = '';
-  private schoolYear: number = 0;
-  private classNumber: string = '';
-  private date: string = '';
-  private license: string = '';
-  private note: string = '';
-  private gitHubUrl: string = '';
-  private twitterUrl: string = '';
-  private qiitaUrl: string = '';
-  private webSiteUrl: string = '';
+  courseDtoList: CourseDto[] = [];
+  studySubjectDtoList: StudySubjectDto[] = [];
+  name: string = '';
+  sex: Sex = Sex.man;
+  subject: string = '';
+  course: string = '';
+  schoolYear: number = 0;
+  classNumber: string = '';
+  date: string = '';
+  license: string = '';
+  note: string = '';
+  gitHubUrl: string = '';
+  twitterUrl: string = '';
+  webSiteUrl: string = '';
+
+  async created() {
+    const [studySubjectDtoList, courseDtoList] = await Promise.all([
+      CreateStudySubjectApplication().GetStudySubjectItems(),
+      CreateCourseApplication().GetCourseItems(),
+    ]);
+    this.studySubjectDtoList = studySubjectDtoList;
+    this.courseDtoList = courseDtoList;
+  }
+
+  get courseItems() {
+    return this.courseDtoList.map(x => ({ text: x.name, value: x.id }));
+  }
+  get studySubjectItems() {
+    return this.studySubjectDtoList.map(x => ({ text: x.name, value: x.id }));
+  }
 
   get urlRules() {
     return urlRules;
@@ -196,9 +210,6 @@ export default class extends Vue {
   }
   get classNumberRules() {
     return classNumberRules;
-  }
-  get qiitaUrlRules() {
-    return qiitaUrlRules;
   }
   get twitterUrlRules() {
     return twitterUrlRules;
