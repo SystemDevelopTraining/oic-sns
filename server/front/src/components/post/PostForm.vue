@@ -26,6 +26,7 @@
               shaped
               required
               :rules="postRules"
+              counter="255"
               @input="(v)=>$emit('input',v)"
             />
           </v-row>
@@ -57,19 +58,13 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop }from 'vue-property-decorator';
+import { postRules }from '../../domain/validationRules/PostFormRules';
 
 @Component({})
 export default class extends Vue {
   @Prop({ type: String, required: true }) myUserName!: string;
   @Prop({ type: String, required: true }) value!: string;
 
-  postRules = [
-    (v: string) => !!v || '投稿内容を入力してください。',
-    (v: string) => {
-      const pattern = /\S\s*?/;
-      return pattern.test(v) || '空白、改行だけの投稿はできません。';
-    },
-  ];
   valid = true;
 
   onClickCancel() {
@@ -77,6 +72,9 @@ export default class extends Vue {
   }
   onClickPost() {
     this.$emit('post');
+  }
+  get postRules() {
+    return postRules;
   }
 }
 </script>
