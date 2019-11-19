@@ -27,6 +27,11 @@ export class UserApplication {
     return this.repository.GetUser(userId);
   }
 
+  //自身のユーザを取得する
+  public async GetMyUser():Promise<UserDto>{
+    return this.repository.GetUser(await this.repository.GetMyUserId());
+  }
+
   //自身のグーグルプロフィールを取得する
   public GetMyUserGoogleProfile():Promise<MyGoogleProfileDto>{
     return this.repository.GetMyUserGoogleProfile();
