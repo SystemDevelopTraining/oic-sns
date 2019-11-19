@@ -4,6 +4,7 @@
     max-width="600"
     height="100%"
   >
+    <back-btn />
     <v-card-title
       class="mx-auto"
       outlined
@@ -155,6 +156,7 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
+import BackBtn from '../components/BackBtn.vue';
 import {
   nameRules,
   classNumberRules,
@@ -172,7 +174,8 @@ import { CreateCourseApplication }from '../create/CreateCourseApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
 import { CourseId }from '../domain/course/CourseId';
-@Component({})
+
+@Component({ components: { BackBtn } })
 export default class extends Vue {
   courseDtoList: CourseDto[] = [];
   studySubjectDtoList: StudySubjectDto[] = [];
@@ -240,6 +243,10 @@ export default class extends Vue {
   }
   get requiredRules() {
     return requiredRules;
+  }
+
+  BackFrontPage(){
+    this.$router.back();
   }
 }
 </script>
