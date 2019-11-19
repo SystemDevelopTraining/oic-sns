@@ -126,7 +126,7 @@
             label="Twitter URL"
           />
           <v-text-field
-            v-model="webSiteUrl"
+            v-model="homePageUrl"
             :rules="urlRules"
             filled
             label="My Website URL"
@@ -169,30 +169,51 @@ import { CourseDto }from '../domain/course/CourseDto';
 import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
 import { CreateStudySubjectApplication }from '../create/CreateStudySubjectApplication';
 import { CreateCourseApplication }from '../create/CreateCourseApplication';
+import { CreateUserApplication }from '../create/CreateUserApplication';
+import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
+import { CourseId }from '../domain/course/CourseId';
 @Component({})
 export default class extends Vue {
   courseDtoList: CourseDto[] = [];
   studySubjectDtoList: StudySubjectDto[] = [];
   name: string = '';
   sex: Sex = Sex.man;
-  subject: string = '';
-  course: string = '';
-  schoolYear: number = 0;
+  subject: StudySubjectId = { id: 0 };
+  course: CourseId = { id: 0 };
+  schoolYear: string = '';
   classNumber: string = '';
   date: string = '';
   license: string = '';
   note: string = '';
   gitHubUrl: string = '';
   twitterUrl: string = '';
-  webSiteUrl: string = '';
+  homePageUrl: string = '';
 
   async created() {
-    const [studySubjectDtoList, courseDtoList] = await Promise.all([
+    const [studySubjectDtoList, courseDtoList, user] = await Promise.all([
       CreateStudySubjectApplication().GetStudySubjectItems(),
       CreateCourseApplication().GetCourseItems(),
+      CreateUserApplication().GetMyUser(),
     ]);
+    const studySubject = studySubjectDtoList.find(
+      x => x.name === user.studySubject,
+    );
+    const course = courseDtoList.find(x => x.name === user.course);
+
+    this.name = user.name;
+    this.sex = user.sex;
+    this.date = user.birthday || '';
+    this.subject = (studySubject && studySubject.id) || this.subject;
+    this.course = (course && course.id) || this.course;
+    this.note = user.note;
+    this.license = user.license;
+    this.schoolYear = user.schoolYear + '年';
+    this.classNumber = user.classNumber;
     this.studySubjectDtoList = studySubjectDtoList;
     this.courseDtoList = courseDtoList;
+    this.homePageUrl = user.homePageUrl;
+    this.gitHubUrl = user.githubUrl;
+    this.twitterUrl = user.twitterUrl;
   }
 
   get courseItems() {
