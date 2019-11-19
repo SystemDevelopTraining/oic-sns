@@ -211,5 +211,9 @@ export default class extends Vue {
   get requiredRules() {
     return requiredRules;
   }
+
+  BackFrontPage(){
+    this.$router.back();
+  }
 }
 </script>
