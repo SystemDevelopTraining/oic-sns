@@ -130,6 +130,7 @@
         <v-btn
           dark
           width="100"
+          @click="Test"
         >
           登録
         </v-btn>
@@ -209,10 +210,9 @@ export default class extends Vue {
   }
 
   @Watch('menu')
-  changeMenu() {
-    null;
+  changeMenu(val: boolean) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (this.$refs.picker as any).activePicker = 'YEAR';
+    val && setTimeout(() => ((this.$refs.picker as any).activePicker = 'YEAR'));
   }
 }
 </script>
