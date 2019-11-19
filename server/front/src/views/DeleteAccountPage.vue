@@ -32,6 +32,7 @@
               tile
               color="red"
               dark
+              @click="deleteAccount"
             >
               アカウントを削除
             </v-btn>
@@ -45,8 +46,13 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import BackBtn from '../components/BackBtn.vue';
+
 @Component({
   components: { BackBtn },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  clickDeleteAccount() {
+    location.href = '/';
+  }
+}
 </script>
