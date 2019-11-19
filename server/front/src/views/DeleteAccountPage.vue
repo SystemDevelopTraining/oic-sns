@@ -5,7 +5,7 @@
       dense
     >
       <back-btn />
-
+      <v-spacer />
       <v-toolbar-title>アカウント削除</v-toolbar-title>
     </v-toolbar>
     <v-card height>
