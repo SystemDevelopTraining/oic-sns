@@ -26,125 +26,128 @@
       </v-avatar>
     </v-row>
     <v-container fluid>
-      <v-text-field
-        v-model="name"
-        :rules="nameRules"
-        label="本名"
-        counter="25"
-      />
-      <v-select
-        v-model="sex"
-        :rules="requiredRules"
-        label="性別"
-        :items="['男', '女']"
-      />
-      <v-menu
-        ref="menu"
-        :close-on-content-click="false"
-        :return-value.sync="date"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="birthday"
-            label="生年月日"
-            readonly
-            v-on="on"
-          />
-        </template>
-        <v-date-picker
-          v-model="date"
-          no-title
-          scrollable
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="name"
+          :rules="nameRules"
+          label="本名"
+          counter="25"
+        />
+        <v-select
+          v-model="sex"
+          :rules="requiredRules"
+          label="性別"
+          :items="['男', '女']"
+        />
+        <v-menu
+          ref="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
         >
-          <div class="flex-grow-1" />
-          <v-btn
-            text
-            color="primary"
-            @click="menu = false"
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="birthday"
+              label="生年月日"
+              readonly
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="date"
+            no-title
+            scrollable
           >
-            Cancel
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="$refs.menu.save(date)"
-          >
-            OK
-          </v-btn>
-        </v-date-picker>
-      </v-menu>
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="subject"
-            :rules="requiredRules"
-            label="学科"
-            :items="studySubjectItems"
-            required
-          />
-          <v-select
-            v-model="course"
-            :rules="requiredRules"
-            label="専攻"
-            :items="courseItems"
-          />
-          <v-select
-            v-model="schoolYear"
-            :rules="requiredRules"
-            label="学年"
-            :items="['1年', '2年', '3年', '4年']"
-          />
-          <v-text-field
-            v-model="classNumber"
-            label="クラス番号"
-            :rules="classNumberRules"
-            counter="6"
-          />
+            <div class="flex-grow-1" />
+            <v-btn
+              text
+              color="primary"
+              @click="menu = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.menu.save(date)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+        <v-row>
+          <v-col>
+            <v-select
+              v-model="subject"
+              :rules="requiredRules"
+              label="学科"
+              :items="studySubjectItems"
+              required
+            />
+            <v-select
+              v-model="course"
+              :rules="requiredRules"
+              label="専攻"
+              :items="courseItems"
+            />
+            <v-select
+              v-model="schoolYear"
+              :rules="requiredRules"
+              label="学年"
+              :items="['1年', '2年', '3年', '4年']"
+            />
+            <v-text-field
+              v-model="classNumber"
+              label="クラス番号"
+              :rules="classNumberRules"
+              counter="6"
+            />
 
-          <v-text-field
-            v-model="license"
-            label="資格"
-            filled
-          />
-          <v-textarea
-            v-model="note"
-            filled
-            label="自由記述欄"
-          />
-          <v-text-field
-            v-model="gitHubUrl"
-            :rules="gitHubUrlRules"
-            filled
-            label="Github URL"
-          />
-          <v-text-field
-            v-model="twitterUrl"
-            :rules="twitterUrlRules"
-            filled
-            label="Twitter URL"
-          />
-          <v-text-field
-            v-model="homePageUrl"
-            :rules="urlRules"
-            filled
-            label="My Website URL"
-          />
-        </v-col>
-      </v-row>
+            <v-text-field
+              v-model="license"
+              label="資格"
+              filled
+            />
+            <v-textarea
+              v-model="note"
+              filled
+              label="自由記述欄"
+            />
+            <v-text-field
+              v-model="gitHubUrl"
+              :rules="gitHubUrlRules"
+              filled
+              label="Github URL"
+            />
+            <v-text-field
+              v-model="twitterUrl"
+              :rules="twitterUrlRules"
+              filled
+              label="Twitter URL"
+            />
+            <v-text-field
+              v-model="homePageUrl"
+              :rules="urlRules"
+              filled
+              label="My Website URL"
+            />
+          </v-col>
+        </v-row>
+      </v-form>
+
       <v-card-actions class="float-right">
         <v-btn
-          dark
           width="100"
           @click="BackFrontPage"
         >
           キャンセル
         </v-btn>
         <v-btn
-          dark
           width="100"
+          :disabled="!valid"
+          @click="send"
         >
           登録
         </v-btn>
@@ -174,6 +177,7 @@ import { CreateCourseApplication }from '../create/CreateCourseApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
 import { CourseId }from '../domain/course/CourseId';
+import { AsyncOnce }from '../utils/AsyncOnce';
 
 @Component({ components: { BackBtn } })
 export default class extends Vue {
@@ -191,6 +195,8 @@ export default class extends Vue {
   gitHubUrl: string = '';
   twitterUrl: string = '';
   homePageUrl: string = '';
+  asyncOnce = new AsyncOnce();
+  valid = true;
 
   async created() {
     const [studySubjectDtoList, courseDtoList, user] = await Promise.all([
@@ -245,7 +251,33 @@ export default class extends Vue {
     return requiredRules;
   }
 
-  BackFrontPage(){
+  send() {
+    this.asyncOnce.Do(this.updateMyUser);
+  }
+
+  async updateMyUser() {
+    try {
+      await CreateUserApplication().UpdateMyUser({
+        name: this.name,
+        classNumber: this.classNumber,
+        studySubjectId: this.subject,
+        courseId: this.course,
+        license: this.license,
+        schoolYear: Number(this.schoolYear[0]),
+        note: this.note,
+        githubUrl: this.gitHubUrl,
+        twitterUrl: this.twitterUrl,
+        homePageUrl: this.homePageUrl,
+        birthday: this.birthday
+      });
+    }catch (e) {
+      alert('プロフィール編集に失敗しました');
+      return;
+    }
+    this.$router.push({ name: 'user' });
+  }
+
+  BackFrontPage() {
     this.$router.back();
   }
 }
