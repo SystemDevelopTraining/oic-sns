@@ -47,7 +47,7 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="date"
+            v-model="birthday"
             label="生年月日"
             readonly
             v-on="on"
@@ -182,7 +182,7 @@ export default class extends Vue {
   course: CourseId = { id: 0 };
   schoolYear: string = '';
   classNumber: string = '';
-  date: string = '';
+  birthday: string = '';
   license: string = '';
   note: string = '';
   gitHubUrl: string = '';
@@ -202,7 +202,7 @@ export default class extends Vue {
 
     this.name = user.name;
     this.sex = user.sex;
-    this.date = user.birthday || '';
+    this.birthday = user.birthday || '';
     this.subject = (studySubject && studySubject.id) || this.subject;
     this.course = (course && course.id) || this.course;
     this.note = user.note;
