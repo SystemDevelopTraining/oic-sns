@@ -39,6 +39,7 @@
       />
       <v-menu
         ref="menu"
+        v-model="menu"
         :close-on-content-click="false"
         :return-value.sync="date"
         transition="scale-transition"
@@ -54,26 +55,11 @@
           />
         </template>
         <v-date-picker
+          ref="picker"
           v-model="date"
-          no-title
-          scrollable
-        >
-          <div class="flex-grow-1" />
-          <v-btn
-            text
-            color="primary"
-            @click="menu = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="$refs.menu.save(date)"
-          >
-            OK
-          </v-btn>
-        </v-date-picker>
+          locale="ja-JP"
+          @change="$refs.menu.save(date)"
+        />
       </v-menu>
       <v-row>
         <v-col>
@@ -153,7 +139,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import {
   nameRules,
@@ -185,6 +171,7 @@ export default class extends Vue {
   gitHubUrl: string = '';
   twitterUrl: string = '';
   webSiteUrl: string = '';
+  menu = false;
 
   async created() {
     const [studySubjectDtoList, courseDtoList] = await Promise.all([
@@ -219,6 +206,13 @@ export default class extends Vue {
   }
   get requiredRules() {
     return requiredRules;
+  }
+
+  @Watch('menu')
+  changeMenu() {
+    null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (this.$refs.picker as any).activePicker = 'YEAR';
   }
 }
 </script>
