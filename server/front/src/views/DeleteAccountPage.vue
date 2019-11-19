@@ -66,11 +66,10 @@ export default class extends Vue {
   }
   //get OICNumber
   get oicNumberRules() {
-    alert(this.oicN[1]); //??????alert でサーバに渡したのはなぜundifinedか
     return [
       (x: string) =>
         x === this.oicNumber ||
-        'B' + this.oicN[1] ||
+        x === 'B' + this.oicN[1] ||
         '正しく学籍番号を入力してください！',
     ];
   }
