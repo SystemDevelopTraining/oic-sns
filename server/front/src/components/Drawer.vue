@@ -104,3 +104,12 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.v-btn {
+  opacity: 0.4;
+}
+.v-btn:hover {
+  opacity: 1;
+}
+</style>
