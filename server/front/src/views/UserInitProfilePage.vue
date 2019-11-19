@@ -41,7 +41,7 @@
         v-model="sex"
         :rules="requiredRules"
         label="性別"
-        :items="['男','女']"
+        :items="['男', '女']"
       />
       <v-select
         v-model="subject"
@@ -60,7 +60,7 @@
         v-model="schoolYear"
         :rules="requiredRules"
         label="学年"
-        :items="['1年','2年','3年','4年']"
+        :items="['1年', '2年', '3年', '4年']"
       />
       <v-text-field
         v-model="classNumber"
@@ -93,6 +93,10 @@ import {
 }from '../domain/validationRules/CommonRules';
 import { CourseId }from '../domain/course/CourseId';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
+import { CourseDto }from '../domain/course/CourseDto';
+import { CreateCourseApplication }from '../create/CreateCourseApplication';
+import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
+import { CreateStudySubjectApplication }from '../create/CreateStudySubjectApplication';
 
 @Component({})
 export default class extends Vue {
@@ -103,16 +107,24 @@ export default class extends Vue {
   private schoolYear: string = '';
   private classNumber: string = '';
   private asyncOnce = new AsyncOnce();
+  courseDtoList: CourseDto[] = [];
+  studySubjectDtoList: StudySubjectDto[] = [];
   oicNumber = '';
   email = '';
   valid = true;
 
   async created() {
-    const {
-      email,
-      oicNumber,
-      name,
-    } = await CreateUserApplication().GetMyUserGoogleProfile();
+    const [
+      { email, oicNumber, name },
+      courseDtoList,
+      studySubjectDtoList,
+    ] = await Promise.all([
+      CreateUserApplication().GetMyUserGoogleProfile(),
+      CreateCourseApplication().GetCourseItems(),
+      CreateStudySubjectApplication().GetStudySubjectItems(),
+    ]);
+    this.courseDtoList = courseDtoList;
+    this.studySubjectDtoList = studySubjectDtoList;
     this.email = email;
     this.oicNumber = oicNumber;
     this.name = name;
@@ -126,32 +138,11 @@ export default class extends Vue {
   get classNumberRules() {
     return classNumberRules;
   }
-
   get subjectItems() {
-    const items = [
-      {
-        text: '総合情報メディア学科',
-        value: 1,
-      },
-      {
-        text: 'goehehehfefe',
-        value: 2,
-      },
-    ];
-    return items;
+    return this.studySubjectDtoList.map(x => ({ text: x.name, value: x.id }));
   }
   get courseItems() {
-    const items = [
-      {
-        text: 'A',
-        value: 1,
-      },
-      {
-        text: 'B',
-        value: 2,
-      },
-    ];
-    return items;
+    return this.courseDtoList.map(x => ({ text: x.name, value: x.id }));
   }
   onClickRegister() {
     this.asyncOnce.Do(this.register);

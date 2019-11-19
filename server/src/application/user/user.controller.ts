@@ -10,7 +10,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { UserService } from '../../domain/user/service/user.service';
-import { UserDto } from '../../domain/user/user.dto';
+import { MakeUserDto } from '../../domain/user/make-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { JwtPayload } from '../../domain/auth-user/jwt.payload';
@@ -23,14 +23,17 @@ import { UpdateUserDto } from '../../domain/user/update-user.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   //ユーザ作成
   @Post('v1')
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body() userDto: UserDto, @Req() req: Request): Promise<number> {
+  async create(
+    @Body() makeUserDto: MakeUserDto,
+    @Req() req: Request,
+  ): Promise<number> {
     return await this.userService
-      .create(userDto, (req.user as JwtPayload).thirdPartyId)
+      .create(makeUserDto, (req.user as JwtPayload).thirdPartyId)
       .then(x => x.id);
   }
 
@@ -67,14 +70,22 @@ export class UserController {
 
   @Patch('v1/my_user')
   @UseGuards(AuthGuard('jwt'))
-  async updateMyUser(@Body() updateUserDto: UpdateUserDto, @Req() req: Request) {
-    return await this.userService.updateMyUser((req.user as JwtPayload).thirdPartyId, updateUserDto);
+  async updateMyUser(
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: Request,
+  ) {
+    return await this.userService.updateMyUser(
+      (req.user as JwtPayload).thirdPartyId,
+      updateUserDto,
+    );
   }
 
   @Delete('v1/my_user')
   @UseGuards(AuthGuard('jwt'))
   async deleteMyUser(@Req() req: Request) {
-    return await this.userService.deleteMyUser((req.user as JwtPayload).thirdPartyId);
+    return await this.userService.deleteMyUser(
+      (req.user as JwtPayload).thirdPartyId,
+    );
   }
 
   //idに対応したユーザをフォローする

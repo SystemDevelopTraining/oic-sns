@@ -15,9 +15,5 @@ import BackBtn from '../components/BackBtn.vue';
 @Component({
   components: { FollowList, BackBtn },
 })
-export default class extends Vue {
-  onClickBackFollowList() {
-    this.$router.push({ name: 'user' });
-  }
-}
+export default class extends Vue {}
 </script>

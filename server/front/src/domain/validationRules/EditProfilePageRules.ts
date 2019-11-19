@@ -6,14 +6,6 @@ export const urlRules = [
     (v: string) => v.length <= 255 || '255文字以内で入力してください'
 ];
 
-export const qiitaUrlRules = [
-    (v:string)=>{
-        const pattern = /^https:\/\/qiita\.com\/./;
-        return v === '' || pattern.test(v) || '正しいURLを入力してください';
-    },
-    (v: string) => v.length <= 255 || '255文字以内で入力してください'
-];
-
 export const twitterUrlRules = [
     (v:string)=>{
         const pattern = /^https:\/\/twitter\.com\/./;
