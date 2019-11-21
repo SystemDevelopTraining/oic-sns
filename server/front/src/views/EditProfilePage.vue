@@ -130,7 +130,6 @@
         <v-btn
           dark
           width="100"
-          @click="Test"
         >
           登録
         </v-btn>
