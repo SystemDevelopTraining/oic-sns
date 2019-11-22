@@ -6,7 +6,7 @@
         dense
       >
         <back-btn />
-
+        <v-spacer />
         <v-toolbar-title>アカウント削除</v-toolbar-title>
       </v-toolbar>
       <v-card height>
@@ -50,24 +50,25 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import BackBtn from '../components/BackBtn.vue';
+import { oicNumberRules }from '../domain/validationRules/CommonRules';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 @Component({
   components: { BackBtn },
 })
 export default class extends Vue {
-  oicNumber: string = '';
-  //get OICNumberのためにvalid作った
   valid = true;
-  async created() {
-    const myUser = await CreateUserApplication().GetMyUser();
-    this.oicNumber = myUser.oicNumber;
+  oicNumber: string = '';
+
+  created() {
+    CreateUserApplication()
+      .GetMyUser()
+      .then(myUser => {
+        this.oicNumber = myUser.oicNumber;
+      });
   }
-  //get OICNumber
+
   get oicNumberRules() {
-    return [
-      (x: string) =>
-        x === this.oicNumber || '正しく学籍番号を入力してください！',
-    ];
+    return oicNumberRules(this.oicNumber);
   }
 }
 </script>
