@@ -52,9 +52,15 @@ import { CreateUserApplication }from '../create/CreateUserApplication';
   components: { BackBtn },
 })
 export default class extends Vue {
-  clickDeleteAccount() {
-    CreateUserApplication().DeleteAccount();
-    location.href = '/';
+  //ユーザ削除する
+  async clickDeleteAccount() {
+    try {
+      await CreateUserApplication().DeleteAccount();
+      location.href = '/';
+    }catch (e) {
+      alert('ユーザ削除に失敗しました。');
+      return;
+    }
   }
 }
 </script>
