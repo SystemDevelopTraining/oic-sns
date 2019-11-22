@@ -17,4 +17,6 @@ export interface UserRepository {
   GetMyUserGoogleProfile():Promise<MyGoogleProfileDto>;
   //自身のユーザ情報更新する
   UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>;
+  //ユーザーを削除sする
+  DeleteAccount(): Promise<unknown>;
 }
