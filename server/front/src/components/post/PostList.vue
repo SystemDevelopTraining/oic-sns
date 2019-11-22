@@ -21,17 +21,19 @@ import { Component, Vue, Prop, Watch }from 'vue-property-decorator';
 import { CreatePostApplication }from '../../create/CreatePostApplication';
 import { UserId }from '../../domain/user/UserId';
 import { AsyncOnce }from '../../utils/AsyncOnce';
-import { PostInfosList }from '../../domain/post/PostInfosList';
 import { PostId }from '../../domain/post/PostId';
+import { CategoryId }from '../../domain/category/CategoryId';
+import { TimeLine }from '../../domain/post/TimeLine';
 @Component({ components: { Post, NewPostGetButton } })
 export default class extends Vue {
   @Prop({ type: Object, required: false }) filterUserId: UserId | undefined;
+  @Prop({ required: false }) selectedCategory: CategoryId | null | undefined;
   asyncOnce = new AsyncOnce();
 
-  postInfosList: PostInfosList = CreatePostApplication().GetPostInfosList();
+  timeLine: TimeLine = CreatePostApplication().GetTimeLine();
 
   get postInfosListDto() {
-    return this.postInfosList ? this.postInfosList.PostInfosListDto : [];
+    return this.timeLine.PostInfosList.PostInfosListDto;
   }
 
   created() {
@@ -43,16 +45,19 @@ export default class extends Vue {
     this.setPostInfosList();
   }
 
+  @Watch('selectedCategory')
+  onChangeSelectedCategory() {
+    this.timeLine.SelectCategoryId(this.selectedCategory || { id: 0 });
+  }
+
   async setPostInfosList() {
-    this.postInfosList = CreatePostApplication().GetPostInfosList(
-      this.filterUserId,
-    );
-    this.postInfosList.GetUpdateLatestPost();
+    this.timeLine = CreatePostApplication().GetTimeLine(this.filterUserId);
+    this.timeLine.PostInfosList.GetUpdateLatestPost();
   }
 
   //現在の一番古い投稿より古い最新の投稿を取得する
   async oldPostGet() {
-    await this.postInfosList.GetUpdateOldPost();
+    await this.timeLine.PostInfosList.GetUpdateOldPost();
   }
 
   onLatestPostGetClick() {
@@ -61,11 +66,11 @@ export default class extends Vue {
 
   //現在の一番新しい投稿より最新の投稿を取得する
   async latestPostGet() {
-    await this.postInfosList.GetUpdateLatestPost();
+    await this.timeLine.PostInfosList.GetUpdateLatestPost();
   }
 
   deletePost(id: PostId) {
-    this.postInfosList.DeletePost(id);
+    this.timeLine.PostInfosList.DeletePost(id);
   }
 }
 </script>
