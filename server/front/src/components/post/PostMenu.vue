@@ -5,6 +5,7 @@
         <v-btn
           fab
           small
+          icon
         >
           <v-icon v-if="fab">
             mdi-close
@@ -19,7 +20,7 @@
         v-if="isMyself"
         fab
         dark
-        color="red"
+        color="warning"
         small
         @click="$emit('delete')"
       >

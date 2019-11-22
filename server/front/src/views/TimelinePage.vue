@@ -9,7 +9,7 @@
         <v-btn
           v-show="showPosts"
           block
-          color="primary"
+          color="accent"
           :disabled="false"
           @click="onClickShowPostForm"
         >

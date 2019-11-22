@@ -3,7 +3,7 @@
     <v-col>
       <v-btn
         width="100%"
-        color="yellow lighten-5"
+        color="secondary"
         @click="onClick"
       >
         {{ timeText }}の投稿10件を取得

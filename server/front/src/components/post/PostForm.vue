@@ -1,6 +1,6 @@
 <template>
   <!-- 投稿Post レイアウト-->
-  <v-card>
+  <v-card color="primary">
     <v-card-title>
       <span class="headline">{{ myUserName }}</span>
       <v-col class="pb-0">
@@ -42,7 +42,7 @@
         <div class="flex-grow-1" />
         <v-btn
           outlined
-          color="red"
+          color="warning"
           text
           @click="onClickCancel"
         >
@@ -50,7 +50,7 @@
         </v-btn>
         <v-btn
           outlined
-          color="blue"
+          color="accent"
           text
           :disabled="!valid"
           @click="onClickPost"

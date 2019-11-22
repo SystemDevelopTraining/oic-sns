@@ -3,6 +3,7 @@
     v-if="user"
     class="mx-auto"
     outlined
+    color="primary"
     @click="onClickShowUserDetails"
   >
     <div
@@ -17,7 +18,7 @@
         <v-col>
           <div class="grid-content">
             <v-avatar
-              color="grey"
+              color="secondary"
               size="80"
             >
               <v-icon dark>
@@ -50,14 +51,12 @@
           >
             {{ followText }}
           </v-btn>
-        </v-col>
-        <v-col>
           <v-btn
             v-if="isMyUser"
             max-width="130"
             rounded
             large
-            color="#F18D9E"
+            color="accent"
             @click.stop="editProfileClick"
           >
             プロフィール編集
@@ -68,7 +67,7 @@
             max-width="120"
             large
             rounded
-            color="yellow"
+            color="accent"
             @click="onClickFollowList"
           >
             フォローリスト
@@ -168,9 +167,9 @@ export default class extends Vue {
   setFollowText(isFollow: boolean) {
     this.followText = isFollow ? 'フォロー解除' : 'フォロー';
     if (this.followText === 'フォロー解除') {
-      this.followBtnColor = 'red';
+      this.followBtnColor = 'warning';
     }else {
-      this.followBtnColor = 'yellow';
+      this.followBtnColor = 'accent';
     }
   }
 

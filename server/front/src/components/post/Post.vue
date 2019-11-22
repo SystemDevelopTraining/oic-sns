@@ -2,7 +2,7 @@
   <v-row>
     <v-card
       width="100%"
-      outlined
+      color="primary"
     >
       <v-row>
         <v-col
@@ -12,7 +12,7 @@
           <v-card-title>
             <v-list-item-avatar
               size="60"
-              color="grey"
+              color="secondary"
             />
             <v-btn
               outlined

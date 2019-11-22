@@ -2,7 +2,7 @@
   <v-btn
     v-if="isShow"
     v-scroll-to="'body'"
-    color="primary"
+    color="accent"
     dark
     small
     fixed
@@ -36,7 +36,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .v-btn {
-  opacity: 0.4;
+  opacity: 0.7;
 }
 .v-btn:hover {
   opacity: 1;
