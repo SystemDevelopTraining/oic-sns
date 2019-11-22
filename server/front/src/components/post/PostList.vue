@@ -24,10 +24,12 @@ import { AsyncOnce }from '../../utils/AsyncOnce';
 import { PostId }from '../../domain/post/PostId';
 import { CategoryId }from '../../domain/category/CategoryId';
 import { TimeLine }from '../../domain/post/TimeLine';
+
 @Component({ components: { Post, NewPostGetButton } })
 export default class extends Vue {
   @Prop({ type: Object, required: false }) filterUserId: UserId | undefined;
   @Prop({ required: false }) selectedCategory: CategoryId | null | undefined;
+  @Prop({ type: Boolean, required: false }) followUserOnly: boolean | undefined;
   asyncOnce = new AsyncOnce();
 
   timeLine: TimeLine = CreatePostApplication().GetTimeLine();
@@ -47,7 +49,12 @@ export default class extends Vue {
 
   @Watch('selectedCategory')
   onChangeSelectedCategory() {
-    this.timeLine.SelectCategoryId(this.selectedCategory || { id: 0 });
+    this.timeLine.SelectCategoryId(this.selectedCategory || undefined);
+  }
+
+  @Watch('followUserOnly')
+  onChangeFollowUserOnly() {
+    this.timeLine.SetFollowUserOnly(this.followUserOnly || false);
   }
 
   async setPostInfosList() {
