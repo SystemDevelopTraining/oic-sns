@@ -41,8 +41,9 @@
         />
         <v-menu
           ref="menu"
+          v-model="menu"
           :close-on-content-click="false"
-          :return-value.sync="date"
+          :return-value.sync="birthday"
           transition="scale-transition"
           offset-y
           min-width="290px"
@@ -56,26 +57,11 @@
             />
           </template>
           <v-date-picker
-            v-model="date"
-            no-title
-            scrollable
-          >
-            <div class="flex-grow-1" />
-            <v-btn
-              text
-              color="primary"
-              @click="menu = false"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu.save(date)"
-            >
-              OK
-            </v-btn>
-          </v-date-picker>
+            ref="picker"
+            v-model="birthday"
+            locale="ja-JP"
+            @change="$refs.menu.save(birthday)"
+          />
         </v-menu>
         <v-row>
           <v-col>
@@ -143,7 +129,6 @@
           </v-col>
         </v-row>
       </v-form>
-
       <v-card-actions class="float-right">
         <v-btn
           width="100"
@@ -164,7 +149,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import BackBtn from '../components/BackBtn.vue';
 import {
@@ -203,6 +188,7 @@ export default class extends Vue {
   note: string = '';
   gitHubUrl: string = '';
   twitterUrl: string = '';
+  menu = false;
   homePageUrl: string = '';
   asyncOnce = new AsyncOnce();
   valid = true;
@@ -265,7 +251,6 @@ export default class extends Vue {
   get licenseRules() {
     return licenseRules;
   }
-
   send() {
     this.asyncOnce.Do(this.updateMyUser);
   }
@@ -294,6 +279,12 @@ export default class extends Vue {
 
   BackFrontPage() {
     this.$router.back();
+  }
+
+  @Watch('menu')
+  changeMenu(val: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    val && setTimeout(() => ((this.$refs.picker as any).activePicker = 'YEAR'));
   }
 }
 </script>
