@@ -4,14 +4,8 @@
       dark
       dense
     >
-      <v-icon>mdi-arrow-left</v-icon>
+      <back-btn />
       <v-spacer />
-      <v-btn
-        icon
-        flat
-        @click="onClickBack"
-      />
-
       <v-toolbar-title>アカウント削除</v-toolbar-title>
     </v-toolbar>
     <v-card height>
@@ -48,16 +42,11 @@
   </v-card>
 </template>
 
-
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-
+import BackBtn from '../components/BackBtn.vue';
 @Component({
-  components: {},
+  components: { BackBtn },
 })
-export default class extends Vue {
-  onClickBack() {
-    this.$router.back();
-  }
-}
+export default class extends Vue {}
 </script>

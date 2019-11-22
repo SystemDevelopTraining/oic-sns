@@ -1,19 +1,8 @@
 <template>
   <v-card>
     <v-toolbar>
-      <v-btn
-        class="mr-auto"
-        color="orange darken-2"
-        dark
-        @click="onClickBackFollowList"
-      >
-        <v-icon
-          dark
-          right
-        >
-          fa-backspace
-        </v-icon>
-      </v-btn>
+      <back-btn />
+      <v-spacer />
       <v-toolbar-title>Follow List</v-toolbar-title>
     </v-toolbar>
     <FollowList />
@@ -23,12 +12,9 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import FollowList from '../components/followList/FollowList.vue';
+import BackBtn from '../components/BackBtn.vue';
 @Component({
-  components: { FollowList },
+  components: { FollowList, BackBtn },
 })
-export default class extends Vue {
-  onClickBackFollowList() {
-    this.$router.back();
-  }
-}
+export default class extends Vue {}
 </script>

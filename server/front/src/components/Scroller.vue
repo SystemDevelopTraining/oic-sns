@@ -1,33 +1,44 @@
 <template>
-  <div>
-    <template v-if="isLogin">
-      <v-btn
-        color="primary"
-        dark
-        small
-        fixed
-        top
-        app
-        fab
-        right
-        @click.stop="drawer = !drawer"
-      >
-        <v-icon>mdi-chevron-triple-up</v-icon>
-      </v-btn>
-    </template>
-  </div>
+  <v-btn
+    v-if="isShow"
+    v-scroll-to="'body'"
+    color="primary"
+    dark
+    small
+    fixed
+    top
+    app
+    fab
+    right
+  >
+    <v-icon>mdi-chevron-triple-up</v-icon>
+  </v-btn>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import { CreateLoginApplication }from '../create/CreateLoginApplication';
 
-@Component({ components: {} })
+@Component
 export default class extends Vue {
-  isLogin = CreateLoginApplication().IsLogin();
+  scrollValue: number = 0;
+  created() {
+    window.addEventListener(
+      'scroll',
+      () => (this.scrollValue = window.scrollY),
+    );
+  }
+
+  get isShow() {
+    return this.scrollValue >= 200;
+  }
 }
 </script>
 
-
-
-
+<style lang="scss" scoped>
+.v-btn {
+  opacity: 0.4;
+}
+.v-btn:hover {
+  opacity: 1;
+}
+</style>

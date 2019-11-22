@@ -14,6 +14,7 @@ import { CourseDto }from '../../domain/course/CourseDto';
 import { StudySubjectDto }from '../../domain/studySubject/StudySubjectDto';
 import { CategoryDto }from '../../domain/category/CategoryDto';
 import { MakeUserDto }from '../../domain/user/MakeUserDto';
+import { UpdateUserDto }from '../../domain/user/UpdateUserDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -47,6 +48,12 @@ export class ApiClient {
       studySubjectId: makeUserDto.studySubjectId,
       courseId: makeUserDto.courseId,
     });
+    return response.data;
+  }
+
+  //自身のユーザ情報更新するリクエストを送る
+  public async UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>{
+    const response = await this.axios.patch('user/v1/my_user', updateUserDto);
     return response.data;
   }
 
