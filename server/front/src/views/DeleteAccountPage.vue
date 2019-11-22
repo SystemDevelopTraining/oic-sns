@@ -32,7 +32,7 @@
               tile
               color="red"
               dark
-              @click="deleteAccount"
+              @click="clickDeleteAccount"
             >
               アカウントを削除
             </v-btn>
@@ -46,12 +46,14 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import BackBtn from '../components/BackBtn.vue';
+import { CreateUserApplication }from '../create/CreateUserApplication';
 
 @Component({
   components: { BackBtn },
 })
 export default class extends Vue {
   clickDeleteAccount() {
+    CreateUserApplication().DeleteAccount();
     location.href = '/';
   }
 }
