@@ -60,6 +60,8 @@
             ref="picker"
             v-model="birthday"
             locale="ja-JP"
+            :max="maxBirthday"
+            :min="minBirthday"
             @change="$refs.menu.save(birthday)"
           />
         </v-menu>
@@ -279,6 +281,17 @@ export default class extends Vue {
 
   BackFrontPage() {
     this.$router.back();
+  }
+
+  get maxBirthday() {
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - 16);
+    return maxDate.toISOString().substr(0, 10);
+  }
+  get minBirthday() {
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 100);
+    return minDate.toISOString().substr(0, 10);
   }
 
   @Watch('menu')
