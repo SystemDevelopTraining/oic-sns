@@ -251,7 +251,6 @@ export default class extends Vue {
   get licenseRules() {
     return licenseRules;
   }
-
   send() {
     this.asyncOnce.Do(this.updateMyUser);
   }
