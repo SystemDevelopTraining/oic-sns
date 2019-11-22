@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="haha">
+  <v-form v-model="valid">
     <v-card>
       <v-toolbar
         dark
@@ -35,7 +35,7 @@
                 tile
                 color="red"
                 dark
-                :disabled="!haha"
+                :disabled="!valid"
               >
                 アカウントを削除
               </v-btn>
@@ -56,21 +56,17 @@ import { CreateUserApplication }from '../create/CreateUserApplication';
 })
 export default class extends Vue {
   oicNumber: string = '';
-  //get OICNumberのためにhahaとoicN作った
-  haha = true;
-  oicN: string[] = [];
+  //get OICNumberのためにvalid作った
+  valid = true;
   async created() {
     const myUser = await CreateUserApplication().GetMyUser();
     this.oicNumber = myUser.oicNumber;
-    this.oicN = myUser.oicNumber.split('b');
   }
   //get OICNumber
   get oicNumberRules() {
     return [
       (x: string) =>
-        x === this.oicNumber ||
-        x === 'B' + this.oicN[1] ||
-        '正しく学籍番号を入力してください！',
+        x === this.oicNumber || '正しく学籍番号を入力してください！',
     ];
   }
 }
