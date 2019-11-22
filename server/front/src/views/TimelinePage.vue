@@ -31,7 +31,7 @@
     </v-row>
     <post-form
       v-if="showPostFormFlag"
-      v-model="postText"
+      v-model="createPostParamsDto"
       :my-user-name="myUserName"
       @cancel="onClickCancel"
       @post="onClickPost"
@@ -48,11 +48,15 @@ import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
+import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 
 @Component({ components: { PostList, PostForm, Scroller } })
 export default class extends Vue {
   showPostFormFlag = false;
-  postText = '';
+  createPostParamsDto: CreatePostParamsDto = {
+    text: '',
+    categoryId: { id: 1 },
+  };
   myUserName = '';
   asyncOnce = new AsyncOnce();
   selectedType = { label: 'フォロー中', value: 'follow' };
@@ -92,9 +96,7 @@ export default class extends Vue {
   //投稿をする
   async post() {
     try {
-      await CreatePostApplication().PostOnTimeline({
-        text: this.postText,
-      });
+      await CreatePostApplication().PostOnTimeline(this.createPostParamsDto);
     }catch (e) {
       alert('投稿に失敗しました。');
       return;
@@ -105,7 +107,8 @@ export default class extends Vue {
   //投稿フォームを非表示にする
   hidePostForm() {
     this.showPostFormFlag = false;
-    this.postText = '';
+    this.createPostParamsDto.text = '';
+    this.createPostParamsDto.categoryId = { id: 1 };
   }
 }
 </script>
