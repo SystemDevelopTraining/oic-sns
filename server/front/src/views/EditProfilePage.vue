@@ -107,30 +107,37 @@
 
             <v-text-field
               v-model="license"
+              :rules="licenseRules"
+              counter="100"
               label="資格"
               filled
             />
             <v-textarea
               v-model="note"
               filled
+              :rules="noteRules"
+              counter="200"
               label="自由記述欄"
             />
             <v-text-field
               v-model="gitHubUrl"
               :rules="gitHubUrlRules"
               filled
+              counter="255"
               label="Github URL"
             />
             <v-text-field
               v-model="twitterUrl"
               :rules="twitterUrlRules"
               filled
+              counter="255"
               label="Twitter URL"
             />
             <v-text-field
               v-model="homePageUrl"
               :rules="urlRules"
               filled
+              counter="255"
               label="My Website URL"
             />
           </v-col>
@@ -169,6 +176,8 @@ import {
   urlRules,
   twitterUrlRules,
   gitHubUrlRules,
+  noteRules,
+  licenseRules,
 }from '../domain/validationRules/EditProfilePageRules';
 import { CourseDto }from '../domain/course/CourseDto';
 import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
@@ -250,6 +259,12 @@ export default class extends Vue {
   get requiredRules() {
     return requiredRules;
   }
+  get noteRules() {
+    return noteRules;
+  }
+  get licenseRules() {
+    return licenseRules;
+  }
 
   send() {
     this.asyncOnce.Do(this.updateMyUser);
@@ -268,7 +283,7 @@ export default class extends Vue {
         githubUrl: this.gitHubUrl,
         twitterUrl: this.twitterUrl,
         homePageUrl: this.homePageUrl,
-        birthday: this.birthday
+        birthday: this.birthday,
       });
     }catch (e) {
       alert('プロフィール編集に失敗しました');
