@@ -3,6 +3,7 @@ import { MakeUserDto }from './MakeUserDto';
 import { UserId }from './UserId';
 import { UserDto }from './UserDto';
 import { MyGoogleProfileDto }from './MyGoogleProfileDto';
+import { UpdateUserDto }from './UpdateUserDto';
 
 //ユーザに関するデータの扱う
 export interface UserRepository {
@@ -14,4 +15,8 @@ export interface UserRepository {
   GetUser(userId:UserId):Promise<UserDto>;
   //自分のグーグルプロフィールを取得する
   GetMyUserGoogleProfile():Promise<MyGoogleProfileDto>;
+  //自身のユーザ情報更新する
+  UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>;
+  //ユーザーを削除sする
+  DeleteAccount(): Promise<unknown>;
 }

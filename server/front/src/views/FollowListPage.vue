@@ -2,6 +2,7 @@
   <v-card>
     <v-toolbar>
       <back-btn />
+      <v-spacer />
       <v-toolbar-title>Follow List</v-toolbar-title>
     </v-toolbar>
     <FollowList />

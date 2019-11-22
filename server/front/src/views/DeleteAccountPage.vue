@@ -36,6 +36,7 @@
                 color="red"
                 dark
                 :disabled="!valid"
+                @click="clickDeleteAccount"
               >
                 アカウントを削除
               </v-btn>
@@ -52,6 +53,7 @@ import { Component, Vue }from 'vue-property-decorator';
 import BackBtn from '../components/BackBtn.vue';
 import { oicNumberRules }from '../domain/validationRules/CommonRules';
 import { CreateUserApplication }from '../create/CreateUserApplication';
+
 @Component({
   components: { BackBtn },
 })
@@ -69,6 +71,16 @@ export default class extends Vue {
 
   get oicNumberRules() {
     return oicNumberRules(this.oicNumber);
+  }
+  //ユーザ削除する
+  async clickDeleteAccount() {
+    try {
+      await CreateUserApplication().DeleteAccount();
+      location.href = '/';
+    }catch (e) {
+      alert('ユーザ削除に失敗しました。');
+      return;
+    }
   }
 }
 </script>

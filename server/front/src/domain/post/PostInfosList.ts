@@ -2,21 +2,24 @@ import { PostInfos }from './PostInfos';
 import { PostRepository }from './PostRepository';
 import { UserId }from '../user/UserId';
 import { PostId }from './PostId';
+import { CategoryId }from '../category/CategoryId';
 
 //投稿一覧を表すクラス
 export class PostInfosList {
     private readonly postInfosListDto: PostInfos[];
     private readonly repository: PostRepository;
     private readonly filterUserId?: UserId;
+    private readonly selectedCategoryId?: CategoryId;
 
     public get PostInfosListDto() {
         return this.postInfosListDto;
     }
 
-    public constructor(inintList: PostInfos[], repository: PostRepository, filterUserId?: UserId) {
+    public constructor(inintList: PostInfos[], repository: PostRepository,selectedCategoryId?:CategoryId|undefined, filterUserId?: UserId) {
         this.postInfosListDto = inintList;
         this.repository = repository;
         this.filterUserId = filterUserId;
+        this.selectedCategoryId = selectedCategoryId;
     }
 
     //今より過去の投稿を10件取得して更新する
@@ -26,6 +29,7 @@ export class PostInfosList {
             const newPostInfosList = await this.repository.TakeLatest({
                 userId: this.filterUserId ? this.filterUserId.id.toString() : undefined,
                 basePostId: String(lastOldPost.id.id),
+                categoryId: this.selectedCategoryId && String(this.selectedCategoryId.id)
             });
             newPostInfosList.forEach(x => this.postInfosListDto.push(x));
         }
@@ -38,6 +42,7 @@ export class PostInfosList {
                 userId: this.filterUserId ? this.filterUserId.id.toString() : undefined,
                 basePostId: lastPost ? String(lastPost.id.id) : undefined,
                 after: true,
+                categoryId: this.selectedCategoryId && String(this.selectedCategoryId.id)
             });
             newPostInfosList.slice().reverse().forEach(x => this.postInfosListDto.unshift(x));
     }

@@ -26,125 +26,122 @@
       </v-avatar>
     </v-row>
     <v-container fluid>
-      <v-text-field
-        v-model="name"
-        :rules="nameRules"
-        label="本名"
-        counter="25"
-      />
-      <v-select
-        v-model="sex"
-        :rules="requiredRules"
-        label="性別"
-        :items="['男', '女']"
-      />
-      <v-menu
-        ref="menu"
-        :close-on-content-click="false"
-        :return-value.sync="date"
-        transition="scale-transition"
-        offset-y
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="birthday"
-            label="生年月日"
-            readonly
-            v-on="on"
-          />
-        </template>
-        <v-date-picker
-          v-model="date"
-          no-title
-          scrollable
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="name"
+          :rules="nameRules"
+          label="本名"
+          counter="25"
+        />
+        <v-select
+          v-model="sex"
+          :rules="requiredRules"
+          label="性別"
+          :items="['男', '女']"
+        />
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="birthday"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
         >
-          <div class="flex-grow-1" />
-          <v-btn
-            text
-            color="primary"
-            @click="menu = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="$refs.menu.save(date)"
-          >
-            OK
-          </v-btn>
-        </v-date-picker>
-      </v-menu>
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="subject"
-            :rules="requiredRules"
-            label="学科"
-            :items="studySubjectItems"
-            required
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="birthday"
+              label="生年月日"
+              readonly
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            ref="picker"
+            v-model="birthday"
+            locale="ja-JP"
+            :max="maxBirthday"
+            :min="minBirthday"
+            @change="$refs.menu.save(birthday)"
           />
-          <v-select
-            v-model="course"
-            :rules="requiredRules"
-            label="専攻"
-            :items="courseItems"
-          />
-          <v-select
-            v-model="schoolYear"
-            :rules="requiredRules"
-            label="学年"
-            :items="['1年', '2年', '3年', '4年']"
-          />
-          <v-text-field
-            v-model="classNumber"
-            label="クラス番号"
-            :rules="classNumberRules"
-            counter="6"
-          />
+        </v-menu>
+        <v-row>
+          <v-col>
+            <v-select
+              v-model="subject"
+              :rules="requiredRules"
+              label="学科"
+              :items="studySubjectItems"
+              required
+            />
+            <v-select
+              v-model="course"
+              :rules="requiredRules"
+              label="専攻"
+              :items="courseItems"
+            />
+            <v-select
+              v-model="schoolYear"
+              :rules="requiredRules"
+              label="学年"
+              :items="['1年', '2年', '3年', '4年']"
+            />
+            <v-text-field
+              v-model="classNumber"
+              label="クラス番号"
+              :rules="classNumberRules"
+              counter="6"
+            />
 
-          <v-text-field
-            v-model="license"
-            label="資格"
-            filled
-          />
-          <v-textarea
-            v-model="note"
-            filled
-            label="自由記述欄"
-          />
-          <v-text-field
-            v-model="gitHubUrl"
-            :rules="gitHubUrlRules"
-            filled
-            label="Github URL"
-          />
-          <v-text-field
-            v-model="twitterUrl"
-            :rules="twitterUrlRules"
-            filled
-            label="Twitter URL"
-          />
-          <v-text-field
-            v-model="homePageUrl"
-            :rules="urlRules"
-            filled
-            label="My Website URL"
-          />
-        </v-col>
-      </v-row>
+            <v-text-field
+              v-model="license"
+              :rules="licenseRules"
+              counter="100"
+              label="資格"
+              filled
+            />
+            <v-textarea
+              v-model="note"
+              filled
+              :rules="noteRules"
+              counter="200"
+              label="自由記述欄"
+            />
+            <v-text-field
+              v-model="gitHubUrl"
+              :rules="gitHubUrlRules"
+              filled
+              counter="255"
+              label="Github URL"
+            />
+            <v-text-field
+              v-model="twitterUrl"
+              :rules="twitterUrlRules"
+              filled
+              counter="255"
+              label="Twitter URL"
+            />
+            <v-text-field
+              v-model="homePageUrl"
+              :rules="urlRules"
+              filled
+              counter="255"
+              label="My Website URL"
+            />
+          </v-col>
+        </v-row>
+      </v-form>
       <v-card-actions class="float-right">
         <v-btn
-          dark
           width="100"
           @click="BackFrontPage"
         >
           キャンセル
         </v-btn>
         <v-btn
-          dark
           width="100"
+          :disabled="!valid"
+          @click="send"
         >
           登録
         </v-btn>
@@ -154,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import BackBtn from '../components/BackBtn.vue';
 import {
@@ -166,6 +163,8 @@ import {
   urlRules,
   twitterUrlRules,
   gitHubUrlRules,
+  noteRules,
+  licenseRules,
 }from '../domain/validationRules/EditProfilePageRules';
 import { CourseDto }from '../domain/course/CourseDto';
 import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
@@ -174,6 +173,7 @@ import { CreateCourseApplication }from '../create/CreateCourseApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { StudySubjectId }from '../domain/studySubject/StudySubjectId';
 import { CourseId }from '../domain/course/CourseId';
+import { AsyncOnce }from '../utils/AsyncOnce';
 
 @Component({ components: { BackBtn } })
 export default class extends Vue {
@@ -190,7 +190,10 @@ export default class extends Vue {
   note: string = '';
   gitHubUrl: string = '';
   twitterUrl: string = '';
+  menu = false;
   homePageUrl: string = '';
+  asyncOnce = new AsyncOnce();
+  valid = true;
 
   async created() {
     const [studySubjectDtoList, courseDtoList, user] = await Promise.all([
@@ -244,9 +247,57 @@ export default class extends Vue {
   get requiredRules() {
     return requiredRules;
   }
+  get noteRules() {
+    return noteRules;
+  }
+  get licenseRules() {
+    return licenseRules;
+  }
+  send() {
+    this.asyncOnce.Do(this.updateMyUser);
+  }
 
-  BackFrontPage(){
+  async updateMyUser() {
+    try {
+      await CreateUserApplication().UpdateMyUser({
+        name: this.name,
+        classNumber: this.classNumber,
+        studySubjectId: this.subject,
+        courseId: this.course,
+        license: this.license,
+        schoolYear: Number(this.schoolYear[0]),
+        note: this.note,
+        githubUrl: this.gitHubUrl,
+        twitterUrl: this.twitterUrl,
+        homePageUrl: this.homePageUrl,
+        birthday: this.birthday,
+      });
+    }catch (e) {
+      alert('プロフィール編集に失敗しました');
+      return;
+    }
+    this.$router.push({ name: 'user' });
+  }
+
+  BackFrontPage() {
     this.$router.back();
+  }
+
+  get maxBirthday() {
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - 16);
+    return maxDate.toISOString().substr(0, 10);
+  }
+  get minBirthday() {
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 100);
+    return minDate.toISOString().substr(0, 10);
+  }
+
+  @Watch('menu')
+  changeMenu(val: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    val && setTimeout(() => ((this.$refs.picker as any).activePicker = 'YEAR'));
   }
 }
 </script>

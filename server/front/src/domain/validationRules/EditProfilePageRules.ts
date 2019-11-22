@@ -21,3 +21,11 @@ export const gitHubUrlRules = [
     },
     (v: string) => v.length <= 255 || '255文字以内で入力してください'
 ];
+
+export const noteRules = [
+    (v: string) => v.length <= 200 || '200文字以内で入力してください'
+];
+
+export const licenseRules = [
+    (v: string) => v.length <= 100 || '100文字以内で入力してください'
+];

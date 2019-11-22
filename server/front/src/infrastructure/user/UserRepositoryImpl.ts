@@ -7,6 +7,7 @@ import { CreateLoginApplication }from '../../create/CreateLoginApplication';
 import { UserDto }from '../../domain/user/UserDto';
 import { UnauthorizedErrorHook }from '../UnauthorizedErrorHook';
 import { MyGoogleProfileDto }from '../../domain/user/MyGoogleProfileDto';
+import { UpdateUserDto }from '../../domain/user/UpdateUserDto';
 
 // UserRepositoryの実装
 export class UserRepositoryimpl implements UserRepository {
@@ -38,5 +39,17 @@ export class UserRepositoryimpl implements UserRepository {
         courseId: makeUserDto.courseId,
       })
       .catch(UnauthorizedErrorHook);
+  }
+  public async UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>{
+    const jwt = CreateLoginApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
+    return await apiClient
+      .UpdateMyUser(updateUserDto)
+      .catch(UnauthorizedErrorHook);
+  }
+  public async DeleteAccount(): Promise<unknown>{
+    const jwt = CreateLoginApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
+    return await apiClient.DeleteAccount();
   }
 }

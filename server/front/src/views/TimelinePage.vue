@@ -21,22 +21,24 @@
       <v-col>
         <v-select
           v-show="showPosts"
-          v-model="selectedType"
-          :items="types"
-          item-value="value"
-          item-text="label"
+          v-model="selectedCategory"
+          :items="categoryItems"
           label="種別"
+          clearable
         />
       </v-col>
     </v-row>
     <post-form
       v-if="showPostFormFlag"
-      v-model="postText"
+      v-model="createPostParamsDto"
       :my-user-name="myUserName"
       @cancel="onClickCancel"
       @post="onClickPost"
     />
-    <post-list v-show="showPosts" />
+    <post-list
+      v-show="showPosts"
+      :selected-category="selectedCategory"
+    />
   </v-container>
 </template>
 
@@ -48,26 +50,34 @@ import { CreatePostApplication }from '../create/CreatePostApplication';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
+import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
+import { CreateCategoryApplication }from '../create/CreateCategoryApplication';
+import { CategoryDto }from '../domain/category/CategoryDto';
+import { CategoryId }from '../domain/category/CategoryId';
 
 @Component({ components: { PostList, PostForm, Scroller } })
 export default class extends Vue {
   showPostFormFlag = false;
-  postText = '';
+  createPostParamsDto: CreatePostParamsDto = {
+    text: '',
+    categoryId: { id: 1 },
+  };
   myUserName = '';
   asyncOnce = new AsyncOnce();
-  selectedType = { label: 'フォロー中', value: 'follow' };
-  types = [
-    { label: 'フォロー中', value: 'follow' },
-    { label: '全て', value: 'all' },
-    { label: '開発', value: 'develop' },
-  ];
+  selectedCategory: CategoryId | null = null;
+  categoryDtoList: CategoryDto[] = [];
 
   async created() {
     const userApplication = CreateUserApplication();
     const myUser = await userApplication.GetUser(
       await userApplication.GetMyUserId(),
     );
+    this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
     this.myUserName = myUser.name;
+  }
+
+  get categoryItems() {
+    return this.categoryDtoList.map(x => ({ text: x.name, value: x.id }));
   }
 
   get showPosts() {
@@ -92,9 +102,7 @@ export default class extends Vue {
   //投稿をする
   async post() {
     try {
-      await CreatePostApplication().PostOnTimeline({
-        text: this.postText,
-      });
+      await CreatePostApplication().PostOnTimeline(this.createPostParamsDto);
     }catch (e) {
       alert('投稿に失敗しました。');
       return;
@@ -105,7 +113,8 @@ export default class extends Vue {
   //投稿フォームを非表示にする
   hidePostForm() {
     this.showPostFormFlag = false;
-    this.postText = '';
+    this.createPostParamsDto.text = '';
+    this.createPostParamsDto.categoryId = { id: 1 };
   }
 }
 </script>
