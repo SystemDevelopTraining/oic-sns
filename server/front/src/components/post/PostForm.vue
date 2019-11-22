@@ -17,7 +17,7 @@
         <v-container fluid>
           <v-row>
             <v-textarea
-              :value="value"
+              :value="value.text"
               outlined
               auto-grow
               label="投稿を書きましょう！"
@@ -27,11 +27,17 @@
               required
               :rules="postRules"
               counter="255"
-              @input="(v)=>$emit('input',v)"
+              @input="(v)=>{value.text=v;$emit('input',value)}"
             />
           </v-row>
         </v-container>
       </v-card-text>
+      <v-select
+        :value="value.categoryId"
+        :items="categoryItems"
+        return-object
+        @input="(v)=>{value.categoryId=v.value;$emit('input',value)}"
+      />
       <v-card-actions>
         <div class="flex-grow-1" />
         <v-btn
@@ -59,13 +65,22 @@
 <script lang='ts'>
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { postRules }from '../../domain/validationRules/PostFormRules';
+import { CategoryDto }from '../../domain/category/CategoryDto';
+import { CreateCategoryApplication }from '../../create/CreateCategoryApplication';
+import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
 
-@Component({})
+@Component
 export default class extends Vue {
   @Prop({ type: String, required: true }) myUserName!: string;
-  @Prop({ type: String, required: true }) value!: string;
+  @Prop({ type: Object, required: true }) value!: CreatePostParamsDto;
 
   valid = true;
+
+  categoryDtoList: CategoryDto[] = [];
+
+  async created() {
+    this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
+  }
 
   onClickCancel() {
     this.$emit('cancel');
@@ -75,6 +90,10 @@ export default class extends Vue {
   }
   get postRules() {
     return postRules;
+  }
+
+  get categoryItems() {
+    return this.categoryDtoList.map(x => ({ text: x.name, value: x.id }));
   }
 }
 </script>
