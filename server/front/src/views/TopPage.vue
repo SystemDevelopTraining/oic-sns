@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-content>
     <v-row>
       <v-col
         xl="9"
@@ -34,7 +34,7 @@
       <v-card-title>モチベーション</v-card-title>
       <v-card-text>OICを愛する気持ちで出来ています！</v-card-text>
     </v-card>
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">

@@ -46,7 +46,8 @@
             large
             rounded
             max-width="120"
-            :color="followBtnColor"
+            :outlined="!isfollowed"
+            color="accent"
             @click.stop="onFollowClick"
           >
             {{ followText }}
@@ -130,7 +131,7 @@ interface OneOfUserInfo {
 @Component({ components: {} })
 export default class extends Vue {
   showUserDetails = false;
-  followBtnColor = 'yellow';
+  isfollowed: boolean = false;
   asyncOnce = new AsyncOnce();
 
   @Prop({ type: Object, required: true }) user!: UserDto;
@@ -166,11 +167,7 @@ export default class extends Vue {
 
   setFollowText(isFollow: boolean) {
     this.followText = isFollow ? 'フォロー解除' : 'フォロー';
-    if (this.followText === 'フォロー解除') {
-      this.followBtnColor = 'warning';
-    }else {
-      this.followBtnColor = 'accent';
-    }
+    this.isfollowed = this.followText === 'フォロー解除';
   }
 
   get isOtherUser() {

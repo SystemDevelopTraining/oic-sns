@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <v-content
     fluid
     class="center"
   >
@@ -37,7 +37,7 @@
       @post="onClickPost"
     />
     <post-list v-show="showPosts" />
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">

@@ -61,9 +61,9 @@ import { AsyncOnce }from '../utils/AsyncOnce';
 
 @Component({})
 export default class extends Vue {
-  iconColorUser = 'accent';
-  iconColorHome = 'accent';
-  iconColorTimeline = 'accent';
+  iconColorUser = 'primary';
+  iconColorHome = 'primary';
+  iconColorTimeline = 'primary';
   asyncOnce = new AsyncOnce();
 
   created() {
@@ -76,21 +76,21 @@ export default class extends Vue {
     this.resetIconColor();
     switch (currentPage) {
       case 'timeline':
-        this.iconColorTimeline = 'warning';
+        this.iconColorTimeline = 'accent';
         break;
       case 'top':
-        this.iconColorHome = 'warning';
+        this.iconColorHome = 'accent';
         break;
       case 'user':
-        this.iconColorUser = 'warning';
+        this.iconColorUser = 'accent';
         break;
     }
   }
 
   resetIconColor() {
-    this.iconColorUser = 'accent';
-    this.iconColorHome = 'accent';
-    this.iconColorTimeline = 'accent';
+    this.iconColorUser = 'primary';
+    this.iconColorHome = 'primary';
+    this.iconColorTimeline = 'primary';
   }
 
   isLogin = CreateLoginApplication().IsLogin();
