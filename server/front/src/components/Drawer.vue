@@ -2,7 +2,7 @@
   <div>
     <template v-if="isLogin">
       <v-btn
-        color="red"
+        color="accent"
         dark
         small
         fixed
@@ -18,10 +18,11 @@
       <v-navigation-drawer
         v-model="drawer"
         app
-        temporary
+        color="secondary"
         dark
+        temporary
       >
-        <v-list-item class="color : primary">
+        <v-list-item>
           <v-list-item-avatar>
             <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
           </v-list-item-avatar>
@@ -107,7 +108,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .v-btn {
-  opacity: 0.4;
+  opacity: 0.7;
 }
 .v-btn:hover {
   opacity: 1;

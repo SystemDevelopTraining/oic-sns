@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-content>
     <drawer v-if="isMyUser" />
     <scroller />
     <user-info
@@ -10,7 +10,7 @@
       v-if="user"
       :filter-user-id="user.id"
     />
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">

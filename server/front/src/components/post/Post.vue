@@ -1,51 +1,49 @@
 <template>
-  <v-row>
-    <v-card
-      width="100%"
-      outlined
-    >
-      <v-row>
-        <v-col
-          cols="auto"
-          class="pb-0"
-        >
-          <v-card-title>
-            <v-list-item-avatar
-              size="60"
-              color="grey"
-            />
-            <v-btn
-              outlined
-              @click="goToUserPage()"
-            >
-              {{ name }}
-            </v-btn>
-          </v-card-title>
-        </v-col>
-      </v-row>
-      <v-row class="justify-end">
-        <v-card-text class="headline">
-          <div
-            v-for="postText in postTexts"
-            :key="postText"
+  <v-card
+    width="100%"
+    color="primary"
+  >
+    <v-row>
+      <v-col
+        cols="auto"
+        class="pb-0"
+      >
+        <v-card-title>
+          <v-list-item-avatar
+            size="60"
+            color="secondary"
+          />
+          <v-btn
+            outlined
+            @click="goToUserPage()"
           >
-            {{ postText }}
-            <br>
-          </div>
-        </v-card-text>
-        <v-col
-          cols="auto"
-          class="mr-auto"
+            {{ name }}
+          </v-btn>
+        </v-card-title>
+      </v-col>
+    </v-row>
+    <v-row class="justify-end">
+      <v-card-text class="headline">
+        <div
+          v-for="postText in postTexts"
+          :key="postText"
         >
-          <v-card-text>{{ postDate }}</v-card-text>
-        </v-col>
-        <post-menu
-          :is-myself="isMyself"
-          @delete="$emit('delete')"
-        />
-      </v-row>
-    </v-card>
-  </v-row>
+          {{ postText }}
+          <br>
+        </div>
+      </v-card-text>
+      <v-col
+        cols="auto"
+        class="mr-auto"
+      >
+        <v-card-text>{{ postDate }}</v-card-text>
+      </v-col>
+      <post-menu
+        :is-myself="isMyself"
+        @delete="$emit('delete')"
+      />
+    </v-row>
+  </v-card>
 </template>
 
 <script lang="ts">

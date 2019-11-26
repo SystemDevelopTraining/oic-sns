@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <v-content
     fluid
     class="center"
   >
@@ -9,7 +9,7 @@
         <v-btn
           v-show="showPosts"
           block
-          color="primary"
+          color="accent"
           :disabled="false"
           @click="onClickShowPostForm"
         >
@@ -17,19 +17,22 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-show="showPosts">
       <v-col>
-        <v-select
-          v-show="showPosts"
-          v-model="selectedCategory"
-          :items="categoryItems"
-          label="種別"
-          clearable
-        />
-        <v-checkbox
-          v-model="followUserOnly"
-          label="フォローユーザのみ"
-        />
+        <v-card color="primary">
+          <v-select
+            v-model="selectedCategory"
+            :items="categoryItems"
+            label="種別"
+            clearable
+            color="latestPostBtnColor"
+          />
+          <v-checkbox
+            v-model="followUserOnly"
+            label="フォローユーザのみ"
+            color="latestPostBtnColor"
+          />
+        </v-card>
       </v-col>
     </v-row>
     <post-form
@@ -44,7 +47,7 @@
       :selected-category="selectedCategory"
       :follow-user-only="followUserOnly"
     />
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">

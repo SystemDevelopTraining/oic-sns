@@ -4,7 +4,7 @@
     id="bar"
     bottom
     app
-    color="black"
+    color="footer"
   >
     <v-container>
       <v-row justify="space-between">
@@ -13,7 +13,7 @@
           :color="iconColorUser"
           small
           fab
-          dark
+          icon
           @click="onProfileClick"
         >
           <v-icon large>
@@ -27,6 +27,7 @@
           small
           fab
           dark
+          icon
           to="/"
         >
           <v-icon large>
@@ -40,6 +41,7 @@
           small
           fab
           dark
+          icon
           to="/timeline"
         >
           <v-icon large>
@@ -59,9 +61,9 @@ import { AsyncOnce }from '../utils/AsyncOnce';
 
 @Component({})
 export default class extends Vue {
-  iconColorUser = 'teal';
-  iconColorHome = 'teal';
-  iconColorTimeline = 'teal';
+  iconColorUser = 'primary';
+  iconColorHome = 'primary';
+  iconColorTimeline = 'primary';
   asyncOnce = new AsyncOnce();
 
   created() {
@@ -74,21 +76,21 @@ export default class extends Vue {
     this.resetIconColor();
     switch (currentPage) {
       case 'timeline':
-        this.iconColorTimeline = 'red';
+        this.iconColorTimeline = 'activeIconColor';
         break;
       case 'top':
-        this.iconColorHome = 'red';
+        this.iconColorHome = 'activeIconColor';
         break;
       case 'user':
-        this.iconColorUser = 'red';
+        this.iconColorUser = 'activeIconColor';
         break;
     }
   }
 
   resetIconColor() {
-    this.iconColorUser = 'teal';
-    this.iconColorHome = 'teal';
-    this.iconColorTimeline = 'teal';
+    this.iconColorUser = 'primary';
+    this.iconColorHome = 'primary';
+    this.iconColorTimeline = 'primary';
   }
 
   isLogin = CreateLoginApplication().IsLogin();
