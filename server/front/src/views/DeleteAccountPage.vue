@@ -59,7 +59,7 @@ import { CreateUserApplication }from '../create/CreateUserApplication';
 })
 export default class extends Vue {
   valid = true;
-  oicNumber: string = '';
+  oicNumber = '';
 
   created() {
     CreateUserApplication()
