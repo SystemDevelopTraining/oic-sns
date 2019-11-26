@@ -26,6 +26,10 @@
           label="種別"
           clearable
         />
+        <v-checkbox
+          v-model="followUserOnly"
+          label="フォローユーザのみ"
+        />
       </v-col>
     </v-row>
     <post-form
@@ -38,6 +42,7 @@
     <post-list
       v-show="showPosts"
       :selected-category="selectedCategory"
+      :follow-user-only="followUserOnly"
     />
   </v-container>
 </template>
@@ -66,6 +71,7 @@ export default class extends Vue {
   asyncOnce = new AsyncOnce();
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
+  followUserOnly = false;
 
   async created() {
     const userApplication = CreateUserApplication();
