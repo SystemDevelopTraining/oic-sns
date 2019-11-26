@@ -143,7 +143,10 @@ export default class extends Vue {
       { label: '学籍番号', value: this.user.oicNumber, isLink: false },
       {
         label: '生年月日',
-        value: this.user.birthday.substr(0, 10).replace(/-/g, '/') || '',
+        value:
+          (this.user.birthday &&
+            this.user.birthday.substr(0, 10).replace(/-/g, '/')) ||
+          '',
         isLink: false,
       },
       { label: '性別', value: this.user.sex, isLink: false },
