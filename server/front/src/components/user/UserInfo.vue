@@ -141,7 +141,14 @@ export default class extends Vue {
   get oneUserInfoArray() {
     const info: OneOfUserInfo[] = [
       { label: '学籍番号', value: this.user.oicNumber, isLink: false },
-      { label: '生年月日', value: this.user.birthday || '', isLink: false },
+      {
+        label: '生年月日',
+        value:
+          (this.user.birthday &&
+            this.user.birthday.substr(0, 10).replace(/-/g, '/')) ||
+          '',
+        isLink: false,
+      },
       { label: '性別', value: this.user.sex, isLink: false },
       { label: '資格', value: this.user.license, isLink: false },
       { label: '学年', value: this.user.schoolYear + '年', isLink: false },
@@ -149,9 +156,9 @@ export default class extends Vue {
       { label: '学科', value: this.user.studySubject, isLink: false },
       { label: '専攻', value: this.user.course, isLink: false },
       { label: 'マイホームページ', value: this.user.homePageUrl, isLink: true },
-      { label: 'TwitterURL', value: this.user.twitterUrl, isLink: true },
-      { label: 'GitHubURL', value: this.user.githubUrl, isLink: true },
-      { label: 'EMail', value: this.user.email, isLink: false },
+      { label: 'Twitter', value: this.user.twitterUrl, isLink: true },
+      { label: 'GitHub', value: this.user.githubUrl, isLink: true },
+      { label: 'E-mail', value: this.user.email, isLink: false },
     ];
     return info.filter(x => x.value !== '');
   }

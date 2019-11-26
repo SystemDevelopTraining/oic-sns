@@ -15,10 +15,14 @@ export class UpdateUserDto implements IUpdateUserDto {
     @Matches(/^\S/)
     name?: string;
 
+    birthday?: string;
+
     @IsOptional()
     @MaxDate(maxDate)
     @MinDate(minDate)
-    birthday?: string;
+    get birthdayDate(): Date | string {
+        return this.birthday && new Date(this.birthday)
+    }
 
     @IsOptional()
     @Length(0, 200)
