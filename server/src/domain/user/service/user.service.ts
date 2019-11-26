@@ -100,7 +100,7 @@ export class UserService {
         sex: user.sex,
         note: user.note,
         oicNumber: user.oicNumber,
-        birthday: user.birthday.toJSON(),
+        birthday: user.birthday && user.birthday.toJSON(),
         isMyself: user.googleProfileId === googleProfileId,
         classNumber: user.classNumber,
         schoolYear: user.schoolYear,
@@ -117,6 +117,7 @@ export class UserService {
           })) !== 0,
       };
     } catch (e) {
+      console.log(e)
       throw new HttpException('ユーザが見つかりません', HttpStatus.BAD_REQUEST);
     }
   }
