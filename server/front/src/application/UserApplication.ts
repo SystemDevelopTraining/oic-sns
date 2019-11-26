@@ -42,4 +42,9 @@ export class UserApplication {
   public UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>{
     return this.repository.UpdateMyUser(updateUserDto);
   }
+  
+  //ユーザーを削除する
+  public DeleteAccount(): Promise<unknown>{
+    return this.repository.DeleteAccount();
+  }
 }

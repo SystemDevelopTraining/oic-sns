@@ -2,7 +2,7 @@ import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { PostRepository }from '../domain/post/PostRepository';
 import { CreatePostResult }from '../domain/post/CreatePostResult';
 import { UserId }from '../domain/user/UserId';
-import { PostInfosList }from '../domain/post/PostInfosList';
+import { TimeLine }from '../domain/post/TimeLine';
 
 //投稿する機能
 export class PostApplication {
@@ -18,8 +18,9 @@ export class PostApplication {
     return this.postRepository.Save(createPostParams);
   }
 
-  //投稿一覧を取得する
-  public GetPostInfosList(filterUserId?:UserId) :PostInfosList {
-    return new PostInfosList([],this.postRepository,filterUserId);
+  //タイムラインを取得する
+  public GetTimeLine(filterUserId?: UserId): TimeLine {
+    return new TimeLine(this.postRepository,filterUserId);
   }
+
 }

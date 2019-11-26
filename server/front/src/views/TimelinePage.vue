@@ -17,16 +17,20 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-show="showPosts">
       <v-col>
         <v-card color="primary">
           <v-select
-            v-show="showPosts"
-            v-model="selectedType"
-            :items="types"
-            item-value="value"
-            item-text="label"
+            v-model="selectedCategory"
+            :items="categoryItems"
             label="種別"
+            clearable
+            color="accent2"
+          />
+          <v-checkbox
+            v-model="followUserOnly"
+            label="フォローユーザのみ"
+            color="accent2"
           />
         </v-card>
       </v-col>
@@ -38,7 +42,11 @@
       @cancel="onClickCancel"
       @post="onClickPost"
     />
-    <post-list v-show="showPosts" />
+    <post-list
+      v-show="showPosts"
+      :selected-category="selectedCategory"
+      :follow-user-only="followUserOnly"
+    />
   </v-content>
 </template>
 
@@ -51,6 +59,9 @@ import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
 import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
+import { CreateCategoryApplication }from '../create/CreateCategoryApplication';
+import { CategoryDto }from '../domain/category/CategoryDto';
+import { CategoryId }from '../domain/category/CategoryId';
 
 @Component({ components: { PostList, PostForm, Scroller } })
 export default class extends Vue {
@@ -61,19 +72,21 @@ export default class extends Vue {
   };
   myUserName = '';
   asyncOnce = new AsyncOnce();
-  selectedType = { label: 'フォロー中', value: 'follow' };
-  types = [
-    { label: 'フォロー中', value: 'follow' },
-    { label: '全て', value: 'all' },
-    { label: '開発', value: 'develop' },
-  ];
+  selectedCategory: CategoryId | null = null;
+  categoryDtoList: CategoryDto[] = [];
+  followUserOnly = false;
 
   async created() {
     const userApplication = CreateUserApplication();
     const myUser = await userApplication.GetUser(
       await userApplication.GetMyUserId(),
     );
+    this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
     this.myUserName = myUser.name;
+  }
+
+  get categoryItems() {
+    return this.categoryDtoList.map(x => ({ text: x.name, value: x.id }));
   }
 
   get showPosts() {

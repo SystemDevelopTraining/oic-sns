@@ -34,7 +34,7 @@ export class TimelineService {
 
     if (params.basePostId) {
       const basePost = await this.postRepository.findOne(params.basePostId);
-      if (params.after)
+      if (params.after && (params.after !== "false"))
         query.where('post.createdAt > :baseCreatedAt', {
           baseCreatedAt: basePost.createdAt,
         });
@@ -51,7 +51,7 @@ export class TimelineService {
     if (params.categoryId) {
       query.andWhere('post.categoryId= :categoryId', { categoryId: params.categoryId });
     }
-    if (params.followOnly) {
+    if (params.followOnly && (params.followOnly !== "false")) {
       query.andWhere(
         'user.id in (select followeeUserId from following where followUserId = :myUserId)',
         { myUserId: myUser.id }
