@@ -33,12 +33,6 @@
           label="本名"
           counter="25"
         />
-        <v-select
-          v-model="sex"
-          :rules="requiredRules"
-          label="性別"
-          :items="['男', '女']"
-        />
         <v-menu
           ref="menu"
           v-model="menu"
@@ -152,7 +146,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch }from 'vue-property-decorator';
-import { Sex }from '../domain/user/Sex';
 import BackBtn from '../components/BackBtn.vue';
 import {
   nameRules,
@@ -180,7 +173,6 @@ export default class extends Vue {
   courseDtoList: CourseDto[] = [];
   studySubjectDtoList: StudySubjectDto[] = [];
   name: string = '';
-  sex: Sex = Sex.man;
   subject: StudySubjectId = { id: 0 };
   course: CourseId = { id: 0 };
   schoolYear: string = '';
@@ -207,7 +199,6 @@ export default class extends Vue {
     const course = courseDtoList.find(x => x.name === user.course);
 
     this.name = user.name;
-    this.sex = user.sex;
     this.birthday =
       (user.birthday && new Date(user.birthday).toISOString().substr(0, 10)) ||
       '';
