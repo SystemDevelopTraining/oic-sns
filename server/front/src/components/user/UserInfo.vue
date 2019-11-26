@@ -44,9 +44,11 @@
           {{ name }}
         </v-row>
         <v-row>
-          <v-col align="right">
+          <v-col
+            v-if="isOtherUser"
+            align="right"
+          >
             <v-btn
-              v-if="isOtherUser"
               large
               rounded
               max-width="120"
@@ -56,18 +58,8 @@
             >
               {{ followText }}
             </v-btn>
-            <v-btn
-              v-if="isMyUser"
-              max-width="130"
-              rounded
-              large
-              color="accent"
-              @click.stop="editProfileClick"
-            >
-              プロフィール編集
-            </v-btn>
           </v-col>
-          <v-col>
+          <v-col align="center">
             <v-btn
               max-width="120"
               large
