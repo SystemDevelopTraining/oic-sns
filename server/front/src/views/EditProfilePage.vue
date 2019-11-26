@@ -7,7 +7,7 @@
     <v-toolbar>
       <back-btn />
       <v-spacer />
-      <v-toolbar-title>プロフィール編集ページ</v-toolbar-title>
+      <v-toolbar-title>プロフィール編集</v-toolbar-title>
     </v-toolbar>
     <v-card-title>
       <v-row
