@@ -36,6 +36,6 @@ import { Component, Vue, Prop }from 'vue-property-decorator';
 @Component({})
 export default class extends Vue {
   @Prop({ type: Boolean, required: true }) isMyself!: boolean;
-  fab: boolean = false;
+  fab = false;
 }
 </script>

@@ -6,7 +6,7 @@
     @click="onClickShowUserDetails"
   >
     <v-img
-      src="../back.jpg"
+      src="/back.jpg"
       aspect-ratio="1.7"
       cover
     >
@@ -136,7 +136,7 @@ interface OneOfUserInfo {
 @Component({ components: {} })
 export default class extends Vue {
   showUserDetails = false;
-  isfollowed: boolean = false;
+  isfollowed = false;
   asyncOnce = new AsyncOnce();
 
   @Prop({ type: Object, required: true }) user!: UserDto;

@@ -172,18 +172,18 @@ import { AsyncOnce }from '../utils/AsyncOnce';
 export default class extends Vue {
   courseDtoList: CourseDto[] = [];
   studySubjectDtoList: StudySubjectDto[] = [];
-  name: string = '';
+  name = '';
   subject: StudySubjectId = { id: 0 };
   course: CourseId = { id: 0 };
-  schoolYear: string = '';
-  classNumber: string = '';
-  birthday: string = '';
-  license: string = '';
-  note: string = '';
-  gitHubUrl: string = '';
-  twitterUrl: string = '';
+  schoolYear = '';
+  classNumber = '';
+  birthday = '';
+  license = '';
+  note = '';
+  gitHubUrl = '';
+  twitterUrl = '';
   menu = false;
-  homePageUrl: string = '';
+  homePageUrl = '';
   asyncOnce = new AsyncOnce();
   valid = true;
 
