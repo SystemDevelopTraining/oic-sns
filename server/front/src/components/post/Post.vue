@@ -1,43 +1,58 @@
 <template>
-  <v-row>
-    <v-card
-      width="100%"
-      outlined
-    >
-      <v-row>
-        <v-col
-          cols="auto"
-          class="pb-0"
+  <v-card
+    width="100%"
+    color="primary"
+  >
+    <v-row>
+      <v-col
+        cols="auto"
+        class="pb-0"
+      >
+        <v-card-title>
+          <v-list-item-avatar
+            size="60"
+            color="secondary"
+          />
+          <v-btn
+            outlined
+            @click="goToUserPage()"
+          >
+            {{ name }}
+          </v-btn>
+        </v-card-title>
+      </v-col>
+    </v-row>
+    <v-row class="justify-end">
+      <v-card-text class="headline">
+        <div
+          v-for="postText in postTexts"
+          :key="postText"
         >
-          <v-card-title>
-            <v-list-item-avatar
-              size="60"
-              color="grey"
-            />
-            <v-btn
-              outlined
-              @click="goToUserPage()"
-            >
-              {{ name }}
-            </v-btn>
-          </v-card-title>
-        </v-col>
-      </v-row>
-      <v-row class="justify-center">
-        <v-card-text class="headline">
           {{ postText }}
-        </v-card-text>
+          <br>
+        </div>
+      </v-card-text>
+      <v-col
+        cols="auto"
+        class="mr-auto"
+      >
         <v-card-text>{{ postDate }}</v-card-text>
-      </v-row>
-    </v-card>
-  </v-row>
+      </v-col>
+      <post-menu
+        :is-myself="isMyself"
+        @delete="$emit('delete')"
+      />
+    </v-row>
+  </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
+import PostMenu from './PostMenu.vue';
+import Moment from 'moment';
 
-@Component({})
+@Component({ components: { PostMenu } })
 export default class extends Vue {
   @Prop({
     required: true,
@@ -46,13 +61,25 @@ export default class extends Vue {
   postInfos!: PostInfos;
 
   get name() {
+    const limitNum = 12;
+    let shortName = this.postInfos.userName;
+    if (shortName.length > limitNum) {
+      shortName = shortName.substr(0, limitNum) + '...';
+      return shortName;
+    }
     return this.postInfos.userName;
   }
-  get postText() {
-    return this.postInfos.postText;
+  get postTexts() {
+    return this.postInfos.postText.split('\n');
   }
   get postDate() {
-    return this.postInfos.postDate;
+    Moment.locale('ja');
+    const date = Moment(this.postInfos.postDate).format('LLL');
+    return date;
+  }
+
+  get isMyself() {
+    return this.postInfos.isMyself;
   }
 
   async goToUserPage() {

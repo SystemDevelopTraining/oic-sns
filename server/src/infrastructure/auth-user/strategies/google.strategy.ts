@@ -1,5 +1,5 @@
 import { OAuth2Strategy, Profile } from 'passport-google-oauth';
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { EnvManager } from '../../../utils/env.manager';
 import {
@@ -21,7 +21,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     });
   }
 
-  authorizationParams(options: unknown): unknown {
+  authorizationParams(options: object): unknown {
     return {
       ...options,
       hd: 'oic.jp',
@@ -43,10 +43,13 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
         profile.id,
         Provider.GOOGLE,
       );
+      const oicNumber = profile.emails[0].value.substr(0, 5);
+      if (/^b\d\d\d\d/.test(oicNumber) === false)
+        throw new BadRequestException("バリデーションエラー");
       const user = { jwt, googleProfileId: profile.id };
       done(null, user);
     } catch (err) {
-      done(err, false);
+      throw new BadRequestException(err);
     }
   }
 }

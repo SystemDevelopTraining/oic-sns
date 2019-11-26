@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CreatePostResult } from '../../../../front/src/domain/post/CreatePostResult';
-import { CreatePostParamsDto } from '../../../../front/src/domain/post/CreatePostParamsDto';
+import { PostDto } from '../post.dto';
 
 @Injectable()
 export class PostService {
@@ -13,15 +13,16 @@ export class PostService {
     private readonly postRepository: Repository<PostItem>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async create(
-    postDto: CreatePostParamsDto,
+    postDto: PostDto,
     googleProfileId: string,
   ): Promise<CreatePostResult> {
     const post = new PostItem();
     post.postUser = await this.userRepository.findOne({ googleProfileId });
     post.text = postDto.text;
+    post.categoryId = postDto.categoryId.id;
     if (postDto.text === '')
       throw new HttpException('投稿が空です', HttpStatus.BAD_REQUEST);
     try {
@@ -29,6 +30,17 @@ export class PostService {
       return { success: true };
     } catch (e) {
       throw new HttpException('投稿に失敗しました', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async delete(id: number,
+    googleProfileId: string, ) {
+    try {
+      const postUser = await this.userRepository.findOne({ googleProfileId });
+      const result = await this.postRepository.delete({ id, postUserId: postUser.id })
+      if (result.affected === 0) throw "";
+    } catch (e) {
+      throw new HttpException('投稿削除に失敗しました', HttpStatus.BAD_REQUEST);
     }
   }
 }

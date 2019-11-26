@@ -1,6 +1,6 @@
 <template>
   <!-- 投稿Post レイアウト-->
-  <v-card>
+  <v-card color="primary">
     <v-card-title>
       <span class="headline">{{ myUserName }}</span>
       <v-col class="pb-0">
@@ -17,7 +17,7 @@
         <v-container fluid>
           <v-row>
             <v-textarea
-              v-model="postText"
+              :value="value.text"
               outlined
               auto-grow
               label="投稿を書きましょう！"
@@ -25,16 +25,24 @@
               row-height="30"
               shaped
               required
-              :rules="postRule"
+              :rules="postRules"
+              counter="255"
+              @input="(v)=>{value.text=v;$emit('input',value)}"
             />
           </v-row>
         </v-container>
       </v-card-text>
+      <v-select
+        :value="value.categoryId"
+        :items="categoryItems"
+        return-object
+        @input="(v)=>{value.categoryId=v.value;$emit('input',value)}"
+      />
       <v-card-actions>
         <div class="flex-grow-1" />
         <v-btn
           outlined
-          color="red"
+          color="warning"
           text
           @click="onClickCancel"
         >
@@ -42,7 +50,7 @@
         </v-btn>
         <v-btn
           outlined
-          color="blue"
+          color="accent"
           text
           :disabled="!valid"
           @click="onClickPost"
@@ -55,28 +63,37 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop, Watch }from 'vue-property-decorator';
+import { Component, Vue, Prop }from 'vue-property-decorator';
+import { postRules }from '../../domain/validationRules/PostFormRules';
+import { CategoryDto }from '../../domain/category/CategoryDto';
+import { CreateCategoryApplication }from '../../create/CreateCategoryApplication';
+import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';
 
-@Component({})
+@Component
 export default class extends Vue {
   @Prop({ type: String, required: true }) myUserName!: string;
-  @Prop({ type: String, required: true }) value!: string;
+  @Prop({ type: Object, required: true }) value!: CreatePostParamsDto;
 
-  postText: string = this.value;
-
-  @Watch('postText')
-  onChangePostText(newValue: string) {
-    this.$emit('input', newValue);
-  }
-
-  postRule = [(v: string) => !!v || '投稿内容を入力してください。'];
   valid = true;
+
+  categoryDtoList: CategoryDto[] = [];
+
+  async created() {
+    this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
+  }
 
   onClickCancel() {
     this.$emit('cancel');
   }
   onClickPost() {
     this.$emit('post');
+  }
+  get postRules() {
+    return postRules;
+  }
+
+  get categoryItems() {
+    return this.categoryDtoList.map(x => ({ text: x.name, value: x.id }));
   }
 }
 </script>

@@ -1,10 +1,11 @@
 <template>
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes.light.background}">
     <v-content>
       <v-container>
         <router-view />
       </v-container>
     </v-content>
+
     <Footer />
   </v-app>
 </template>
@@ -12,15 +13,15 @@
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
 import Footer from './components/Footer.vue';
-import { CreateLoginInfoApplication }from './create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from './create/CreateLoginApplication';
 
 @Component({
   components: { Footer },
 })
 export default class extends Vue {
-  async created() {
+  created() {
     const jwt = this.$route.query['jwt'];
-    const loginApplication = CreateLoginInfoApplication();
+    const loginApplication = CreateLoginApplication();
     if (typeof jwt === 'string') {
       const query = Object.assign({}, this.$route.query);
       loginApplication.SaveJwt(jwt);
@@ -36,11 +37,12 @@ export default class extends Vue {
       this.$router.push({ path: '/' });
       return;
     }
-    if (!(await loginApplication.CheckJwt())) {
-      loginApplication.ClearJwt();
-      location.href = '/';
-    }
+    loginApplication.CheckJwt().then(flag => {
+      if (!flag) {
+        loginApplication.ClearJwt();
+        location.href = '/';
+      }
+    });
   }
 }
 </script>
-

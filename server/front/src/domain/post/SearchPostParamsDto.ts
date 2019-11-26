@@ -1,6 +1,10 @@
-//投稿を取得するする際のパラメータ
+
+//投稿を取得する際のパラメータ
 export interface SearchPostParamsDto {
   basePostId?: string;
   userId?: string;
-  after?: boolean;
+  categoryId?: string;
+  after?: string;
+  followOnly?: string;
+
 }

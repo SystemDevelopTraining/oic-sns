@@ -1,5 +1,7 @@
 <template>
-  <v-container>
+  <v-content>
+    <drawer v-if="isMyUser" />
+    <scroller />
     <user-info
       v-if="user"
       :user="user"
@@ -8,17 +10,19 @@
       v-if="user"
       :filter-user-id="user.id"
     />
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch }from 'vue-property-decorator';
 import { CreateUserApplication }from '../create/CreateUserApplication';
 import { UserDto }from '../domain/user/UserDto';
-import UserInfo from '../components/userPage/UserInfo.vue';
+import UserInfo from '../components/user/UserInfo.vue';
 import PostList from '../components/post/PostList.vue';
+import Drawer from '../components/Drawer.vue';
+import Scroller from '../components/Scroller.vue';
 
-@Component({ components: { UserInfo, PostList } })
+@Component({ components: { UserInfo, PostList, Drawer, Scroller } })
 export default class extends Vue {
   user: UserDto | null = null;
 
@@ -35,6 +39,10 @@ export default class extends Vue {
     this.user = await CreateUserApplication().GetUser({
       id: Number(this.$route.params.id),
     });
+  }
+
+  get isMyUser() {
+    return this.user && this.user.isMyself;
   }
 }
 </script>

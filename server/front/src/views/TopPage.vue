@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-content>
     <v-row>
       <v-col
         xl="9"
@@ -34,20 +34,20 @@
       <v-card-title>モチベーション</v-card-title>
       <v-card-text>OICを愛する気持ちで出来ています！</v-card-text>
     </v-card>
-  </v-container>
+  </v-content>
 </template>
 
 <script lang="ts">
 import { Component, Vue }from 'vue-property-decorator';
-import { CreateLoginInfoApplication }from '../create/CreateLoginInfoApplication';
+import { CreateLoginApplication }from '../create/CreateLoginApplication';
 @Component({})
 export default class extends Vue {
   isNotLogin() {
-    return !CreateLoginInfoApplication().IsLogin();
+    return !CreateLoginApplication().IsLogin();
   }
 
   onLogin() {
-    return CreateLoginInfoApplication().Login();
+    return CreateLoginApplication().Login();
   }
 }
 </script>
