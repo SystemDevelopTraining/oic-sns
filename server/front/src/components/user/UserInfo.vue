@@ -160,7 +160,7 @@ export default class extends Vue {
       { label: 'クラス番号', value: this.user.classNumber, isLink: false },
       { label: '学科', value: this.user.studySubject, isLink: false },
       { label: '専攻', value: this.user.course, isLink: false },
-      { label: 'マイホームページ', value: this.user.homePageUrl, isLink: true },
+      { label: 'ホームページ', value: this.user.homePageUrl, isLink: true },
       { label: 'Twitter', value: this.user.twitterUrl, isLink: true },
       { label: 'GitHub', value: this.user.githubUrl, isLink: true },
       { label: 'E-mail', value: this.user.email, isLink: false },

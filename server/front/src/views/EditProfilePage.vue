@@ -120,7 +120,7 @@
               :rules="urlRules"
               filled
               counter="255"
-              label="My Website URL"
+              label="ホームページ URL"
             />
           </v-col>
         </v-row>
