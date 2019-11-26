@@ -3,24 +3,19 @@
     width="100%"
     color="primary"
   >
-    <v-row>
-      <v-col
-        cols="auto"
-        class="pb-0"
-      >
-        <v-card-title>
-          <v-list-item-avatar
-            size="60"
-            color="secondary"
-          />
-          <v-btn
-            outlined
-            @click="goToUserPage()"
-          >
-            {{ name }}
-          </v-btn>
-        </v-card-title>
-      </v-col>
+    <v-row class="pb-0">
+      <v-card-title>
+        <v-list-item-avatar
+          size="50"
+          color="secondary"
+        />
+        <v-btn
+          outlined
+          @click="goToUserPage()"
+        >
+          {{ name }}
+        </v-btn>
+      </v-card-title>
     </v-row>
     <v-row class="justify-end">
       <v-card-text class="headline">

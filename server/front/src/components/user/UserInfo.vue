@@ -86,12 +86,16 @@
               v-for="oneUserInfo in oneUserInfoArray"
               :key="oneUserInfo.label"
               class="ma-2"
+              color="secondary"
               label
               @click.stop
             >
               <div v-if="oneUserInfo.isLink">
                 {{ oneUserInfo.label }}:
-                <a :href="oneUserInfo.value">{{ oneUserInfo.value }}</a>
+                <a
+                  class="accent--text"
+                  :href="oneUserInfo.value"
+                >{{ oneUserInfo.value }}</a>
               </div>
 
               <div v-else>
@@ -106,8 +110,8 @@
           <div class="mt-5 text-left">
             <div>
               <font
-                size="2"
-                color="grey"
+                size="3"
+                class="secondary--text"
               >
                 自己紹介：
               </font>
@@ -169,9 +173,7 @@ export default class extends Vue {
   }
 
   get isXlSize() {
-    return ['lg', 'xl', 'md'].some(
-      x => x === this.$vuetify.breakpoint.name,
-    );
+    return ['lg', 'xl', 'md'].some(x => x === this.$vuetify.breakpoint.name);
   }
 
   created() {

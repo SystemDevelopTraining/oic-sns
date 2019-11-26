@@ -11,8 +11,8 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#',
-        secondary: 'black',
+        primary: '#FAFAFA',
+        secondary: '#424242',
         accent: '#4CB5F5',
         latestPostBtnColor: '#FD974F',
         warning: '#E64A19',
