@@ -4,7 +4,7 @@
     id="bar"
     bottom
     app
-    color="secondary"
+    color="footer"
   >
     <v-container>
       <v-row justify="space-between">
@@ -76,13 +76,13 @@ export default class extends Vue {
     this.resetIconColor();
     switch (currentPage) {
       case 'timeline':
-        this.iconColorTimeline = 'accent2';
+        this.iconColorTimeline = 'activeIconColor';
         break;
       case 'top':
-        this.iconColorHome = 'accent2';
+        this.iconColorHome = 'activeIconColor';
         break;
       case 'user':
-        this.iconColorUser = 'accent2';
+        this.iconColorUser = 'activeIconColor';
         break;
     }
   }

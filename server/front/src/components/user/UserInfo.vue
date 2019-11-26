@@ -3,115 +3,120 @@
     v-if="user"
     class="mx-auto"
     outlined
-    color="primary"
     @click="onClickShowUserDetails"
   >
-    <div
-      class="mt-6"
-      align="center"
+    <v-img
+      src="../back.jpg"
+      aspect-ratio="1.7"
+      cover
     >
-      <v-row
-        type="flex"
-        class="row-bg"
-        justify="center"
+      <div
+        class="mt-6"
+        align="center"
       >
-        <v-col>
-          <div class="grid-content">
-            <v-avatar
-              color="secondary"
-              size="80"
-            >
-              <v-icon dark>
-                mdi-account-circle
-              </v-icon>
-            </v-avatar>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
-    <v-container
-      fluid
-      class="center"
-    >
-      <v-row
-        justify="center"
-        class="display-1 font-weight-black"
-      >
-        {{ name }}
-      </v-row>
-      <v-row>
-        <v-col align="right">
-          <v-btn
-            v-if="isOtherUser"
-            large
-            rounded
-            max-width="120"
-            :outlined="!isfollowed"
-            color="accent"
-            @click.stop="onFollowClick"
-          >
-            {{ followText }}
-          </v-btn>
-          <v-btn
-            v-if="isMyUser"
-            max-width="130"
-            rounded
-            large
-            color="accent"
-            @click.stop="editProfileClick"
-          >
-            プロフィール編集
-          </v-btn>
-        </v-col>
-        <v-col>
-          <v-btn
-            max-width="120"
-            large
-            rounded
-            color="accent"
-            @click="onClickFollowList"
-          >
-            フォローリスト
-          </v-btn>
-        </v-col>
-      </v-row>
-      <div v-if="showUserDetails">
-        <div class="text-center">
-          <!-- chip's roop -->
-          <v-chip
-            v-for="oneUserInfo in oneUserInfoArray"
-            :key="oneUserInfo.label"
-            class="ma-2"
-            label
-            @click.stop
-          >
-            <div v-if="oneUserInfo.isLink">
-              {{ oneUserInfo.label }}:
-              <a :href="oneUserInfo.value">{{ oneUserInfo.value }}</a>
+        <v-row
+          type="flex"
+          class="row-bg"
+          justify="center"
+        >
+          <v-col>
+            <div class="grid-content">
+              <v-avatar
+                color="secondary"
+                size="80"
+              >
+                <v-icon dark>
+                  mdi-account-circle
+                </v-icon>
+              </v-avatar>
             </div>
-
-            <div v-else>
-              {{ oneUserInfo.label }}:{{ oneUserInfo.value }}
-            </div>
-          </v-chip>
-        </div>
-        <v-divider
-          class="mx-4"
-          :inset="inset"
-        />
-        <div class="mt-5 text-left">
-          <div>
-            <font
-              size="2"
-              color="grey"
-            >
-              自己紹介：
-            </font>
-          </div>
-          {{ note }}
-        </div>
+          </v-col>
+        </v-row>
       </div>
-    </v-container>
+      <v-container
+        fluid
+        class="center"
+      >
+        <v-row
+          justify="center"
+          class="display-1 font-weight-black"
+        >
+          {{ name }}
+        </v-row>
+        <v-row>
+          <v-col align="right">
+            <v-btn
+              v-if="isOtherUser"
+              large
+              rounded
+              max-width="120"
+              :outlined="!isfollowed"
+              color="accent"
+              @click.stop="onFollowClick"
+            >
+              {{ followText }}
+            </v-btn>
+            <v-btn
+              v-if="isMyUser"
+              max-width="130"
+              rounded
+              large
+              color="accent"
+              @click.stop="editProfileClick"
+            >
+              プロフィール編集
+            </v-btn>
+          </v-col>
+          <v-col>
+            <v-btn
+              max-width="120"
+              large
+              rounded
+              color="accent"
+              @click="onClickFollowList"
+            >
+              フォローリスト
+            </v-btn>
+          </v-col>
+        </v-row>
+        <div v-if="showUserDetails">
+          <div class="text-center">
+            <!-- chip's roop -->
+            <v-chip
+              v-for="oneUserInfo in oneUserInfoArray"
+              :key="oneUserInfo.label"
+              class="ma-2"
+              label
+              @click.stop
+            >
+              <div v-if="oneUserInfo.isLink">
+                {{ oneUserInfo.label }}:
+                <a :href="oneUserInfo.value">{{ oneUserInfo.value }}</a>
+              </div>
+
+              <div v-else>
+                {{ oneUserInfo.label }}:{{ oneUserInfo.value }}
+              </div>
+            </v-chip>
+          </div>
+          <v-divider
+            class="mx-4"
+            :inset="inset"
+          />
+          <div class="mt-5 text-left">
+            <div>
+              <font
+                size="2"
+                color="grey"
+              >
+                自己紹介：
+              </font>
+            </div>
+            {{ note }}
+          </div>
+        </div>
+      </v-container>
+    </v-img>
   </v-card>
 </template>
 

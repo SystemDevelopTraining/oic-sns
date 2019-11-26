@@ -25,12 +25,12 @@
             :items="categoryItems"
             label="種別"
             clearable
-            color="accent2"
+            color="latestPostBtnColor"
           />
           <v-checkbox
             v-model="followUserOnly"
             label="フォローユーザのみ"
-            color="accent2"
+            color="latestPostBtnColor"
           />
         </v-card>
       </v-col>

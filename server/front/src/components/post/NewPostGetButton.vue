@@ -3,7 +3,7 @@
     <v-col>
       <v-btn
         width="100%"
-        color="accent2"
+        color="latestPostBtnColor"
         rounded
         class="primary--text"
         @click="onClick"
