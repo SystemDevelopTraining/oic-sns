@@ -130,4 +130,9 @@ export class ApiClient {
   public async GetMyGoogleProfile(): Promise<MyGoogleProfileDto> {
     return (await this.axios.get('user/v1/my_user_google_profile')).data;
   }
+  
+  // ユーザー削除リクエストを送信する
+  public async DeleteAccount(): Promise<unknown> {
+    return (await this.axios.delete('user/v1/my_user')).data;
+  }
 }

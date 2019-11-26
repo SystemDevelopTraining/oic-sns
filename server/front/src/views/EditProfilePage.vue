@@ -41,8 +41,9 @@
         />
         <v-menu
           ref="menu"
+          v-model="menu"
           :close-on-content-click="false"
-          :return-value.sync="date"
+          :return-value.sync="birthday"
           transition="scale-transition"
           offset-y
           min-width="290px"
@@ -56,26 +57,13 @@
             />
           </template>
           <v-date-picker
-            v-model="date"
-            no-title
-            scrollable
-          >
-            <div class="flex-grow-1" />
-            <v-btn
-              text
-              color="primary"
-              @click="menu = false"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu.save(date)"
-            >
-              OK
-            </v-btn>
-          </v-date-picker>
+            ref="picker"
+            v-model="birthday"
+            locale="ja-JP"
+            :max="maxBirthday"
+            :min="minBirthday"
+            @change="$refs.menu.save(birthday)"
+          />
         </v-menu>
         <v-row>
           <v-col>
@@ -107,36 +95,42 @@
 
             <v-text-field
               v-model="license"
+              :rules="licenseRules"
+              counter="100"
               label="資格"
               filled
             />
             <v-textarea
               v-model="note"
               filled
+              :rules="noteRules"
+              counter="200"
               label="自由記述欄"
             />
             <v-text-field
               v-model="gitHubUrl"
               :rules="gitHubUrlRules"
               filled
+              counter="255"
               label="Github URL"
             />
             <v-text-field
               v-model="twitterUrl"
               :rules="twitterUrlRules"
               filled
+              counter="255"
               label="Twitter URL"
             />
             <v-text-field
               v-model="homePageUrl"
               :rules="urlRules"
               filled
+              counter="255"
               label="My Website URL"
             />
           </v-col>
         </v-row>
       </v-form>
-
       <v-card-actions class="float-right">
         <v-btn
           width="100"
@@ -157,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import { Sex }from '../domain/user/Sex';
 import BackBtn from '../components/BackBtn.vue';
 import {
@@ -169,6 +163,8 @@ import {
   urlRules,
   twitterUrlRules,
   gitHubUrlRules,
+  noteRules,
+  licenseRules,
 }from '../domain/validationRules/EditProfilePageRules';
 import { CourseDto }from '../domain/course/CourseDto';
 import { StudySubjectDto }from '../domain/studySubject/StudySubjectDto';
@@ -194,6 +190,7 @@ export default class extends Vue {
   note: string = '';
   gitHubUrl: string = '';
   twitterUrl: string = '';
+  menu = false;
   homePageUrl: string = '';
   asyncOnce = new AsyncOnce();
   valid = true;
@@ -250,7 +247,12 @@ export default class extends Vue {
   get requiredRules() {
     return requiredRules;
   }
-
+  get noteRules() {
+    return noteRules;
+  }
+  get licenseRules() {
+    return licenseRules;
+  }
   send() {
     this.asyncOnce.Do(this.updateMyUser);
   }
@@ -268,7 +270,7 @@ export default class extends Vue {
         githubUrl: this.gitHubUrl,
         twitterUrl: this.twitterUrl,
         homePageUrl: this.homePageUrl,
-        birthday: this.birthday
+        birthday: this.birthday,
       });
     }catch (e) {
       alert('プロフィール編集に失敗しました');
@@ -279,6 +281,23 @@ export default class extends Vue {
 
   BackFrontPage() {
     this.$router.back();
+  }
+
+  get maxBirthday() {
+    const maxDate = new Date();
+    maxDate.setFullYear(maxDate.getFullYear() - 16);
+    return maxDate.toISOString().substr(0, 10);
+  }
+  get minBirthday() {
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 100);
+    return minDate.toISOString().substr(0, 10);
+  }
+
+  @Watch('menu')
+  changeMenu(val: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    val && setTimeout(() => ((this.$refs.picker as any).activePicker = 'YEAR'));
   }
 }
 </script>

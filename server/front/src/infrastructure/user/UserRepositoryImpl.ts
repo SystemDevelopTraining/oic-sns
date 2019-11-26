@@ -47,4 +47,9 @@ export class UserRepositoryimpl implements UserRepository {
       .UpdateMyUser(updateUserDto)
       .catch(UnauthorizedErrorHook);
   }
+  public async DeleteAccount(): Promise<unknown>{
+    const jwt = CreateLoginApplication().GetJwt();
+    const apiClient = new ApiClient(jwt);
+    return await apiClient.DeleteAccount();
+  }
 }
