@@ -22,7 +22,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Following)
     private readonly followingRepository: Repository<Following>,
-  ) {}
+  ) { }
 
   //ユーザ作成
   async create(
@@ -100,7 +100,7 @@ export class UserService {
         sex: user.sex,
         note: user.note,
         oicNumber: user.oicNumber,
-        birthday: user.birthday && user.birthday.toDateString(),
+        birthday: user.birthday.toJSON(),
         isMyself: user.googleProfileId === googleProfileId,
         classNumber: user.classNumber,
         schoolYear: user.schoolYear,

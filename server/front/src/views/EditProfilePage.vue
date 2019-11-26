@@ -208,7 +208,9 @@ export default class extends Vue {
 
     this.name = user.name;
     this.sex = user.sex;
-    this.birthday = user.birthday || '';
+    this.birthday =
+      (user.birthday && new Date(user.birthday).toISOString().substr(0, 10)) ||
+      '';
     this.subject = (studySubject && studySubject.id) || this.subject;
     this.course = (course && course.id) || this.course;
     this.note = user.note;
@@ -264,13 +266,14 @@ export default class extends Vue {
         classNumber: this.classNumber,
         studySubjectId: this.subject,
         courseId: this.course,
-        license: this.license,
+        license: this.emptyToUndefined(this.license),
         schoolYear: Number(this.schoolYear[0]),
-        note: this.note,
-        githubUrl: this.gitHubUrl,
-        twitterUrl: this.twitterUrl,
-        homePageUrl: this.homePageUrl,
-        birthday: this.birthday,
+        note: this.emptyToUndefined(this.note),
+        githubUrl: this.emptyToUndefined(this.gitHubUrl),
+        twitterUrl: this.emptyToUndefined(this.twitterUrl),
+        homePageUrl: this.emptyToUndefined(this.homePageUrl),
+        birthday:
+          this.birthday === '' ? undefined : new Date(this.birthday).toJSON(),
       });
     }catch (e) {
       alert('プロフィール編集に失敗しました');
@@ -298,6 +301,10 @@ export default class extends Vue {
   changeMenu(val: boolean) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     val && setTimeout(() => ((this.$refs.picker as any).activePicker = 'YEAR'));
+  }
+
+  emptyToUndefined(s: string): string | undefined {
+    return s === '' ? undefined : s;
   }
 }
 </script>
