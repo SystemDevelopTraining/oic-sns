@@ -76,13 +76,13 @@ export default class extends Vue {
     this.resetIconColor();
     switch (currentPage) {
       case 'timeline':
-        this.iconColorTimeline = 'accent';
+        this.iconColorTimeline = 'accent2';
         break;
       case 'top':
-        this.iconColorHome = 'accent';
+        this.iconColorHome = 'accent2';
         break;
       case 'user':
-        this.iconColorUser = 'accent';
+        this.iconColorUser = 'accent2';
         break;
     }
   }

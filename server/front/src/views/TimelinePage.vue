@@ -19,14 +19,16 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-select
-          v-show="showPosts"
-          v-model="selectedType"
-          :items="types"
-          item-value="value"
-          item-text="label"
-          label="種別"
-        />
+        <v-card color="primary">
+          <v-select
+            v-show="showPosts"
+            v-model="selectedType"
+            :items="types"
+            item-value="value"
+            item-text="label"
+            label="種別"
+          />
+        </v-card>
       </v-col>
     </v-row>
     <post-form
