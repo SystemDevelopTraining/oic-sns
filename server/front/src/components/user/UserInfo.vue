@@ -79,7 +79,7 @@
             </v-btn>
           </v-col>
         </v-row>
-        <div v-if="showUserDetails">
+        <div v-if="showUserDetails||isXlSize">
           <div class="text-center">
             <!-- chip's roop -->
             <v-chip
@@ -166,6 +166,12 @@ export default class extends Vue {
       { label: 'E-mail', value: this.user.email, isLink: false },
     ];
     return info.filter(x => x.value !== '');
+  }
+
+  get isXlSize() {
+    return ['lg', 'xl', 'md'].some(
+      x => x === this.$vuetify.breakpoint.name,
+    );
   }
 
   created() {
