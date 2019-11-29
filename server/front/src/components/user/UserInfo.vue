@@ -44,9 +44,11 @@
           {{ name }}
         </v-row>
         <v-row>
-          <v-col align="right">
+          <v-col
+            v-if="isOtherUser"
+            align="right"
+          >
             <v-btn
-              v-if="isOtherUser"
               large
               rounded
               max-width="120"
@@ -56,18 +58,8 @@
             >
               {{ followText }}
             </v-btn>
-            <v-btn
-              v-if="isMyUser"
-              max-width="130"
-              rounded
-              large
-              color="accent"
-              @click.stop="editProfileClick"
-            >
-              プロフィール編集
-            </v-btn>
           </v-col>
-          <v-col>
+          <v-col align="center">
             <v-btn
               max-width="120"
               large
@@ -86,12 +78,16 @@
               v-for="oneUserInfo in oneUserInfoArray"
               :key="oneUserInfo.label"
               class="ma-2"
+              color="secondary"
               label
               @click.stop
             >
               <div v-if="oneUserInfo.isLink">
                 {{ oneUserInfo.label }}:
-                <a :href="oneUserInfo.value">{{ oneUserInfo.value }}</a>
+                <a
+                  class="accent--text"
+                  :href="oneUserInfo.value"
+                >{{ oneUserInfo.value }}</a>
               </div>
 
               <div v-else>
@@ -106,8 +102,8 @@
           <div class="mt-5 text-left">
             <div>
               <font
-                size="2"
-                color="grey"
+                size="3"
+                class="secondary--text"
               >
                 自己紹介：
               </font>
@@ -169,9 +165,7 @@ export default class extends Vue {
   }
 
   get isXlSize() {
-    return ['lg', 'xl', 'md'].some(
-      x => x === this.$vuetify.breakpoint.name,
-    );
+    return ['lg', 'xl', 'md'].some(x => x === this.$vuetify.breakpoint.name);
   }
 
   created() {

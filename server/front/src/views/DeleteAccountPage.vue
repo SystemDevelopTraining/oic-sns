@@ -3,6 +3,7 @@
     <v-card>
       <v-toolbar
         dark
+        color="secondary"
         dense
       >
         <back-btn />

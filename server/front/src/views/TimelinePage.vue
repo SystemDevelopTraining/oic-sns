@@ -38,7 +38,6 @@
     <post-form
       v-if="showPostFormFlag"
       v-model="createPostParamsDto"
-      :my-user-name="myUserName"
       @cancel="onClickCancel"
       @post="onClickPost"
     />
@@ -55,7 +54,6 @@ import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/post/PostList.vue';
 import PostForm from '../components/post/PostForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
-import { CreateUserApplication }from '../create/CreateUserApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
 import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
@@ -70,19 +68,13 @@ export default class extends Vue {
     text: '',
     categoryId: { id: 1 },
   };
-  myUserName = '';
   asyncOnce = new AsyncOnce();
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
   followUserOnly = false;
 
   async created() {
-    const userApplication = CreateUserApplication();
-    const myUser = await userApplication.GetUser(
-      await userApplication.GetMyUserId(),
-    );
     this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
-    this.myUserName = myUser.name;
   }
 
   get categoryItems() {
