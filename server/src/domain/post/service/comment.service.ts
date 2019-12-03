@@ -23,18 +23,18 @@ export class CommentService {
     parentPostId: number,
     googleProfileId: string,
   ): Promise<CreateCommentResult> {
-    const comment = new Comment();
-    comment.commentUser = await this.userRepository.findOne({
-      googleProfileId,
-    });
-    comment.parentPost = await this.postRepository.findOne({
-      id: parentPostId,
-    });
-    comment.text = commentDto.text;
-    if (commentDto.text === '') {
-      throw new HttpException('コメントが空です', HttpStatus.BAD_REQUEST);
-    }
     try {
+      const comment = new Comment();
+      comment.commentUser = await this.userRepository.findOne({
+        googleProfileId,
+      });
+      comment.parentPost = await this.postRepository.findOne({
+        id: parentPostId,
+      });
+      comment.text = commentDto.text;
+      if (commentDto.text === '') {
+        throw new HttpException('コメントが空です', HttpStatus.BAD_REQUEST);
+      }
       await this.commentRepository.save(comment);
       return { success: true };
     } catch (e) {

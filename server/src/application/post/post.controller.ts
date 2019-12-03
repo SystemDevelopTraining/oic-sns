@@ -48,7 +48,6 @@ export class PostController {
     @Param('id') id: number,
     @Req() req: Request,
   ) {
-    console.log('aaaa');
     await this.commentService.create(
       commentDto,
       id,
