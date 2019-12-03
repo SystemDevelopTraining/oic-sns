@@ -41,13 +41,7 @@
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { UserId }from '../../domain/user/UserId';
 import { PostAndCommentViewData }from '../../infrastructure/viewData/PostAndCommentViewData';
-
-interface CommentInfos {
-  text: string;
-  commentDate: Date;
-  userId: UserId;
-  userName: string;
-}
+import { CommentInfosDto }from '../../domain/comment/CommentInfosDto';
 
 @Component
 export default class extends Vue {
@@ -55,7 +49,7 @@ export default class extends Vue {
     required: true,
     type: Object,
   })
-  commentInfos!: CommentInfos;
+  commentInfos!: CommentInfosDto;
 
   get viewData() {
     return new PostAndCommentViewData(
