@@ -6,6 +6,7 @@
       :key="postInfos.id.id"
       :post-infos="postInfos"
       @delete="deletePost(postInfos.id)"
+      @showCommentForm="$emit('showCommentForm')"
     />
     <new-post-get-button
       :old="true"
