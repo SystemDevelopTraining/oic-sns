@@ -28,7 +28,7 @@ export class Comment {
   parentPost: Post;
 
   @Column()
-  text: String;
+  text: string;
 
   @Column()
   readonly createdAt: Date = new Date();
