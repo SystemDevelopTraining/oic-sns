@@ -13,7 +13,7 @@ export class PostService {
     private readonly postRepository: Repository<PostItem>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async create(
     postDto: PostDto,
@@ -33,12 +33,14 @@ export class PostService {
     }
   }
 
-  async delete(id: number,
-    googleProfileId: string, ) {
+  async delete(id: number, googleProfileId: string) {
     try {
       const postUser = await this.userRepository.findOne({ googleProfileId });
-      const result = await this.postRepository.delete({ id, postUserId: postUser.id })
-      if (result.affected === 0) throw "";
+      const result = await this.postRepository.delete({
+        id,
+        postUserId: postUser.id,
+      });
+      if (result.affected === 0) throw '';
     } catch (e) {
       throw new HttpException('投稿削除に失敗しました', HttpStatus.BAD_REQUEST);
     }
