@@ -6,6 +6,8 @@ import { User } from '../../entities/user.entity';
 import { CommentDto } from '../comment.dto';
 import { Comment } from '../../entities/comment.entity';
 import { CreateCommentResult } from '../../../../front/src/domain/comment/CreateCommentResult';
+import { PostId } from '../../../../front/src/domain/post/PostId';
+import { CommentInfosDto } from '../../../../front/src/domain/comment/CommentInfosDto';
 
 @Injectable()
 export class CommentService {
@@ -41,6 +43,21 @@ export class CommentService {
       );
     }
   }
+
+  //投稿のコメント一覧を取得
+  async getComments(postId: PostId): Promise<CommentInfosDto[]> {
+    const post = await this.postRepository.findOne({ id: postId.id });
+    const user = await this.userRepository.findOne({ id: post.postUserId });
+    return (await this.commentRepository.find({ parentPostId: postId.id }))
+      .map<CommentInfosDto>(x => ({
+        userId: { id: post.postUserId },
+        userName: user.name,
+        text: x.text,
+        commentDate: x.createdAt
+      }))
+
+  }
+
   async delete(id: number, googleProfileId: string) {
     try {
       const commentUser = await this.userRepository.findOne({
