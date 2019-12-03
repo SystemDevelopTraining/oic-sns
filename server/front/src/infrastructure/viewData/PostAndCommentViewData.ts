@@ -12,7 +12,7 @@ export class PostAndCommentViewData {
     }
 
     //表示用の投稿&コメントした人の名前
-    get ViewName() :string{
+    public get ViewName() :string{
         const limitNum = 12;
         let shortName = this.userName;
         if (shortName.length > limitNum) {

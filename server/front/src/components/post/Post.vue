@@ -32,6 +32,11 @@
         class="mr-auto"
       >
         <v-card-text>{{ postDate }}</v-card-text>
+        <v-card-text>
+          <v-btn icon>
+            <v-icon>mdi-comment</v-icon>
+          </v-btn>
+        </v-card-text>
       </v-col>
       <post-menu
         :is-myself="isMyself"
