@@ -11,6 +11,7 @@ import { Following } from './following.entity';
 import { Post } from './post.entity';
 import { Course } from './course.entity';
 import { StudySubject } from './study-subject.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class User {
@@ -73,9 +74,16 @@ export class User {
   @OneToMany(type => Post, post => post.postUser, { cascade: true })
   posts: Post[];
 
-  @OneToMany(type => Following, following => following.followUser, { cascade: true })
+  @OneToMany(type => Following, following => following.followUser, {
+    cascade: true,
+  })
   followings: Following[];
 
-  @OneToMany(type => Following, following => following.followeeUser, { cascade: true })
+  @OneToMany(type => Following, following => following.followeeUser, {
+    cascade: true,
+  })
   followers: Following[];
+
+  @OneToMany(type => Comment, comment => comment.commentUser, { cascade: true })
+  comments: Comment[];
 }
