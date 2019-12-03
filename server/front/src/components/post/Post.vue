@@ -33,7 +33,10 @@
       >
         <v-card-text>{{ postDate }}</v-card-text>
         <v-card-text>
-          <v-btn icon>
+          <v-btn
+            icon
+            @click="onClickShowCommentForm"
+          >
             <v-icon>mdi-comment</v-icon>
           </v-btn>
         </v-card-text>
@@ -82,6 +85,10 @@ export default class extends Vue {
 
   get isMyself() {
     return this.postInfos.isMyself;
+  }
+
+  onClickShowCommentForm() {
+    this.$emit('showCommentForm');
   }
 
   async goToUserPage() {

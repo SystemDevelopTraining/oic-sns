@@ -41,10 +41,16 @@
       @cancel="onClickCancel"
       @post="onClickPost"
     />
+    <comment-form
+      v-if="showCommentFormFlag"
+      v-model="commentText"
+      @cancel="onClickCancel"
+    />
     <post-list
       v-show="showPosts"
       :selected-category="selectedCategory"
       :follow-user-only="followUserOnly"
+      @showCommentForm="showCommentForm"
     />
   </v-content>
 </template>
@@ -53,6 +59,7 @@
 import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/post/PostList.vue';
 import PostForm from '../components/post/PostForm.vue';
+import CommentForm from '../components/comment/CommentForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
@@ -61,13 +68,15 @@ import { CreateCategoryApplication }from '../create/CreateCategoryApplication';
 import { CategoryDto }from '../domain/category/CategoryDto';
 import { CategoryId }from '../domain/category/CategoryId';
 
-@Component({ components: { PostList, PostForm, Scroller } })
+@Component({ components: { PostList, PostForm, Scroller, CommentForm } })
 export default class extends Vue {
   showPostFormFlag = false;
+  showCommentFormFlag = false;
   createPostParamsDto: CreatePostParamsDto = {
     text: '',
     categoryId: { id: 1 },
   };
+  commentText = '';
   asyncOnce = new AsyncOnce();
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
@@ -82,7 +91,7 @@ export default class extends Vue {
   }
 
   get showPosts() {
-    return !this.showPostFormFlag;
+    return !this.showPostFormFlag && !this.showCommentFormFlag;
   }
 
   //投稿表示のボタンが表示された時の処理
@@ -98,6 +107,11 @@ export default class extends Vue {
   //投稿ボタンが押された時の処理
   onClickCancel() {
     this.hidePostForm();
+    this.hideCommentFrom();
+  }
+
+  showCommentForm() {
+    this.showCommentFormFlag = true;
   }
 
   //投稿をする
@@ -116,6 +130,10 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.createPostParamsDto.text = '';
     this.createPostParamsDto.categoryId = { id: 1 };
+  }
+
+  hideCommentFrom() {
+    this.showCommentFormFlag = false;
   }
 }
 </script>
