@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
 import { CommentDto } from '../comment.dto';
 import { Comment } from '../../entities/comment.entity';
-import { CreateCommentResult } from '../../../../front/src/domain/post/CreateCommentResult';
+import { CreateCommentResult } from '../../../../front/src/domain/comment/CreateCommentResult';
 
 @Injectable()
 export class CommentService {
@@ -16,7 +16,7 @@ export class CommentService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-  ) {}
+  ) { }
 
   async create(
     commentDto: CommentDto,

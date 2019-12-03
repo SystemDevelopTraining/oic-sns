@@ -1,4 +1,4 @@
-import { CreateCommentParamsDto } from '../../../front/src/domain/post/CreateCommentParamsDto';
+import { CreateCommentParamsDto } from '../../../front/src/domain/comment/CreateCommentParamsDto';
 import { IsNotEmpty, Matches } from 'class-validator';
 
 export class CommentDto implements CreateCommentParamsDto {
