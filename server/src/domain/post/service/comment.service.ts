@@ -32,9 +32,6 @@ export class CommentService {
         id: parentPostId,
       });
       comment.text = commentDto.text;
-      if (commentDto.text === '') {
-        throw new HttpException('コメントが空です', HttpStatus.BAD_REQUEST);
-      }
       await this.commentRepository.save(comment);
       return { success: true };
     } catch (e) {
