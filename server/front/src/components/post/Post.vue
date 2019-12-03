@@ -2,6 +2,7 @@
   <v-card
     width="100%"
     color="primary"
+    @click="$emit('showDetails')"
   >
     <v-row class="pb-0">
       <v-card-title>

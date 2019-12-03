@@ -3,6 +3,10 @@
     fluid
     class="center"
   >
+    <post-details
+      v-if="showPostDetails"
+      :post-infos="postInfosForPostDetails"
+    />
     <scroller />
     <v-row>
       <v-col>
@@ -45,6 +49,7 @@
       v-show="showPosts"
       :selected-category="selectedCategory"
       :follow-user-only="followUserOnly"
+      @showDetails="onClickShowPostDetails"
     />
   </v-content>
 </template>
@@ -60,8 +65,10 @@ import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { CreateCategoryApplication }from '../create/CreateCategoryApplication';
 import { CategoryDto }from '../domain/category/CategoryDto';
 import { CategoryId }from '../domain/category/CategoryId';
+import PostDetails from '../components/post/PostDetails.vue';
+import { PostInfos }from '../domain/post/PostInfos';
 
-@Component({ components: { PostList, PostForm, Scroller } })
+@Component({ components: { PostList, PostForm, Scroller, PostDetails } })
 export default class extends Vue {
   showPostFormFlag = false;
   createPostParamsDto: CreatePostParamsDto = {
@@ -72,6 +79,8 @@ export default class extends Vue {
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
   followUserOnly = false;
+  showPostDetailsFlag = false;
+  postInfosForPostDetails: PostInfos | null = null;
 
   async created() {
     this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
@@ -82,7 +91,7 @@ export default class extends Vue {
   }
 
   get showPosts() {
-    return !this.showPostFormFlag;
+    return !this.showPostFormFlag && !this.showPostDetailsFlag;
   }
 
   //投稿表示のボタンが表示された時の処理
@@ -116,6 +125,14 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.createPostParamsDto.text = '';
     this.createPostParamsDto.categoryId = { id: 1 };
+  }
+  //投稿詳細を表示のflag
+  get showPostDetails() {
+    return this.showPostDetailsFlag;
+  }
+  onClickShowPostDetails(postInfos: PostInfos) {
+    this.showPostDetailsFlag = true;
+    this.postInfosForPostDetails = postInfos;
   }
 }
 </script>
