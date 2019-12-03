@@ -28,14 +28,17 @@ export class TimelineService {
       .createQueryBuilder('post')
       .innerJoinAndSelect('post.postUser', 'user')
       .select([
-        'post.id',
-        'post.categoryId',
-        'post.text',
-        'post.createdAt',
-        'user.name',
-        'user.id',
-        '(SELECT COUNT(*) FROM comment WHERE post.id = comment.parentPostId)',
+        'post.id as id',
+        'post.categoryId as categoryId',
+        'post.text as text',
+        'post.createdAt as createdAt',
+        'user.name as userName',
+        'user.id as postUserId',
       ])
+      .addSelect(
+        '(SELECT COUNT(*) FROM comment WHERE post.id = comment.parentPostId)',
+        'commentCount',
+      )
       .orderBy({ createdAt: 'DESC' })
       .limit(10);
 
@@ -67,19 +70,30 @@ export class TimelineService {
       );
     }
 
-    const posts: PostItem[] = (await query.getMany()) as any;
+    const posts: {
+      postUserId: number;
+      id: number;
+      createdAt: Date;
+      text: string;
+      commentCount: number;
+      postUserName: string;
+    }[] = (await query.getRawMany()) as any;
+    console.log(posts);
     return Promise.all(
-      posts.map<Promise<PostInfos>>(async x => ({
-        userId: { id: x.postUser.id },
-        id: { id: x.id },
-        postDate: x.createdAt,
-        postText: x.text,
-        userName: x.postUser.name,
-        isMyself: x.postUser.id === myUser.id,
-        commentCount: await this.commentRepository.count({
-          parentPostId: x.id,
-        }),
-      })),
+      posts.map<Promise<PostInfos>>(
+        async x => (
+          console.log(x.id),
+          {
+            userId: { id: x.postUserId },
+            id: { id: x.id },
+            postDate: x.createdAt,
+            postText: x.text,
+            userName: x.postUserName,
+            isMyself: x.postUserId === myUser.id,
+            commentCount: x.commentCount,
+          }
+        ),
+      ),
     );
   }
 }
