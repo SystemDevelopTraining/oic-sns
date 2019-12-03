@@ -40,6 +40,7 @@
           >
             <v-icon>mdi-comment</v-icon>
           </v-btn>
+          {{ categoryName }}
         </v-card-text>
       </v-col>
       <post-menu
@@ -90,6 +91,10 @@ export default class extends Vue {
 
   get commentCount() {
     return this.postInfos.commentCount;
+  }
+
+  get categoryName() {
+    return this.postInfos.categoryName;
   }
 
   onClickShowCommentForm() {
