@@ -70,30 +70,26 @@ export class TimelineService {
       );
     }
 
-    const posts: {
-      postUserId: number;
-      id: number;
-      createdAt: Date;
-      text: string;
-      commentCount: number;
-      postUserName: string;
-    }[] = (await query.getRawMany()) as any;
-    console.log(posts);
+    const posts: PostToTimeline[] = (await query.getRawMany()) as any;
     return Promise.all(
-      posts.map<Promise<PostInfos>>(
-        async x => (
-          console.log(x.id),
-          {
-            userId: { id: x.postUserId },
-            id: { id: x.id },
-            postDate: x.createdAt,
-            postText: x.text,
-            userName: x.postUserName,
-            isMyself: x.postUserId === myUser.id,
-            commentCount: x.commentCount,
-          }
-        ),
-      ),
+      posts.map<Promise<PostInfos>>(async x => ({
+        userId: { id: x.postUserId },
+        id: { id: x.id },
+        postDate: x.createdAt,
+        postText: x.text,
+        userName: x.postUserName,
+        isMyself: x.postUserId === myUser.id,
+        commentCount: x.commentCount,
+      })),
     );
   }
+}
+
+export interface PostToTimeline {
+  postUserId: number;
+  id: number;
+  createdAt: Date;
+  text: string;
+  commentCount: number;
+  postUserName: string;
 }
