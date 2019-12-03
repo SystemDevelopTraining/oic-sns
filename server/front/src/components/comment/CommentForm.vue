@@ -1,5 +1,4 @@
 <template>
-  <!-- 投稿Post レイアウト-->
   <v-card color="primary">
     <v-form v-model="valid">
       <v-card-text>
