@@ -9,4 +9,5 @@ export interface PostInfos {
   postText: string;
   postDate: Date;
   isMyself: boolean;
+  commentCount: number;
 }
