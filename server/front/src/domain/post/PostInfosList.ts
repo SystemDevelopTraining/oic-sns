@@ -3,6 +3,7 @@ import { PostRepository }from './PostRepository';
 import { UserId }from '../user/UserId';
 import { PostId }from './PostId';
 import { CategoryId }from '../category/CategoryId';
+import { CommentInfosDto }from '../comment/CommentInfosDto';
 
 //投稿一覧を表すクラス
 export class PostInfosList {
@@ -56,5 +57,10 @@ export class PostInfosList {
         await this.repository.Delete(id);
         const deleteIndex = this.postInfosListDto.findIndex(x => x.id.id === id.id);
         this.postInfosListDto.splice(deleteIndex, 1);
+    }
+
+    //投稿のコメント一覧取得する
+    public async GetPostComment(id: PostId): Promise<CommentInfosDto[]> {
+        return this.repository.GetPostComment(id);
     }
 }

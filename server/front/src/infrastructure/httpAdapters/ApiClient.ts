@@ -15,6 +15,7 @@ import { StudySubjectDto }from '../../domain/studySubject/StudySubjectDto';
 import { CategoryDto }from '../../domain/category/CategoryDto';
 import { MakeUserDto }from '../../domain/user/MakeUserDto';
 import { UpdateUserDto }from '../../domain/user/UpdateUserDto';
+import { CommentInfosDto }from '../../domain/comment/CommentInfosDto';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -52,7 +53,7 @@ export class ApiClient {
   }
 
   //自身のユーザ情報更新するリクエストを送る
-  public async UpdateMyUser(updateUserDto:UpdateUserDto):Promise<unknown>{
+  public async UpdateMyUser(updateUserDto: UpdateUserDto): Promise<unknown> {
     const response = await this.axios.patch('user/v1/my_user', updateUserDto);
     return response.data;
   }
@@ -130,9 +131,14 @@ export class ApiClient {
   public async GetMyGoogleProfile(): Promise<MyGoogleProfileDto> {
     return (await this.axios.get('user/v1/my_user_google_profile')).data;
   }
-  
+
   // ユーザー削除リクエストを送信する
   public async DeleteAccount(): Promise<unknown> {
     return (await this.axios.delete('user/v1/my_user')).data;
+  }
+
+  //投稿のコメント一覧取得リクエストを送信する
+  public async GetPostComments({ id }: PostId): Promise<CommentInfosDto[]> {
+    return (await this.axios.get(`post/v1/${id}/comment`)).data;
   }
 }

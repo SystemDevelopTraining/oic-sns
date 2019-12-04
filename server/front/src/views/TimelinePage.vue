@@ -45,11 +45,17 @@
       @cancel="onClickCancel"
       @post="onClickPost"
     />
+    <comment-form
+      v-if="showCommentFormFlag"
+      v-model="commentText"
+      @cancel="onClickCancel"
+    />
     <post-list
       v-show="showPosts"
       :selected-category="selectedCategory"
       :follow-user-only="followUserOnly"
       @showDetails="onClickShowPostDetails"
+      @showCommentForm="showCommentForm"
     />
   </v-content>
 </template>
@@ -58,6 +64,7 @@
 import { Component, Vue }from 'vue-property-decorator';
 import PostList from '../components/post/PostList.vue';
 import PostForm from '../components/post/PostForm.vue';
+import CommentForm from '../components/comment/CommentForm.vue';
 import { CreatePostApplication }from '../create/CreatePostApplication';
 import { AsyncOnce }from '../utils/AsyncOnce';
 import Scroller from '../components/Scroller.vue';
@@ -68,13 +75,15 @@ import { CategoryId }from '../domain/category/CategoryId';
 import PostDetails from '../components/post/PostDetails.vue';
 import { PostInfos }from '../domain/post/PostInfos';
 
-@Component({ components: { PostList, PostForm, Scroller, PostDetails } })
+@Component({ components: { PostList, PostForm, Scroller, CommentForm, PostDetails } })
 export default class extends Vue {
   showPostFormFlag = false;
+  showCommentFormFlag = false;
   createPostParamsDto: CreatePostParamsDto = {
     text: '',
     categoryId: { id: 1 },
   };
+  commentText = '';
   asyncOnce = new AsyncOnce();
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
@@ -91,7 +100,7 @@ export default class extends Vue {
   }
 
   get showPosts() {
-    return !this.showPostFormFlag && !this.showPostDetailsFlag;
+    return !this.showPostFormFlag && !this.showPostDetailsFlag && !this.showCommentFormFlag;
   }
 
   //投稿表示のボタンが表示された時の処理
@@ -107,6 +116,11 @@ export default class extends Vue {
   //投稿ボタンが押された時の処理
   onClickCancel() {
     this.hidePostForm();
+    this.hideCommentFrom();
+  }
+
+  showCommentForm() {
+    this.showCommentFormFlag = true;
   }
 
   //投稿をする
@@ -126,13 +140,19 @@ export default class extends Vue {
     this.createPostParamsDto.text = '';
     this.createPostParamsDto.categoryId = { id: 1 };
   }
+  
   //投稿詳細を表示のflag
   get showPostDetails() {
     return this.showPostDetailsFlag;
   }
+
   onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
     this.postInfosForPostDetails = postInfos;
+  }
+  
+  hideCommentFrom() {
+    this.showCommentFormFlag = false;
   }
 }
 </script>

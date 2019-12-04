@@ -53,7 +53,7 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { postRules }from '../../domain/validationRules/PostFormRules';
+import { postRules }from '../../domain/validationRules/PostAndCommentFormRules';
 import { CategoryDto }from '../../domain/category/CategoryDto';
 import { CreateCategoryApplication }from '../../create/CreateCategoryApplication';
 import { CreatePostParamsDto }from '../../domain/post/CreatePostParamsDto';

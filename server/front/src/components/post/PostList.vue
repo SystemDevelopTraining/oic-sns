@@ -7,6 +7,7 @@
       :post-infos="postInfos"
       @delete="deletePost(postInfos.id)"
       @showDetails="$emit('showDetails',postInfos)"
+      @showCommentForm="$emit('showCommentForm')"
     />
     <new-post-get-button
       :old="true"

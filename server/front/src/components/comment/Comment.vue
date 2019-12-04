@@ -2,12 +2,11 @@
   <v-card
     width="100%"
     color="primary"
-    @click="$emit('showDetails')"
   >
     <v-row class="pb-0">
-      <v-card-title>
+      <v-card-title class="py-1">
         <v-list-item-avatar
-          size="50"
+          size="45"
           color="secondary"
         />
         <v-btn
@@ -19,12 +18,12 @@
       </v-card-title>
     </v-row>
     <v-row class="justify-end">
-      <v-card-text class="headline">
+      <v-card-text class="py-0">
         <div
-          v-for="postText in postTexts"
-          :key="postText"
+          v-for="commentText in commentTexts"
+          :key="commentText"
         >
-          {{ postText }}
+          {{ commentText }}
           <br>
         </div>
       </v-card-text>
@@ -32,43 +31,31 @@
         cols="auto"
         class="mr-auto"
       >
-        <v-card-text>{{ postDate }}</v-card-text>
-        <v-card-text>
-          <v-btn
-            icon
-            @click="onClickShowCommentForm"
-          >
-            <v-icon>mdi-comment</v-icon>
-          </v-btn>
-        </v-card-text>
+        <v-card-text>{{ commentDate }}</v-card-text>
       </v-col>
-      <post-menu
-        :is-myself="isMyself"
-        @delete="$emit('delete')"
-      />
     </v-row>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { PostInfos }from '../../domain/post/PostInfos';
-import PostMenu from './PostMenu.vue';
+import { UserId }from '../../domain/user/UserId';
 import { PostAndCommentViewData }from '../../infrastructure/viewData/PostAndCommentViewData';
+import { CommentInfosDto }from '../../domain/comment/CommentInfosDto';
 
-@Component({ components: { PostMenu } })
+@Component
 export default class extends Vue {
   @Prop({
     required: true,
     type: Object,
   })
-  postInfos!: PostInfos;
+  commentInfos!: CommentInfosDto;
 
   get viewData() {
     return new PostAndCommentViewData(
-      this.postInfos.postText,
-      this.postInfos.postDate,
-      this.postInfos.userName,
+      this.commentInfos.text,
+      this.commentInfos.commentDate,
+      this.commentInfos.userName,
     );
   }
 
@@ -76,26 +63,18 @@ export default class extends Vue {
     return this.viewData.ViewName;
   }
 
-  get postTexts() {
+  get commentTexts() {
     return this.viewData.ViewLineTexts;
   }
 
-  get postDate() {
+  get commentDate() {
     return this.viewData.ViewDate;
-  }
-
-  get isMyself() {
-    return this.postInfos.isMyself;
-  }
-
-  onClickShowCommentForm() {
-    this.$emit('showCommentForm');
   }
 
   async goToUserPage() {
     this.$router.push({
       name: 'user',
-      params: { id: String(this.postInfos.userId.id) },
+      params: { id: String(this.commentInfos.userId.id) },
     });
   }
 }
