@@ -4,7 +4,7 @@
     class="center"
   >
     <post-details
-      v-if="showPostDetails"
+      v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
       @showTimeLinePage="hidePostDetails"
     />
@@ -146,11 +146,6 @@ export default class extends Vue {
     this.showPostFormFlag = false;
     this.createPostParamsDto.text = '';
     this.createPostParamsDto.categoryId = { id: 1 };
-  }
-
-  //投稿詳細を表示のflag
-  get showPostDetails() {
-    return this.showPostDetailsFlag;
   }
 
   //TimeLinepage投稿明細に切り替え
