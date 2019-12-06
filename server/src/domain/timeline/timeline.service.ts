@@ -16,7 +16,7 @@ export class TimelineService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-  ) {}
+  ) { }
 
   async latest(
     params: SearchPostParamsDto,
@@ -32,7 +32,7 @@ export class TimelineService {
         'post.categoryId as categoryId',
         'post.text as text',
         'post.createdAt as createdAt',
-        'user.name as userName',
+        'user.name as postUserName',
         'user.id as postUserId',
       ])
       .addSelect(
