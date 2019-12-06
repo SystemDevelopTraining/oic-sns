@@ -36,12 +36,14 @@
           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn>
+          {{ commentCount }}
           <v-btn
             icon
             @click="onClickShowCommentForm"
           >
             <v-icon>mdi-comment</v-icon>
           </v-btn>
+          {{ categoryName }}
         </v-card-text>
       </v-col>
       <post-menu
@@ -88,6 +90,14 @@ export default class extends Vue {
 
   get isMyself() {
     return this.postInfos.isMyself;
+  }
+
+  get commentCount() {
+    return this.postInfos.commentCount;
+  }
+
+  get categoryName() {
+    return this.postInfos.categoryName;
   }
 
   onClickShowCommentForm() {
