@@ -6,7 +6,7 @@
     <post-details
       v-if="showPostDetails"
       :post-infos="postInfosForPostDetails"
-      @backToPostList="GoBackToPostList"
+      @showTimeLinePage="UnshowPostDetails"
     />
     <scroller />
     <v-row>
@@ -153,7 +153,7 @@ export default class extends Vue {
     return this.showPostDetailsFlag;
   }
 
-  //go to 投稿明細
+  //TimeLinepage投稿明細に切り替え
   onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
     this.postInfosForPostDetails = postInfos;
@@ -162,8 +162,8 @@ export default class extends Vue {
   hideCommentFrom() {
     this.showCommentFormFlag = false;
   }
-  //投稿明細からもどる
-  GoBackToPostList() {
+  //投稿明細からTimeLinepageに切り替え
+  UnshowPostDetails() {
     this.showPostDetailsFlag = false;
   }
 }
