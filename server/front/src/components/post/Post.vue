@@ -33,6 +33,9 @@
       >
         <v-card-text>{{ postDate }}</v-card-text>
         <v-card-text>
+          <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
           {{ commentCount }}
           <v-btn
             icon
