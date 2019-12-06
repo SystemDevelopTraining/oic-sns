@@ -3,6 +3,11 @@
     fluid
     class="center"
   >
+    <post-details
+      v-if="showPostDetailsFlag"
+      :post-infos="postInfosForPostDetails"
+      @showTimeLinePage="hidePostDetails"
+    />
     <scroller />
     <v-row>
       <v-col>
@@ -50,6 +55,7 @@
       v-show="showPosts"
       :selected-category="selectedCategory"
       :follow-user-only="followUserOnly"
+      @showDetails="onClickShowPostDetails"
       @showCommentForm="showCommentForm"
     />
   </v-content>
@@ -67,8 +73,12 @@ import { CreatePostParamsDto }from '../domain/post/CreatePostParamsDto';
 import { CreateCategoryApplication }from '../create/CreateCategoryApplication';
 import { CategoryDto }from '../domain/category/CategoryDto';
 import { CategoryId }from '../domain/category/CategoryId';
+import PostDetails from '../components/post/PostDetails.vue';
+import { PostInfos }from '../domain/post/PostInfos';
 
-@Component({ components: { PostList, PostForm, Scroller, CommentForm } })
+@Component({
+  components: { PostList, PostForm, Scroller, CommentForm, PostDetails },
+})
 export default class extends Vue {
   showPostFormFlag = false;
   showCommentFormFlag = false;
@@ -81,6 +91,8 @@ export default class extends Vue {
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
   followUserOnly = false;
+  showPostDetailsFlag = false;
+  postInfosForPostDetails: PostInfos | null = null;
 
   async created() {
     this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
@@ -91,7 +103,11 @@ export default class extends Vue {
   }
 
   get showPosts() {
-    return !this.showPostFormFlag && !this.showCommentFormFlag;
+    return (
+      !this.showPostFormFlag &&
+      !this.showPostDetailsFlag &&
+      !this.showCommentFormFlag
+    );
   }
 
   //投稿表示のボタンが表示された時の処理
@@ -132,8 +148,18 @@ export default class extends Vue {
     this.createPostParamsDto.categoryId = { id: 1 };
   }
 
+  //TimeLinepage投稿明細に切り替え
+  onClickShowPostDetails(postInfos: PostInfos) {
+    this.showPostDetailsFlag = true;
+    this.postInfosForPostDetails = postInfos;
+  }
+
   hideCommentFrom() {
     this.showCommentFormFlag = false;
+  }
+  //投稿明細からTimeLinepageに切り替え
+  hidePostDetails() {
+    this.showPostDetailsFlag = false;
   }
 }
 </script>
