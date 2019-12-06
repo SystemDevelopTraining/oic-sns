@@ -6,7 +6,7 @@
     <post-details
       v-if="showPostDetails"
       :post-infos="postInfosForPostDetails"
-      @showTimeLinePage="UnshowPostDetails"
+      @showTimeLinePage="hidePostDetails"
     />
     <scroller />
     <v-row>
@@ -163,7 +163,7 @@ export default class extends Vue {
     this.showCommentFormFlag = false;
   }
   //投稿明細からTimeLinepageに切り替え
-  UnshowPostDetails() {
+  hidePostDetails() {
     this.showPostDetailsFlag = false;
   }
 }
