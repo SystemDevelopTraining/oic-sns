@@ -27,6 +27,7 @@ export class TimelineService {
     const query = this.postRepository
       .createQueryBuilder('post')
       .innerJoinAndSelect('post.postUser', 'user')
+      .innerJoinAndSelect('post.category', 'category')
       .select([
         'post.id as id',
         'post.categoryId as categoryId',
@@ -34,6 +35,7 @@ export class TimelineService {
         'post.createdAt as createdAt',
         'user.name as postUserName',
         'user.id as postUserId',
+        'category.name as categoryName'
       ])
       .addSelect(
         '(SELECT COUNT(*) FROM comment WHERE post.id = comment.parentPostId)',
@@ -80,6 +82,7 @@ export class TimelineService {
         userName: x.postUserName,
         isMyself: x.postUserId === myUser.id,
         commentCount: x.commentCount,
+        categoryName: x.categoryName
       })),
     );
   }
@@ -92,4 +95,5 @@ export interface PostToTimeline {
   text: string;
   commentCount: number;
   postUserName: string;
+  categoryName: string;
 }

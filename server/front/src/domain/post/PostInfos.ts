@@ -10,4 +10,5 @@ export interface PostInfos {
   postDate: Date;
   isMyself: boolean;
   commentCount: number;
+  categoryName: string;
 }
