@@ -2,19 +2,22 @@ import { PostRepository }from './PostRepository';
 import { PostInfosList }from './PostInfosList';
 import { CategoryId }from '../category/CategoryId';
 import { UserId }from '../user/UserId';
+import { CommentRepository }from '../comment/CommentRepository';
 
 //投稿のタイムラインを表す
 export class TimeLine {
     private readonly postRepository: PostRepository
+    private readonly commentRepository: CommentRepository;
     private currentPostInfosList: PostInfosList
     private postInfosListMap = new Map<string, PostInfosList>()
     private filterUserId?: UserId
     private categoryId:CategoryId|undefined;
     private followUserOnly=false;
 
-    public constructor(postRepository: PostRepository,filterUserId?: UserId) {
+    public constructor(postRepository: PostRepository, commentRepository: CommentRepository,  filterUserId?: UserId) {
         this.postRepository = postRepository;
-        this.currentPostInfosList = new PostInfosList([], postRepository,undefined,filterUserId);
+        this.commentRepository = commentRepository;
+        this.currentPostInfosList = new PostInfosList([], postRepository, commentRepository, undefined, filterUserId);
         this.postInfosListMap.set("0", this.currentPostInfosList);
         this.filterUserId = filterUserId;
     }
@@ -41,7 +44,7 @@ export class TimeLine {
         const key = String((this.categoryId || {id: 0}).id) + (this.followUserOnly ? "f" : "");
         let nextPostInfosList = this.postInfosListMap.get(key);
         if (nextPostInfosList === undefined) {
-            nextPostInfosList = new PostInfosList([], this.postRepository, this.categoryId,this.filterUserId,this.followUserOnly);
+            nextPostInfosList = new PostInfosList([], this.postRepository, this.commentRepository, this.categoryId,this.filterUserId,this.followUserOnly);
             nextPostInfosList.GetUpdateLatestPost();
             this.postInfosListMap.set(key,nextPostInfosList);
         }

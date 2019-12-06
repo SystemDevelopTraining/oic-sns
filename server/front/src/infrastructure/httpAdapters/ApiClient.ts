@@ -16,6 +16,8 @@ import { CategoryDto }from '../../domain/category/CategoryDto';
 import { MakeUserDto }from '../../domain/user/MakeUserDto';
 import { UpdateUserDto }from '../../domain/user/UpdateUserDto';
 import { CommentInfosDto }from '../../domain/comment/CommentInfosDto';
+import { CreateCommentParamsDto }from '../../domain/comment/CreateCommentParamsDto';
+import { CreateCommentResult }from '../../domain/comment/CreateCommentResult';
 
 // サーバーにやり取りをするclass
 export class ApiClient {
@@ -109,6 +111,15 @@ export class ApiClient {
   //投稿を削除する
   public async DeletePost(id: PostId): Promise<unknown> {
     const response = await this.axios.delete('post/v1/' + id.id);
+    return response.data;
+  }
+
+  //コメントを投稿する
+  public async CreateComment(
+    id: PostId,
+    params: CreateCommentParamsDto,
+  ): Promise<CreateCommentResult>{
+    const response = await this.axios.post('post/v1/' + id.id + '/comment', params, {});
     return response.data;
   }
 
