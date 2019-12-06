@@ -33,6 +33,7 @@
       >
         <v-card-text>{{ postDate }}</v-card-text>
         <v-card-text>
+          {{ commentCount }}
           <v-btn
             icon
             @click="onClickShowCommentForm"
@@ -85,6 +86,10 @@ export default class extends Vue {
 
   get isMyself() {
     return this.postInfos.isMyself;
+  }
+
+  get commentCount() {
+    return this.postInfos.commentCount;
   }
 
   onClickShowCommentForm() {
