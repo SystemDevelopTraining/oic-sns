@@ -6,6 +6,7 @@
     <post-details
       v-if="showPostDetails"
       :post-infos="postInfosForPostDetails"
+      @backToPostList="GoBackToPostList"
     />
     <scroller />
     <v-row>
@@ -75,7 +76,9 @@ import { CategoryId }from '../domain/category/CategoryId';
 import PostDetails from '../components/post/PostDetails.vue';
 import { PostInfos }from '../domain/post/PostInfos';
 
-@Component({ components: { PostList, PostForm, Scroller, CommentForm, PostDetails } })
+@Component({
+  components: { PostList, PostForm, Scroller, CommentForm, PostDetails },
+})
 export default class extends Vue {
   showPostFormFlag = false;
   showCommentFormFlag = false;
@@ -100,7 +103,11 @@ export default class extends Vue {
   }
 
   get showPosts() {
-    return !this.showPostFormFlag && !this.showPostDetailsFlag && !this.showCommentFormFlag;
+    return (
+      !this.showPostFormFlag &&
+      !this.showPostDetailsFlag &&
+      !this.showCommentFormFlag
+    );
   }
 
   //投稿表示のボタンが表示された時の処理
@@ -140,19 +147,24 @@ export default class extends Vue {
     this.createPostParamsDto.text = '';
     this.createPostParamsDto.categoryId = { id: 1 };
   }
-  
+
   //投稿詳細を表示のflag
   get showPostDetails() {
     return this.showPostDetailsFlag;
   }
 
+  //go to 投稿明細
   onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
     this.postInfosForPostDetails = postInfos;
   }
-  
+
   hideCommentFrom() {
     this.showCommentFormFlag = false;
+  }
+  //投稿明細からもどる
+  GoBackToPostList() {
+    this.showPostDetailsFlag = false;
   }
 }
 </script>

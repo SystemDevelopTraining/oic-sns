@@ -1,6 +1,16 @@
 <template>
   <v-card>
     <v-toolbar>
+      <v-btn
+        class="mr-auto"
+        color="latestPostBtnColor"
+        dark
+        @click="$emit('backToPostList')"
+      >
+        <v-icon dark>
+          fa-backspace
+        </v-icon>
+      </v-btn>
       <v-spacer />
       <v-toolbar-title>投稿詳細</v-toolbar-title>
     </v-toolbar>
