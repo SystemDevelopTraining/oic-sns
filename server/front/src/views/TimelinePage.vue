@@ -6,7 +6,7 @@
     <post-details
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
-      @showTimeLinePage="hidePostDetails"
+      @back="hidePostDetails"
     />
     <scroller />
     <v-row>

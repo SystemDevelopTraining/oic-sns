@@ -5,7 +5,7 @@
         class="mr-auto"
         color="latestPostBtnColor"
         dark
-        @click="$emit('showTimeLinePage')"
+        @click="$emit('back')"
       >
         <v-icon dark>
           fa-backspace
