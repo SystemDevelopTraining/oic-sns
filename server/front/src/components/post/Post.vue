@@ -40,7 +40,7 @@
           {{ commentCount }}
           <v-btn
             icon
-            @click="onClickShowCommentForm"
+            @click.stop="onClickShowCommentForm"
           >
             <v-icon>mdi-comment</v-icon>
           </v-btn>
