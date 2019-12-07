@@ -7,6 +7,7 @@
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
       @back="hidePostDetails"
+      @showCommentForm="showCommentForm"
     />
     <scroller />
     <v-row>
@@ -145,6 +146,7 @@ export default class extends Vue {
   //コメントフォームの表示処理
   showCommentForm(id: PostId) {
     this.showCommentFormFlag = true;
+    this.showPostDetailsFlag = false;
     this.postIdForComentForm = id;
   }
 

@@ -18,6 +18,7 @@
       <post
         :post-infos="postInfos"
         @delete="()=>$emit('delete',postInfos.id)"
+        @showCommentForm="$emit('showCommentForm',postInfos.id)"
       />
     </div>
   </v-card>

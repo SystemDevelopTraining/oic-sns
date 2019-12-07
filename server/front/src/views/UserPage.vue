@@ -15,6 +15,7 @@
     <post-details
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
+      @showCommentForm="showCommentForm"
       @back="hide"
     />
     <post-list
@@ -99,6 +100,7 @@ export default class extends Vue {
   //コメントフォームの表示処理
   showCommentForm(id: PostId) {
     this.showCommentFormFlag = true;
+    this.showPostDetailsFlag = false;
     this.postIdForComentForm = id;
   }
 
@@ -120,10 +122,12 @@ export default class extends Vue {
   //投稿明細に切り替え
   onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
+    this.showCommentFormFlag = false;
     this.postInfosForPostDetails = postInfos;
   }
 
   hide() {
+    this.createCommentParamsDto.text = '';
     this.showCommentFormFlag = false;
     this.showPostDetailsFlag = false;
   }
@@ -134,6 +138,7 @@ export default class extends Vue {
       this.createCommentParamsDto,
       this.postIdForComentForm,
     );
+    this.hide();
   }
 }
 </script>
