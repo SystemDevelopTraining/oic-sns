@@ -7,8 +7,12 @@
       :user="user"
     />
     <post-list
-      v-if="user"
-      :filter-user-id="user.id"
+      :post-infos-list-dto="postInfosListDto"
+      @showDetails="onClickShowPostDetails"
+      @showCommentForm="showCommentForm"
+      @getLatestPost="getLatestPost"
+      @deletePost="deletePost"
+      @getOldPost="getOldPost"
     />
   </v-content>
 </template>
@@ -21,18 +25,27 @@ import UserInfo from '../components/user/UserInfo.vue';
 import PostList from '../components/post/PostList.vue';
 import Drawer from '../components/Drawer.vue';
 import Scroller from '../components/Scroller.vue';
+import { CreatePostApplication }from '../create/CreatePostApplication';
+import { TimeLine }from '../domain/post/TimeLine';
 
 @Component({ components: { UserInfo, PostList, Drawer, Scroller } })
 export default class extends Vue {
   user: UserDto | null = null;
+  timeLine: TimeLine = CreatePostApplication().GetTimeLine();
 
   created() {
     this.setUser();
+    this.timeLine = CreatePostApplication().GetTimeLine();
+    this.timeLine.PostInfosList.GetUpdateLatestPost();
   }
 
   @Watch('$route')
   onChangeRoute() {
     this.setUser();
+  }
+
+  get postInfosListDto() {
+    return this.timeLine.PostInfosList.PostInfosListDto;
   }
 
   async setUser() {
