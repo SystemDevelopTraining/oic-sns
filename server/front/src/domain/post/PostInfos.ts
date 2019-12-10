@@ -11,4 +11,5 @@ export interface PostInfos {
   isMyself: boolean;
   commentCount: number;
   categoryName: string;
+  likeCount: number;
 }

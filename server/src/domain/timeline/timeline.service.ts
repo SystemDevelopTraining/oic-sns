@@ -82,7 +82,8 @@ export class TimelineService {
         userName: x.postUserName,
         isMyself: x.postUserId === myUser.id,
         commentCount: x.commentCount,
-        categoryName: x.categoryName
+        categoryName: x.categoryName,
+        likeCount: 1
       })),
     );
   }

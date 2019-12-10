@@ -34,6 +34,7 @@
       >
         <v-card-text>{{ postDate }}</v-card-text>
         <v-card-text>
+          {{ likeCount }}
           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn>
@@ -95,6 +96,10 @@ export default class extends Vue {
 
   get commentCount() {
     return this.postInfos.commentCount;
+  }
+
+  get likeCount() {
+    return this.postInfos.likeCount;
   }
 
   get categoryName() {
