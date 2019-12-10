@@ -6,7 +6,8 @@
     <post-details
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
-      @showTimeLinePage="hidePostDetails"
+      @back="hidePostDetails"
+      @showCommentForm="showCommentForm"
     />
     <scroller />
     <v-row>
@@ -48,21 +49,24 @@
     />
     <comment-form
       v-if="showCommentFormFlag"
-      v-model="commentText"
+      v-model="createCommentParamsDto.text"
+      @comment="onClickComment"
       @cancel="onClickCancel"
     />
     <post-list
       v-show="showPosts"
-      :selected-category="selectedCategory"
-      :follow-user-only="followUserOnly"
+      :post-infos-list-dto="postInfosListDto"
       @showDetails="onClickShowPostDetails"
       @showCommentForm="showCommentForm"
+      @getLatestPost="getLatestPost"
+      @deletePost="deletePost"
+      @getOldPost="getOldPost"
     />
   </v-content>
 </template>
 
 <script lang="ts">
-import { Component, Vue }from 'vue-property-decorator';
+import { Component, Vue, Watch }from 'vue-property-decorator';
 import PostList from '../components/post/PostList.vue';
 import PostForm from '../components/post/PostForm.vue';
 import CommentForm from '../components/comment/CommentForm.vue';
@@ -75,27 +79,40 @@ import { CategoryDto }from '../domain/category/CategoryDto';
 import { CategoryId }from '../domain/category/CategoryId';
 import PostDetails from '../components/post/PostDetails.vue';
 import { PostInfos }from '../domain/post/PostInfos';
+import { CreateCommentParamsDto }from '../domain/comment/CreateCommentParamsDto';
+import { PostId }from '../domain/post/PostId';
+import { TimeLine }from '../domain/post/TimeLine';
 
 @Component({
   components: { PostList, PostForm, Scroller, CommentForm, PostDetails },
 })
 export default class extends Vue {
+  timeLine: TimeLine = CreatePostApplication().GetTimeLine();
   showPostFormFlag = false;
   showCommentFormFlag = false;
   createPostParamsDto: CreatePostParamsDto = {
     text: '',
     categoryId: { id: 1 },
   };
-  commentText = '';
+  createCommentParamsDto: CreateCommentParamsDto = {
+    text: '',
+  };
   asyncOnce = new AsyncOnce();
   selectedCategory: CategoryId | null = null;
   categoryDtoList: CategoryDto[] = [];
   followUserOnly = false;
   showPostDetailsFlag = false;
   postInfosForPostDetails: PostInfos | null = null;
+  postIdForComentForm: PostId = { id: 0 };
 
   async created() {
     this.categoryDtoList = await CreateCategoryApplication().GetCategoryItems();
+    this.timeLine = CreatePostApplication().GetTimeLine();
+    this.timeLine.PostInfosList.GetUpdateLatestPost();
+  }
+
+  get postInfosListDto() {
+    return this.timeLine.PostInfosList.PostInfosListDto;
   }
 
   get categoryItems() {
@@ -126,8 +143,11 @@ export default class extends Vue {
     this.hideCommentFrom();
   }
 
-  showCommentForm() {
+  //コメントフォームの表示処理
+  showCommentForm(id: PostId) {
     this.showCommentFormFlag = true;
+    this.showPostDetailsFlag = false;
+    this.postIdForComentForm = id;
   }
 
   //投稿をする
@@ -154,12 +174,51 @@ export default class extends Vue {
     this.postInfosForPostDetails = postInfos;
   }
 
-  hideCommentFrom() {
-    this.showCommentFormFlag = false;
-  }
   //投稿明細からTimeLinepageに切り替え
   hidePostDetails() {
     this.showPostDetailsFlag = false;
+  }
+  //コメントフォームを隠す処理
+  hideCommentFrom() {
+    this.showCommentFormFlag = false;
+    this.createCommentParamsDto.text = '';
+  }
+
+  //カテゴリ種別変更の処理
+  @Watch('selectedCategory')
+  onChangeSelectedCategory() {
+    this.timeLine.SelectCategoryId(this.selectedCategory || undefined);
+  }
+
+  //フォローユーザオンリーか否かを変更する処理
+  @Watch('followUserOnly')
+  onChangeFollowUserOnly() {
+    this.timeLine.SetFollowUserOnly(this.followUserOnly || false);
+  }
+
+  //投稿を削除する
+  deletePost(id: PostId) {
+    this.timeLine.PostInfosList.DeletePost(id);
+  }
+
+  //最新の投稿を取得する
+  getLatestPost() {
+    this.timeLine.PostInfosList.GetUpdateLatestPost();
+  }
+
+  //末尾から古い順の投稿を取得する
+  getOldPost() {
+    this.timeLine.PostInfosList.GetUpdateOldPost();
+  }
+
+  //コメントを投稿する機能
+  async onClickComment() {
+    await this.timeLine.PostInfosList.CreateComment(
+      this.createCommentParamsDto,
+      this.postIdForComentForm,
+    );
+
+    this.hideCommentFrom();
   }
 }
 </script>

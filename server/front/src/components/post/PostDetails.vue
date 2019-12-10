@@ -5,7 +5,7 @@
         class="mr-auto"
         color="latestPostBtnColor"
         dark
-        @click="$emit('showTimeLinePage')"
+        @click="$emit('back')"
       >
         <v-icon dark>
           fa-backspace
@@ -18,6 +18,7 @@
       <post
         :post-infos="postInfos"
         @delete="()=>$emit('delete',postInfos.id)"
+        @showCommentForm="$emit('showCommentForm',postInfos.id)"
       />
     </div>
   </v-card>
