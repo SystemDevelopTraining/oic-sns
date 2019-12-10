@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop }from 'vue-property-decorator';
-import { UserId }from '../../domain/user/UserId';
 import { PostAndCommentViewData }from '../../infrastructure/viewData/PostAndCommentViewData';
 import { CommentInfosDto }from '../../domain/comment/CommentInfosDto';
 

@@ -6,6 +6,7 @@
     <post-details
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
+      :comment-infos-dto-list="commentInfosDtoListForPostDetails"
       @back="hidePostDetails"
       @showCommentForm="showCommentForm"
     />
@@ -82,6 +83,7 @@ import { PostInfos }from '../domain/post/PostInfos';
 import { CreateCommentParamsDto }from '../domain/comment/CreateCommentParamsDto';
 import { PostId }from '../domain/post/PostId';
 import { TimeLine }from '../domain/post/TimeLine';
+import { CommentInfosDto }from '../domain/comment/CommentInfosDto';
 
 @Component({
   components: { PostList, PostForm, Scroller, CommentForm, PostDetails },
@@ -103,6 +105,7 @@ export default class extends Vue {
   followUserOnly = false;
   showPostDetailsFlag = false;
   postInfosForPostDetails: PostInfos | null = null;
+  commentInfosDtoListForPostDetails: CommentInfosDto[] = [];
   postIdForComentForm: PostId = { id: 0 };
 
   async created() {
@@ -169,9 +172,12 @@ export default class extends Vue {
   }
 
   //TimeLinepage投稿明細に切り替え
-  onClickShowPostDetails(postInfos: PostInfos) {
+  async onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
     this.postInfosForPostDetails = postInfos;
+    this.commentInfosDtoListForPostDetails = await this.timeLine.PostInfosList.GetPostComment(
+      postInfos.id,
+    );
   }
 
   //投稿明細からTimeLinepageに切り替え
