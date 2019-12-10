@@ -20,7 +20,7 @@ import { Component, Vue }from 'vue-property-decorator';
 
 @Component
 export default class extends Vue {
-  scrollValue: number = 0;
+  scrollValue = 0;
   created() {
     window.addEventListener(
       'scroll',

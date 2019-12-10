@@ -1,38 +1,73 @@
 <template>
   <v-content>
     <v-row>
-      <v-col
-        xl="9"
-        lg="7"
-        md="7"
-        sm="7"
-        cols="6"
-      >
-        <h1>OICity</h1>
-      </v-col>
-      <v-col
-        xl="3"
-        lg="5"
-        md="5"
-        sm="5"
-        cols="6"
-        align-self="center"
-        justify-self="end"
-      >
-        <v-img
-          v-if="isNotLogin()"
-          src="google_btn.png"
-          @click="onLogin"
-        />
-      </v-col>
+      <v-img
+        src="../logo.png"
+        width="100"
+      />
     </v-row>
-    <v-card class="spacing-playground mx-auto my-5 px-5">
-      <v-card-title>どんなSNSなのか？</v-card-title>
-      <v-card-text>OIC内のコミュニティの輪の発展を促進するSNS！</v-card-text>
-    </v-card>
-    <v-card class="spacing-playground mx-auto my-5 px-5">
-      <v-card-title>モチベーション</v-card-title>
-      <v-card-text>OICを愛する気持ちで出来ています！</v-card-text>
+    <v-spacer />
+    <v-card
+      max-width="400"
+      class="mx-auto"
+    >
+      <v-container>
+        <v-row dense>
+          <v-col cols="12">
+            <v-card
+              color="#385F73"
+              dark
+            >
+              <v-card-title class="headline">
+                What am I?
+              </v-card-title>
+
+              <v-card-subtitle>
+                I am a place where you can share and meet your own kinds.
+                Just post, like and comment . Simple as that!
+              </v-card-subtitle>
+
+              <v-card-actions>
+                <v-img
+                  v-if="isNotLogin()"
+                  src="google_btn.png"
+                  @click="onLogin"
+                />
+              </v-card-actions>
+            </v-card>
+          </v-col>
+
+          <v-col
+            v-for="(item, i) in items"
+            :key="i"
+            cols="12"
+          >
+            <v-card
+              :color="item.color"
+              dark
+            >
+              <div class="d-flex flex-no-wrap justify-space-between">
+                <div>
+                  <v-card-title
+                    class="headline"
+                    v-text="item.title"
+                  />
+
+                  <v-card-subtitle v-text="item.artist" />
+                </div>
+
+                <v-avatar
+                  class="ma-3"
+                  size="125"
+                  tile
+                >
+                  <v-img :src="item.src" />
+                </v-avatar>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card>
   </v-content>
 </template>
@@ -42,6 +77,29 @@ import { Component, Vue }from 'vue-property-decorator';
 import { CreateLoginApplication }from '../create/CreateLoginApplication';
 @Component({})
 export default class extends Vue {
+  items = [
+    {
+      color: '#1F7087',
+      src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
+      title: 'Post',
+      artist:
+        'Just begin by posting your own stuffs, like the kadais of the school or even your feelings about today.',
+    },
+    {
+      color: '#952175',
+      src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
+      title: 'Watch',
+      artist: 'Watch people posting their owns so that you can find your type.',
+    },
+    {
+      color: '#952175',
+      src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
+      title: 'Comment',
+      artist:
+        'Finally, just comment if you are interested in the post or even the person. Here you get the chance to make a friend or a project partner.',
+    },
+  ];
+
   isNotLogin() {
     return !CreateLoginApplication().IsLogin();
   }

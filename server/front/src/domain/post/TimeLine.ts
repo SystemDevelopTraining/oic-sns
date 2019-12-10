@@ -10,7 +10,7 @@ export class TimeLine {
     private postInfosListMap = new Map<string, PostInfosList>()
     private filterUserId?: UserId
     private categoryId:CategoryId|undefined;
-    private followUserOnly:boolean=false;
+    private followUserOnly=false;
 
     public constructor(postRepository: PostRepository,filterUserId?: UserId) {
         this.postRepository = postRepository;

@@ -100,12 +100,12 @@ import { CreateStudySubjectApplication }from '../create/CreateStudySubjectApplic
 
 @Component({})
 export default class extends Vue {
-  private name: string = '';
+  private name = '';
   private sex: Sex = Sex.man;
   private subject: StudySubjectId = { id: 1 };
   private course: CourseId = { id: 1 };
-  private schoolYear: string = '';
-  private classNumber: string = '';
+  private schoolYear = '';
+  private classNumber = '';
   private asyncOnce = new AsyncOnce();
   courseDtoList: CourseDto[] = [];
   studySubjectDtoList: StudySubjectDto[] = [];

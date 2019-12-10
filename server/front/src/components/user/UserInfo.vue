@@ -136,7 +136,7 @@ interface OneOfUserInfo {
 @Component({ components: {} })
 export default class extends Vue {
   showUserDetails = false;
-  isfollowed: boolean = false;
+  isfollowed = false;
   asyncOnce = new AsyncOnce();
 
   @Prop({ type: Object, required: true }) user!: UserDto;
