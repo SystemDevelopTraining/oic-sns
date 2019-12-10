@@ -1,5 +1,5 @@
-import { UserId }from '../user/UserId';
-import { PostId }from './PostId';
+import { UserId } from '../user/UserId';
+import { PostId } from './PostId';
 
 //投稿表示するのに必要な情報
 export interface PostInfos {
@@ -11,4 +11,5 @@ export interface PostInfos {
   isMyself: boolean;
   commentCount: number;
   categoryName: string;
+  likeCount: number;
 }
