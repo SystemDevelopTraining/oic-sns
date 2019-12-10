@@ -1,5 +1,5 @@
-import { UserId } from '../user/UserId';
-import { PostId } from './PostId';
+import { UserId }from '../user/UserId';
+import { PostId }from './PostId';
 
 //投稿表示するのに必要な情報
 export interface PostInfos {
