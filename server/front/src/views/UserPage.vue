@@ -15,6 +15,7 @@
     <post-details
       v-if="showPostDetailsFlag"
       :post-infos="postInfosForPostDetails"
+      :comment-infos-dto-list="commentInfosDtoListForPostDetails"
       @showCommentForm="showCommentForm"
       @back="hide"
     />
@@ -45,6 +46,7 @@ import { PostId }from '../domain/post/PostId';
 import { PostInfos }from '../domain/post/PostInfos';
 import { CreateCommentParamsDto }from '../domain/comment/CreateCommentParamsDto';
 import PostDetails from '../components/post/PostDetails.vue';
+import { CommentInfosDto }from '../domain/comment/CommentInfosDto';
 
 @Component({
   components: {
@@ -63,6 +65,7 @@ export default class extends Vue {
   showPostDetailsFlag = false;
   postInfosForPostDetails: PostInfos | null = null;
   postIdForComentForm: PostId = { id: 0 };
+  commentInfosDtoListForPostDetails: CommentInfosDto[] = [];
   createCommentParamsDto: CreateCommentParamsDto = {
     text: '',
   };
@@ -120,10 +123,13 @@ export default class extends Vue {
   }
 
   //投稿明細に切り替え
-  onClickShowPostDetails(postInfos: PostInfos) {
+  async onClickShowPostDetails(postInfos: PostInfos) {
     this.showPostDetailsFlag = true;
     this.showCommentFormFlag = false;
     this.postInfosForPostDetails = postInfos;
+    this.commentInfosDtoListForPostDetails = await this.timeLine.PostInfosList.GetPostComment(
+      postInfos.id,
+    );
   }
 
   hide() {
