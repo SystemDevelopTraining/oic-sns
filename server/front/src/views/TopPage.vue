@@ -72,6 +72,7 @@ import { CreateLoginApplication }from '../create/CreateLoginApplication';
 @Component({})
 export default class extends Vue {
   items = [
+    // the cards wont look nice if you remove the images
     {
       color: '#cf1a0c',
       src: 'post.png',
@@ -94,7 +95,7 @@ export default class extends Vue {
     },
     {
       color: 'blue',
-      src: './friends.jpg',
+      src: './logo.png',
       title: 'Make Friends',
       artist:
         'After talks, you can meet and friends. Target Accomplished. Enjoy your new life with lots of friends',
