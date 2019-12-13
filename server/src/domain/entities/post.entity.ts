@@ -4,9 +4,12 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Category } from './category.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class Post {
@@ -16,7 +19,7 @@ export class Post {
   @Column()
   readonly postUserId: number;
 
-  @ManyToOne(type => User, user => user.posts, { onDelete: "CASCADE" })
+  @ManyToOne(type => User, user => user.posts, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'postUserId' })
   postUser: User;
 
@@ -33,4 +36,6 @@ export class Post {
   @JoinColumn({ name: 'categoryId' })
   category: Category;
 
+  @OneToMany(type => Comment, comment => comment.parentPost, { cascade: true })
+  comments: Comment;
 }

@@ -1,11 +1,5 @@
 <template>
   <v-content>
-    <v-row>
-      <v-img
-        src="../logo.png"
-        width="100"
-      />
-    </v-row>
     <v-spacer />
     <v-card
       max-width="400"
@@ -15,11 +9,11 @@
         <v-row dense>
           <v-col cols="12">
             <v-card
-              color="#385F73"
+              color="#1F7087"
               dark
             >
               <v-card-title class="headline">
-                What am I?
+                <v-img src="/logo.png" />What am I?
               </v-card-title>
 
               <v-card-subtitle>
@@ -79,24 +73,31 @@ import { CreateLoginApplication }from '../create/CreateLoginApplication';
 export default class extends Vue {
   items = [
     {
-      color: '#1F7087',
-      src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
+      color: '#cf1a0c',
+      src: 'post.png',
       title: 'Post',
       artist:
         'Just begin by posting your own stuffs, like the kadais of the school or even your feelings about today.',
     },
     {
-      color: '#952175',
-      src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
+      color: 'red',
+      src: '/timeline.png',
       title: 'Watch',
       artist: 'Watch people posting their owns so that you can find your type.',
     },
     {
       color: '#952175',
-      src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
+      src: './comment.png',
       title: 'Comment',
       artist:
         'Finally, just comment if you are interested in the post or even the person. Here you get the chance to make a friend or a project partner.',
+    },
+    {
+      color: 'blue',
+      src: './friends.jpg',
+      title: 'Make Friends',
+      artist:
+        'After talks, you can meet and friends. Target Accomplished. Enjoy your new life with lots of friends',
     },
   ];
 

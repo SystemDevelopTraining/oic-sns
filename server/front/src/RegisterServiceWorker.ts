@@ -1,6 +1,7 @@
 import { register }from "register-service-worker";
 
 /*eslint @typescript-eslint/no-unused-vars:0*/
+/*eslint @typescript-eslint/no-empty-function:0*/
 
 if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {

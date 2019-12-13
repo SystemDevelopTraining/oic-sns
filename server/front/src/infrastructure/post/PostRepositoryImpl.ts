@@ -14,12 +14,12 @@ export class PostRepositoryImpl implements PostRepository {
     return new ApiClient(jwt).CreatePost(createPostParams).catch(UnauthorizedErrorHook);
   }
 
-  public Delete(id:PostId):Promise<unknown>{
+  public Delete(id: PostId): Promise<unknown> {
     const jwt = CreateLoginApplication().GetJwt();
     return new ApiClient(jwt).DeletePost(id).catch(UnauthorizedErrorHook);
   }
 
-  public TakeLatest(searchPostParams:SearchPostParamsDto): Promise<PostInfos[]> {
+  public TakeLatest(searchPostParams: SearchPostParamsDto): Promise<PostInfos[]> {
     const jwt = CreateLoginApplication().GetJwt();
     return new ApiClient(jwt).TakeLatestPosts(searchPostParams).catch(UnauthorizedErrorHook);
   }

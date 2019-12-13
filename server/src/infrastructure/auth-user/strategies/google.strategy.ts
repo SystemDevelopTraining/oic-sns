@@ -21,7 +21,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy, 'google') {
     });
   }
 
-  authorizationParams(options: unknown): unknown {
+  authorizationParams(options: object): unknown {
     return {
       ...options,
       hd: 'oic.jp',

@@ -6,6 +6,6 @@ import { PostId }from './PostId';
 
 export interface PostRepository {
   Save(createPostParams: CreatePostParamsDto): Promise<CreatePostResult>;
-  TakeLatest(SearchPostParams:SearchPostParamsDto): Promise<PostInfos[]>;
-  Delete(id:PostId):Promise<unknown>;
+  TakeLatest(SearchPostParams: SearchPostParamsDto): Promise<PostInfos[]>;
+  Delete(id: PostId): Promise<unknown>;
 }

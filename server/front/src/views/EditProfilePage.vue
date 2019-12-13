@@ -4,29 +4,29 @@
     max-width="600"
     height="100%"
   >
-    <back-btn />
-    <v-card-title
-      class="mx-auto"
-      outlined
-    >
-      プロフィール編集ページ
-    </v-card-title>
-    <v-row
-      type="flex"
-      class="row-bg"
-      justify="center"
-    >
-      <v-avatar
-        color="grey"
-        size="80"
+    <v-toolbar>
+      <back-btn />
+      <v-spacer />
+      <v-toolbar-title>プロフィール編集</v-toolbar-title>
+    </v-toolbar>
+    <v-card-title>
+      <v-row
+        type="flex"
+        class="row-bg"
+        justify="center"
       >
-        <v-icon dark>
-          mdi-account-circle
-        </v-icon>
-      </v-avatar>
-    </v-row>
-    <v-container fluid>
-      <v-form v-model="valid">
+        <v-avatar
+          color="grey"
+          size="80"
+        >
+          <v-icon dark>
+            mdi-account-circle
+          </v-icon>
+        </v-avatar>
+      </v-row>
+    </v-card-title>
+    <v-form v-model="valid">
+      <v-card-text>
         <v-text-field
           v-model="name"
           :rules="nameRules"
@@ -120,11 +120,12 @@
               :rules="urlRules"
               filled
               counter="255"
-              label="My Website URL"
+              label="ホームページ URL"
             />
           </v-col>
         </v-row>
-      </v-form>
+      </v-card-text>
+
       <v-card-actions class="float-right">
         <v-btn
           width="100"
@@ -140,7 +141,7 @@
           登録
         </v-btn>
       </v-card-actions>
-    </v-container>
+    </v-form>
   </v-card>
 </template>
 
