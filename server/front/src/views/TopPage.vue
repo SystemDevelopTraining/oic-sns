@@ -38,19 +38,27 @@
             </v-card-actions>
           </v-card>
         </v-col>
-
         <v-col
           v-for="(item, i) in items"
           :key="i"
           cols="12"
         >
           <v-card color="white">
-            <v-img :src="item.src" />
-            <v-card-title
-              class="headline"
-              v-text="item.title"
-            />
-            <v-card-subtitle v-text="item.artist" />
+            <v-row>
+              <v-col>
+                <v-card-title
+                  class="headline"
+                  v-text="item.title"
+                />
+                <v-card-subtitle v-text="item.artist" />
+              </v-col>
+              <v-col cols="6">
+                <v-img
+                  :src="item.src"
+                  max-width="300"
+                />
+              </v-col>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>
