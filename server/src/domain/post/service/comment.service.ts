@@ -18,7 +18,7 @@ export class CommentService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-  ) { }
+  ) {}
 
   async create(
     commentDto: CommentDto,
@@ -47,15 +47,17 @@ export class CommentService {
   //投稿のコメント一覧を取得
   async getComments(postId: PostId): Promise<CommentInfosDto[]> {
     const post = await this.postRepository.findOne({ id: postId.id });
-    const user = await this.userRepository.findOne({ id: post.postUserId });
-    return (await this.commentRepository.find({ parentPostId: postId.id }))
-      .map<CommentInfosDto>(x => ({
-        userId: { id: post.postUserId },
-        userName: user.name,
-        text: x.text,
-        commentDate: x.createdAt
-      }))
-
+    return (
+      await this.commentRepository.find({
+        relations: ['commentUser'],
+        where: { parentPostId: postId.id },
+      })
+    ).map<CommentInfosDto>(x => ({
+      userId: { id: x.commentUserId },
+      userName: x.commentUser.name,
+      text: x.text,
+      commentDate: x.createdAt,
+    }));
   }
 
   async delete(id: number, googleProfileId: string) {
