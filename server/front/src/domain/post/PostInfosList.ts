@@ -65,7 +65,11 @@ export class PostInfosList {
 
     //コメントを投稿する
     public async CreateComment(createCommentParamsDto: CreateCommentParamsDto, postId: PostId){
-        this.commentRepository.Save(createCommentParamsDto, postId);
+        await this.commentRepository.Save(createCommentParamsDto, postId);
+        const commentedPost = this.PostInfosListDto.find(x => x.id.id === postId.id);
+        if (commentedPost !== undefined) {
+            commentedPost.commentCount++;
+        }
     }
 
     //投稿のコメント一覧取得する
