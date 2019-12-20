@@ -22,7 +22,7 @@
           outlined
           :value="value.categoryId"
           :items="categoryItems"
-          label="カテゴリー"
+          label="種別"
           return-object
           @input="(v)=>{value.categoryId=v.value;$emit('input',value)}"
         />
