@@ -12,14 +12,23 @@
               />
             </v-row>
             <v-card-title class="headline">
-              What am I?
+              OICityって？
             </v-card-title>
 
             <v-card-subtitle>
-              I am a place where you can share and meet your own kinds. Just
-              post, like and comment . Simple as that!
+              活動を投稿し、
+              それに気になった人が反応することで、
+              交流のきっかけとなるOIC生専用のSNS
             </v-card-subtitle>
 
+            <v-card-title class="headline">
+              OICityが実現したい目標
+            </v-card-title>
+            <v-card-subtitle>
+              「特定の分野に関するOIC生の個人の活動情報」から
+              「その分野が気になる人」との交流のきっかけを作り、
+              OIC内のコミュニティの輪の発展を促進する！
+            </v-card-subtitle>
             <v-card-actions>
               <v-col
                 xl="3"
@@ -75,26 +84,26 @@ export default class extends Vue {
     // the cards wont look nice if you remove the images
     {
       src: 'post.png',
-      title: 'Post',
+      title: '投稿しよう！',
       artist:
-        'Just begin by posting your own stuffs, like the kadais of the school or even your feelings about today.',
+        'ログインが完了したら、自分の活動を投稿してみましょう！',
     },
     {
       src: 'timeline.png',
-      title: 'Watch',
-      artist: 'Watch people posting their owns so that you can find your type.',
+      title: '他人の投稿を見よう！',
+      artist: '他の人が投稿したものは見ることができます！',
     },
     {
       src: 'comment.png',
-      title: 'Comment',
+      title: '投稿にコメントしよう！',
       artist:
-        'Finally, just comment if you are interested in the post or even the person. Here you get the chance to make a friend or a project partner.',
+        '気になった投稿には積極的にコメントしてみましょう！',
     },
     {
       src: 'logo.png',
-      title: 'Make Friends',
+      title: 'フォローして友達を作ろう！',
       artist:
-        'After talks, you can meet and friends. Target Accomplished. Enjoy your new life with lots of friends',
+        '友達100人できるかな？',
     },
   ];
 
