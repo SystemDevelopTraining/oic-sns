@@ -50,18 +50,29 @@
         <v-col
           v-for="(item, i) in items"
           :key="i"
+          class="py-1"
           cols="12"
+          lg="6"
+          xl="6"
         >
-          <v-card color="white">
+          <v-card
+            color="white"
+            height="100%"
+          >
+            <v-row>
+              <v-card-title
+                class="headline"
+                v-text="item.title"
+              />
+            </v-row>
             <v-row>
               <v-col>
-                <v-card-title
-                  class="headline"
-                  v-text="item.title"
-                />
                 <v-card-subtitle v-text="item.artist" />
               </v-col>
-              <v-col cols="6">
+              <v-col
+                cols="6"
+                class="mr-2"
+              >
                 <v-img
                   :src="item.src"
                   max-width="300"
