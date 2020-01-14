@@ -10,15 +10,28 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors":true,
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env", "jest", "vuetify"],
+    "types": [
+      "webpack-env",
+      "jest",
+      "vuetify"
+    ],
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
   },
   "include": [
     "src/**/*.ts",
@@ -27,5 +40,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

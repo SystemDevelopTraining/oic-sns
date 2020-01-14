@@ -2,14 +2,11 @@
   <div>
     <v-btn
       class="mr-auto"
-      color="orange darken-2"
+      color="latestPostBtnColor"
       dark
       @click="goToPreviousPage"
     >
-      <v-icon
-        dark
-        right
-      >
+      <v-icon dark>
         fa-backspace
       </v-icon>
     </v-btn>

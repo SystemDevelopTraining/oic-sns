@@ -2,25 +2,21 @@
   <v-card
     width="100%"
     color="primary"
+    @click="$emit('showDetails')"
   >
-    <v-row>
-      <v-col
-        cols="auto"
-        class="pb-0"
-      >
-        <v-card-title>
-          <v-list-item-avatar
-            size="60"
-            color="secondary"
-          />
-          <v-btn
-            outlined
-            @click="goToUserPage()"
-          >
-            {{ name }}
-          </v-btn>
-        </v-card-title>
-      </v-col>
+    <v-row class="pb-0">
+      <v-card-title>
+        <v-list-item-avatar
+          size="50"
+          color="secondary"
+        />
+        <v-btn
+          outlined
+          @click="goToUserPage()"
+        >
+          {{ name }}
+        </v-btn>
+      </v-card-title>
     </v-row>
     <v-row class="justify-end">
       <v-card-text class="headline">
@@ -37,6 +33,20 @@
         class="mr-auto"
       >
         <v-card-text>{{ postDate }}</v-card-text>
+        <v-card-text>
+          {{ likeCount }}
+          <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+          {{ commentCount }}
+          <v-btn
+            icon
+            @click.stop="onClickShowCommentForm"
+          >
+            <v-icon>mdi-comment</v-icon>
+          </v-btn>
+          {{ categoryName }}
+        </v-card-text>
       </v-col>
       <post-menu
         :is-myself="isMyself"
@@ -50,7 +60,7 @@
 import { Component, Vue, Prop }from 'vue-property-decorator';
 import { PostInfos }from '../../domain/post/PostInfos';
 import PostMenu from './PostMenu.vue';
-import Moment from 'moment';
+import { PostAndCommentViewData }from '../../infrastructure/viewData/PostAndCommentViewData';
 
 @Component({ components: { PostMenu } })
 export default class extends Vue {
@@ -60,26 +70,44 @@ export default class extends Vue {
   })
   postInfos!: PostInfos;
 
+  get viewData() {
+    return new PostAndCommentViewData(
+      this.postInfos.postText,
+      this.postInfos.postDate,
+      this.postInfos.userName,
+    );
+  }
+
   get name() {
-    const limitNum = 12;
-    let shortName = this.postInfos.userName;
-    if (shortName.length > limitNum) {
-      shortName = shortName.substr(0, limitNum) + '...';
-      return shortName;
-    }
-    return this.postInfos.userName;
+    return this.viewData.ViewName;
   }
+
   get postTexts() {
-    return this.postInfos.postText.split('\n');
+    return this.viewData.ViewLineTexts;
   }
+
   get postDate() {
-    Moment.locale('ja');
-    const date = Moment(this.postInfos.postDate).format('LLL');
-    return date;
+    return this.viewData.ViewDate;
   }
 
   get isMyself() {
     return this.postInfos.isMyself;
+  }
+
+  get commentCount() {
+    return this.postInfos.commentCount;
+  }
+
+  get likeCount() {
+    return this.postInfos.likeCount;
+  }
+
+  get categoryName() {
+    return this.postInfos.categoryName;
+  }
+
+  onClickShowCommentForm() {
+    this.$emit('showCommentForm');
   }
 
   async goToUserPage() {

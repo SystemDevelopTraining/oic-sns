@@ -1,6 +1,12 @@
 <template>
-  <v-col cols="auto">
-    <v-speed-dial direction="left">
+  <v-col
+    cols="auto"
+    @click.stop
+  >
+    <v-speed-dial
+      direction="left"
+      @click.stop
+    >
       <template v-slot:activator>
         <v-btn
           fab

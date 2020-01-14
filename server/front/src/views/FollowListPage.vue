@@ -3,7 +3,7 @@
     <v-toolbar>
       <back-btn />
       <v-spacer />
-      <v-toolbar-title>Follow List</v-toolbar-title>
+      <v-toolbar-title>フォローリスト</v-toolbar-title>
     </v-toolbar>
     <FollowList />
   </v-card>
