@@ -21,7 +21,7 @@ async function bootstrap() {
   app.use(helmet());
   app.use(new DefaultHeaderMiddleware().use)
   app.enableCors({
-    origin: ['http://localhost:8080', 'https://oicity.netlify.com'],
+    origin: ['http://localhost:8080', 'https://oicity.firebaseapp.com','https://oicity.netlify.com'],
     allowedHeaders:
       'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   });
