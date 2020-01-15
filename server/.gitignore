@@ -1,4 +1,6 @@
 .env
+*.cache
+firebase_deploy.sh
 
 # compiled output
 /dist
